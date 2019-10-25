@@ -1,4 +1,4 @@
-# hiimmichael
+# Smart Planter
 
 # Prerequisites 
 
