@@ -4,6 +4,9 @@ Smart Planter is an open-source, autonomous irrigation and lighting system desig
 
 # Prerequisites 
 
+I recommend installing [Raspbian](https://www.raspberrypi.org/documentation/installation/) onto your Raspberry Pi. 
+Raspbian comes with [Python](https://www.codecademy.com/articles/install-python) installed by default.
+
 ### Flask
 
 Flask is a lightweight web application framework. It is designed
@@ -32,7 +35,12 @@ Install and update using [pip](https://pypi.org/project/pip/):
 
 # Launch
 
+To start the Smart Planter program, navigate into your project directory and issue the following command:
+
+    sudo python app.py
+
 # Donate
 
-# Links
+* [Buy me a coffee](https://www.buymeacoffee.com/WKToIkLyV)
+* [Patreon](https://www.patreon.com/hiimmichael)
 
