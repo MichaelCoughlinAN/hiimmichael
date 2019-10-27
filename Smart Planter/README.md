@@ -2,6 +2,8 @@
 
 Smart Planter is an open-source, autonomous irrigation and lighting system designed by [Michael Coughlin](https://hiimmichael.com).
 
+### Download the files
+
 # Prerequisites 
 
 I recommend installing [Raspbian](https://www.raspberrypi.org/documentation/installation/) onto your Raspberry Pi. 
