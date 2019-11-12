@@ -1,0 +1,3 @@
+Statistics.o: Statistics.cpp Statistics.h Event.h Time.h EventType.h \
+ LinkedQueue.h QueueInterface.h PrecondViolatedExcep.h Node.h Node.cpp \
+ LinkedQueue.cpp

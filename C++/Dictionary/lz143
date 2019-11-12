@@ -1,0 +1,6142 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 18 36 594 756
+%%Title: Enscript Output
+%%Creator: GNU Enscript 1.6.5.90
+%%CreationDate: Mon May  5 17:02:47 2014
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 90
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 90
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 7 7 SF
+/#copies 1 def
+true page_prefeed
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-simple 1.6.5 90
+
+/do_header {	% print default simple header
+  gsave
+    d_header_x d_header_y HFpt_h 3 div add translate
+
+    HF setfont
+    user_header_p {
+      5 0 moveto user_header_left_str show
+
+      d_header_w user_header_center_str stringwidth pop sub 2 div
+      0 moveto user_header_center_str show
+
+      d_header_w user_header_right_str stringwidth pop sub 5 sub
+      0 moveto user_header_right_str show
+    } {
+      5 0 moveto fname show
+      45 0 rmoveto fmodstr show
+      45 0 rmoveto pagenumstr show
+    } ifelse
+
+  grestore
+} def
+%%EndResource
+/d_page_w 720 def
+/d_page_h 576 def
+/d_header_x 0 def
+/d_header_y 561 def
+/d_header_w 720 def
+/d_header_h 15 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 720 def
+/d_footer_h 0 def
+/d_output_w 720 def
+/d_output_h 561 def
+/cols 2 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 1 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (1) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(Script started on Mon 05 May 2014 04:11:49 PM CDT) s
+5 543 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% pwd) s
+5 535 M
+(/home/csugrads/cough058/cs1521/projects/project7) s
+5 527 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% ls -l) s
+5 519 M
+(total 112) s
+5 511 M
+(-rw------- 1 cough058 cough058  2840 May  4 16:49 ArrayDictionary.cpp) s
+5 503 M
+(-rw------- 1 cough058 cough058  1765 May  4 16:47 ArrayDictionary.h) s
+5 495 M
+(-rw------- 1 cough058 cough058   424 May  3 15:50 BinaryNode.cpp) s
+5 487 M
+(-rw------- 1 cough058 cough058   891 May  3 15:38 BinaryNode.h) s
+5 479 M
+(-rw------- 1 cough058 cough058 13558 May  3 15:52 BinaryNodeTree.cpp) s
+5 471 M
+(-rw------- 1 cough058 cough058  5166 May  3 15:39 BinaryNodeTree.h) s
+5 463 M
+(-rw------- 1 cough058 cough058 11924 May  4 14:03 BinarySearchTree.cpp) s
+5 455 M
+(-rw------- 1 cough058 cough058  4234 May  4 14:03 BinarySearchTree.h) s
+5 447 M
+(-rw------- 1 cough058 cough058  4131 May  4 14:02 BinaryTreeInterface.h) s
+5 439 M
+(-rw------- 1 cough058 cough058  2469 May  4 16:39 DictionaryInterface.h) s
+5 431 M
+(-rw------- 1 cough058 cough058  2368 May  4 16:41 Entry.cpp) s
+5 423 M
+(-rw------- 1 cough058 cough058  1363 May  4 16:40 Entry.h) s
+5 415 M
+(-rw------- 1 cough058 cough058   430 May  4 16:18 information.dat) s
+5 407 M
+(-rw------- 1 cough058 cough058  5635 May  5 16:00 main.cpp) s
+5 399 M
+(-rw------- 1 cough058 cough058   684 May  4 16:50 Makefile) s
+5 391 M
+(-rw------- 1 cough058 cough058   185 May  3 15:45 NotFoundException.cpp) s
+5 383 M
+(-rw------- 1 cough058 cough058   435 May  3 15:41 NotFoundException.h) s
+5 375 M
+(-rw------- 1 cough058 cough058   504 May  3 15:22 PrecondViolatedExcep.cpp) s
+5 367 M
+(-rw------- 1 cough058 cough058   750 May  3 15:22 PrecondViolatedExcep.h) s
+5 359 M
+(-rw------- 1 cough058 cough058     0 May  5 16:02 typescript) s
+5 351 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n Makefile) s
+5 343 M
+(     1  CXX = g++) s
+5 335 M
+(     2  CXXFLAGS = -Wall -ansi -std=c++0x) s
+5 327 M
+(     3  TARGET = output) s
+5 319 M
+(     4  OBJS = main.o PrecondViolatedExcep.o NotFoundException.o) s
+5 311 M
+(     5  ) s
+5 303 M
+(     6  $\(TARGET\) : $\(OBJS\)) s
+5 295 M
+(     7          $\(CXX\) $\(CXXFLAGS\) -o $\(TARGET\) $\(OBJS\)) s
+5 287 M
+(     8  ) s
+5 279 M
+(     9  %.o : %.cpp) s
+5 271 M
+(    10          $\(CXX\) $\(CXXFLAGS\) -c -o $@ $<) s
+5 263 M
+(    11  ) s
+5 255 M
+(    12  .PHONY : clean) s
+5 247 M
+(    13  clean:) s
+5 239 M
+(    14          rm $\(OBJS\) output *~ *#) s
+5 231 M
+(    15  ) s
+5 223 M
+(    16  PrecondViolatedExcep.o: PrecondViolatedExcep.cpp PrecondViolatedExcep.h) s
+5 215 M
+(    17  NotFoundException.o: NotFoundException.cpp NotFoundException.h) s
+5 207 M
+(    18  main.o: main.cpp ArrayDictionary.h DictionaryInterface.h \\) s
+5 199 M
+(    19   NotFoundException.h Entry.h Entry.cpp BinarySearchTree.h \\) s
+5 191 M
+(    20   BinaryTreeInterface.h PrecondViolatedExcep.h BinaryNode.h BinaryNode.cpp \\) s
+5 183 M
+(    21   BinaryNodeTree.h BinaryNodeTree.cpp BinarySearchTree.cpp \\) s
+5 175 M
+(    22   ArrayDictionary.cpp) s
+5 167 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n main.cpp) s
+5 159 M
+(     1  /**) s
+5 151 M
+(     2   * This Dictionary ADT is fully functional! I spent ) s
+5 143 M
+(     3   * the majority of May 2nd - May 4th getting it to work.) s
+5 135 M
+(     4   * I have altered A LOT of the functionality including the ) s
+5 127 M
+(     5   * Dictionary Interface and its methods along with the BST ) s
+5 119 M
+(     6   * ADT and its methods. Almost all of my methods meet the ) s
+5 111 M
+(     7   * efficiency requirements. However, I focused on just ) s
+5 103 M
+(     8   * getting a working ADT by May 6th, because of that, some ) s
+5 95 M
+(     9   * methods may be slightly greated than the \(O\)log2 ) s
+5 87 M
+(    10   * efficiency. I tried my best for that not to happen.) s
+5 79 M
+(    11   *) s
+5 71 M
+(    12   * Thank you! ) s
+5 63 M
+(    13   **/) s
+5 55 M
+(    14  ) s
+5 47 M
+(    15  #include <iostream>) s
+5 39 M
+(    16  #include <string>) s
+5 31 M
+(    17  #include <cstdlib>) s
+5 23 M
+(    18  #include <limits>) s
+5 15 M
+(    19  #include <fstream>) s
+5 7 M
+(    20  #include <cctype>) s
+365 551 M
+(    21  ) s
+365 543 M
+(    22  #include "ArrayDictionary.h") s
+365 535 M
+(    23  ) s
+365 527 M
+(    24  using namespace std;) s
+365 519 M
+(    25  ) s
+365 511 M
+(    26  void visit\(const string& item\) {) s
+365 503 M
+(    27    cout << item << endl;) s
+365 495 M
+(    28  }) s
+365 487 M
+(    29  ) s
+365 479 M
+(    30  int main\(\) {) s
+365 471 M
+(    31  ) s
+365 463 M
+(    32    cout << "\\nWelcome to the Two Layered Organization Program\\n";) s
+365 455 M
+(    33  ) s
+365 447 M
+(    34    ArrayDictionary<string, string> dic;) s
+365 439 M
+(    35    string name, socialSecNum, ethnicity, age;) s
+365 431 M
+(    36    ifstream inFile;) s
+365 423 M
+(    37    string filename, input;) s
+365 415 M
+(    38    bool done = false;) s
+365 407 M
+(    39    bool fin;) s
+365 399 M
+(    40  ) s
+365 391 M
+(    41    cout << "\\nPlease enter a filename: ";) s
+365 383 M
+(    42    cin >> filename;) s
+365 375 M
+(    43  ) s
+365 367 M
+(    44    inFile.open\(filename.c_str\(\) \);) s
+365 359 M
+(    45  ) s
+365 351 M
+(    46    while \(!inFile\) {) s
+365 343 M
+(    47      cerr << "File ") s
+365 335 M
+(    48           << filename) s
+365 327 M
+(    49           << " failed to open for input.") s
+365 319 M
+(    50           << endl;) s
+365 311 M
+(    51      cout << "Please enter a filename: ";) s
+365 303 M
+(    52      cin >> filename;) s
+365 295 M
+(    53      inFile.open\(filename.c_str\(\) \);) s
+365 287 M
+(    54    }) s
+365 279 M
+(    55    while \(inFile >> name >> socialSecNum >> ethnicity >> age\) { //if not at ) s
+365 271 M
+(end of file, continue reading) s
+365 263 M
+(    56      //       dic.add\(name, socialSecNum\);) s
+365 255 M
+(    57      dic.add\(name, socialSecNum, ethnicity, age\);   ) s
+365 247 M
+(    58     ) s
+365 239 M
+(    59   }) s
+365 231 M
+(    60    inFile.close\(\); // close the file) s
+365 223 M
+(    61  ) s
+365 215 M
+(    62   do { ) s
+365 207 M
+(    63     fin = false;) s
+365 199 M
+(    64      cout << endl) s
+365 191 M
+(    65           << "\\tMenu Options\\n") s
+365 183 M
+(    66           << endl) s
+365 175 M
+(    67           << "\(A\)dd an item.\\n") s
+365 167 M
+(    68           << "\(R\)emove an item.\\n") s
+365 159 M
+(    69           << "\(L\)ist all items.\\n") s
+365 151 M
+(    70           << "\(D\)isplay item information.\\n") s
+365 143 M
+(    71           << "\(Q\)uit\\n") s
+365 135 M
+(    72           << "\\nPlease enter a command: ";) s
+365 127 M
+(    73  ) s
+365 119 M
+(    74      cin >> input;) s
+365 111 M
+(    75      cin.ignore\(numeric_limits<streamsize>::max\(\), '\\n'\);) s
+365 103 M
+(    76      if \(input == "q" || input == "Q"\) {) s
+365 95 M
+(    77        cout << "\\nThank you and have a nice day!\\n") s
+365 87 M
+(    78             << endl;) s
+365 79 M
+(    79        done = true;) s
+365 71 M
+(    80      }) s
+365 63 M
+(    81      else if \(input == "r" || input == "R"\) {) s
+365 55 M
+(    82         while\(!fin\) {) s
+365 47 M
+(    83        cout << "Which search-key would you like to remove from?\\n") s
+365 39 M
+(    84             << endl) s
+365 31 M
+(    85             << "\(N\)ames\\n") s
+365 23 M
+(    86             << "\(S\)ocial-Security Numbers\\n") s
+365 15 M
+(    87             << endl) s
+365 7 M
+(    88             << "Please enter a command: ";) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 2 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (2) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    89        cin >> input;) s
+5 543 M
+(    90        if \(input == "n" || input == "N"\) {) s
+5 535 M
+(    91          fin = true;     ) s
+5 527 M
+(    92          cout << endl) s
+5 519 M
+(    93               << "Names List:\\n") s
+5 511 M
+(    94               << endl;) s
+5 503 M
+(    95          dic.traverseKey\(visit\);) s
+5 495 M
+(    96          cout << "\\nPlease enter the name you would like to remove:\\n";) s
+5 487 M
+(    97               cin >> input;) s
+5 479 M
+(    98               int position = dic.getPositionKey\(input\);) s
+5 471 M
+(    99               if\(dic.remove\(position\) \)) s
+5 463 M
+(   100                 cout << input << " and its corresponding information has bee) s
+5 455 M
+(n successfully removed!\\n";) s
+5 447 M
+(   101               else cout << "Failed to remove " << input << " and its corresp) s
+5 439 M
+(onding information.\\n";) s
+5 431 M
+(   102        }) s
+5 423 M
+(   103        else if \(input == "s" || input == "S"\) {) s
+5 415 M
+(   104          fin = true;) s
+5 407 M
+(   105          cout << endl) s
+5 399 M
+(   106               << "SSN List:\\n") s
+5 391 M
+(   107               << endl;) s
+5 383 M
+(   108          dic.traverse\(visit\);) s
+5 375 M
+(   109          cout << "\\nPlease enter the SSN you would like to remove:\\n";) s
+5 367 M
+(   110               cin >> input;) s
+5 359 M
+(   111               int position = dic.getPosition\(input\);) s
+5 351 M
+(   112               if\(dic.remove\(position\) \)) s
+5 343 M
+(   113                 cout << "The information corresponding with " << input << " ) s
+5 335 M
+(has been successfully removed!\\n";) s
+5 327 M
+(   114               else cout << "Failed to remove information corresponding with ) s
+5 319 M
+(" << input << ".\\n";) s
+5 311 M
+(   115        }) s
+5 303 M
+(   116        else cout << "Incorrect input. ";) s
+5 295 M
+(   117        }) s
+5 287 M
+(   118      }) s
+5 279 M
+(   119      else if \(input == "l" || input == "L"\) { //list all items) s
+5 271 M
+(   120        while\(!fin\) {) s
+5 263 M
+(   121        cout << "Which search-key would you like to display from?\\n") s
+5 255 M
+(   122             << endl) s
+5 247 M
+(   123             << "\(N\)ames\\n") s
+5 239 M
+(   124             << "\(S\)ocial-Security Numbers\\n") s
+5 231 M
+(   125             << endl) s
+5 223 M
+(   126             << "Please enter a command: ";) s
+5 215 M
+(   127        cin >> input;) s
+5 207 M
+(   128        if \(input == "n" || input == "N"\) {) s
+5 199 M
+(   129          fin = true;     ) s
+5 191 M
+(   130          cout << endl) s
+5 183 M
+(   131               << "Names List:\\n") s
+5 175 M
+(   132               << endl;) s
+5 167 M
+(   133          dic.traverseKey\(visit\);) s
+5 159 M
+(   134        }) s
+5 151 M
+(   135        else if \(input == "s" || input == "S"\) {) s
+5 143 M
+(   136          fin = true;) s
+5 135 M
+(   137          cout << endl) s
+5 127 M
+(   138               << "SSN List:\\n") s
+5 119 M
+(   139               << endl;) s
+5 111 M
+(   140          dic.traverse\(visit\);) s
+5 103 M
+(   141        }) s
+5 95 M
+(   142        else cout << "Incorrect input. ";) s
+5 87 M
+(   143        }) s
+5 79 M
+(   144      }) s
+5 71 M
+(   145      else if \(input == "d" || input == "D"\) {) s
+5 63 M
+(   146               while\(!fin\) {) s
+5 55 M
+(   147        cout << "Which search-key would you like to display from?\\n") s
+5 47 M
+(   148             << endl) s
+5 39 M
+(   149             << "\(N\)ames\\n") s
+5 31 M
+(   150             << "\(S\)ocial-Security Numbers\\n") s
+5 23 M
+(   151             << endl) s
+5 15 M
+(   152             << "Please enter a command: ";) s
+5 7 M
+(   153        cin >> input;) s
+365 551 M
+(   154        if \(input == "n" || input == "N"\) {) s
+365 543 M
+(   155          fin = true;     ) s
+365 535 M
+(   156          cout << endl) s
+365 527 M
+(   157               << "Names List:\\n") s
+365 519 M
+(   158               << endl;) s
+365 511 M
+(   159          dic.traverseKey\(visit\);) s
+365 503 M
+(   160          cout << "\\nPlease enter the name you would like to display:\\n";) s
+365 495 M
+(   161               cin >> input;) s
+365 487 M
+(   162               int position = dic.getPositionKey\(input\);) s
+365 479 M
+(   163               dic.displayEntry\(position\);) s
+365 471 M
+(   164  ) s
+365 463 M
+(   165        }) s
+365 455 M
+(   166        else if \(input == "s" || input == "S"\) {) s
+365 447 M
+(   167          fin = true;) s
+365 439 M
+(   168          cout << endl) s
+365 431 M
+(   169               << "SSN List:\\n") s
+365 423 M
+(   170               << endl;) s
+365 415 M
+(   171          dic.traverse\(visit\);) s
+365 407 M
+(   172          cout << "\\nPlease enter the SSN you would like to display:\\n";) s
+365 399 M
+(   173               cin >> input;) s
+365 391 M
+(   174               int position = dic.getPosition\(input\);) s
+365 383 M
+(   175               dic.displayEntry\(position\);) s
+365 375 M
+(   176  ) s
+365 367 M
+(   177        }) s
+365 359 M
+(   178        else cout << "Incorrect input. ";) s
+365 351 M
+(   179        } ) s
+365 343 M
+(   180                      ) s
+365 335 M
+(   181      }) s
+365 327 M
+(   182      else if \(input == "a" || input == "A"\) {) s
+365 319 M
+(   183        cout << "Please enter the name of the person: ";) s
+365 311 M
+(   184        cin >> name;) s
+365 303 M
+(   185        cout << "Please enter " << name << "'s" << " social-security number: ) s
+365 295 M
+(";) s
+365 287 M
+(   186        cin >> socialSecNum;) s
+365 279 M
+(   187        cout << "Please enter " << name << "'s" << " age: ";) s
+365 271 M
+(   188        cin >> age;) s
+365 263 M
+(   189        cout << "Please enter " << name << "'s" << " ethnic background: ";) s
+365 255 M
+(   190        cin >> ethnicity;) s
+365 247 M
+(   191      ) s
+365 239 M
+(   192        if\(dic.add\(name, socialSecNum, ethnicity, age\) \) {) s
+365 231 M
+(   193          cout << name << "'s" << " information was successfully added!\\n";) s
+365 223 M
+(   194        }) s
+365 215 M
+(   195        else cout << "Array is full\\n";) s
+365 207 M
+(   196        } ) s
+365 199 M
+(   197   else cout << endl) s
+365 191 M
+(   198             << "Incorrect menu option, please enter one of the following com) s
+365 183 M
+(mands.\\n";) s
+365 175 M
+(   199   } while\(!done\);) s
+365 167 M
+(   200     ) s
+365 159 M
+(   201  ) s
+365 151 M
+(   202    return EXIT_SUCCESS;) s
+365 143 M
+(   203  }) s
+365 135 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n DictionaryInte) s
+365 127 M
+(rface.h) s
+365 119 M
+(     1  /** @file) s
+365 111 M
+(     2   *) s
+365 103 M
+(     3   *  @course CS1521) s
+365 95 M
+(     4   *  @section 9) s
+365 87 M
+(     5   *) s
+365 79 M
+(     6   *  DictionaryInterface class template definition.) s
+365 71 M
+(     7   *) s
+365 63 M
+(     8   *  Adapted from pages 530-531 in Carrano 6e.) s
+365 55 M
+(     9   *) s
+365 47 M
+(    10   *  @author Frank M. Carrano) s
+365 39 M
+(    11   *  @author Timothy Henry) s
+365 31 M
+(    12   *  @author Steve Holtz) s
+365 23 M
+(    13   *  @author Michael Coughlin) s
+365 15 M
+(    14   *) s
+365 7 M
+(    15   *  @date 2014 Mar 20) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 3 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (3) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    16   *) s
+5 543 M
+(    17   *  @version 6.0 */) s
+5 535 M
+(    18  ) s
+5 527 M
+(    19  #ifndef _DICTIONARY_INTERFACE) s
+5 519 M
+(    20  #define _DICTIONARY_INTERFACE) s
+5 511 M
+(    21  ) s
+5 503 M
+(    22  #include "NotFoundException.h") s
+5 495 M
+(    23  ) s
+5 487 M
+(    24  /** @class DictionaryInterface DictionaryInterface.h "DictionaryInterface.h) s
+5 479 M
+(") s
+5 471 M
+(    25   *) s
+5 463 M
+(    26   *  Specification for an interface for ADT dictionary. */) s
+5 455 M
+(    27  template <typename KeyType, typename ItemType>) s
+5 447 M
+(    28    class DictionaryInterface {) s
+5 439 M
+(    29   public:) s
+5 431 M
+(    30    /** Sees whether this dictionary is empty.) s
+5 423 M
+(    31     *) s
+5 415 M
+(    32     *  @return True if this dictionary is empty;) s
+5 407 M
+(    33     *          otherwise returns false. */) s
+5 399 M
+(    34    virtual bool isEmpty\(\) const = 0;) s
+5 391 M
+(    35  ) s
+5 383 M
+(    36    /** Gets the number of items in this dictionary.) s
+5 375 M
+(    37     *) s
+5 367 M
+(    38     *  @return The number of items in this dictionary. */) s
+5 359 M
+(    39    virtual int getNumberOfItems\(\) const = 0;) s
+5 351 M
+(    40  ) s
+5 343 M
+(    41    /** Inserts an item into this dictionary according to the item's) s
+5 335 M
+(    42     *  search key.) s
+5 327 M
+(    43     *) s
+5 319 M
+(    44     * @pre The search key of the new item differs from all search keys) s
+5 311 M
+(    45     *      presently in this dictionary.) s
+5 303 M
+(    46     *) s
+5 295 M
+(    47     * @post If the insertion is successful, newItem is in its proper) s
+5 287 M
+(    48     *       position within this dictionary.) s
+5 279 M
+(    49     *) s
+5 271 M
+(    50     * @param searchKey The search key associated with the item to be) s
+5 263 M
+(    51     *                  inserted.) s
+5 255 M
+(    52     *) s
+5 247 M
+(    53     * @param newItem The item to add to this dictionary.) s
+5 239 M
+(    54     *) s
+5 231 M
+(    55     * @return True if item was successfully added, or false if not. */) s
+5 223 M
+(    56    virtual bool add\(const KeyType& searchKey,) s
+5 215 M
+(    57                     const ItemType& newItem,) s
+5 207 M
+(    58                     const string& item,) s
+5 199 M
+(    59                     const string& item1\) = 0;) s
+5 191 M
+(    60  ) s
+5 183 M
+(    61    /** Removes an item with the given search key from this dictionary.) s
+5 175 M
+(    62     *) s
+5 167 M
+(    63     * @post If the item whose search key equals searchKey existed in) s
+5 159 M
+(    64     *       this dictionary, the item was removed.) s
+5 151 M
+(    65     *) s
+5 143 M
+(    66     * @param searchKey The search key of the item to be removed.) s
+5 135 M
+(    67     *) s
+5 127 M
+(    68     * @return True if the item was successfully removed, or false if) s
+5 119 M
+(    69     *         not. */) s
+5 111 M
+(    70    virtual bool remove\(int position\) = 0;) s
+5 103 M
+(    71  ) s
+5 95 M
+(    72    /** Removes all entries from this dictionary. */) s
+5 87 M
+(    73    virtual void clear\(\) = 0;) s
+5 79 M
+(    74  ) s
+5 71 M
+(    75    /** Traverses this dictionary and calls a given client function) s
+5 63 M
+(    76     *  once for each item.) s
+5 55 M
+(    77     *) s
+5 47 M
+(    78     * @post The given function's action occurs once for each item in) s
+5 39 M
+(    79     *       this dictionary and possibly alters the item.) s
+5 31 M
+(    80      *) s
+5 23 M
+(    81      * @param visit A client function. */) s
+5 15 M
+(    82    virtual void traverse\(void visit\(const ItemType&\) \) = 0;) s
+5 7 M
+(    83  };) s
+365 551 M
+(    84  ) s
+365 543 M
+(    85  #endif) s
+365 535 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n ArrayDictionar) s
+365 527 M
+(y.h) s
+365 519 M
+(     1  /** @file) s
+365 511 M
+(     2   *) s
+365 503 M
+(     3   *  @course CS1521) s
+365 495 M
+(     4   *  @section 9) s
+365 487 M
+(     5   *) s
+365 479 M
+(     6   *  Header file for an array-based ADT dictionary.) s
+365 471 M
+(     7   *) s
+365 463 M
+(     8   *  Adapted from page 535 in Carrano 6e.) s
+365 455 M
+(     9   *) s
+365 447 M
+(    10   *  @author Frank M. Carrano) s
+365 439 M
+(    11   *  @author Timothy Henry) s
+365 431 M
+(    12   *  @author Steve Holtz) s
+365 423 M
+(    13   *  @author Michael Coughlin) s
+365 415 M
+(    14   *) s
+365 407 M
+(    15   *  @date 2014 Mar 20) s
+365 399 M
+(    16   *) s
+365 391 M
+(    17   *  @version 6.0 */) s
+365 383 M
+(    18  ) s
+365 375 M
+(    19  #ifndef _ARRAY_DICTIONARY) s
+365 367 M
+(    20  #define _ARRAY_DICTIONARY) s
+365 359 M
+(    21  ) s
+365 351 M
+(    22  #include "DictionaryInterface.h") s
+365 343 M
+(    23  #include "Entry.h") s
+365 335 M
+(    24  #include "NotFoundException.h") s
+365 327 M
+(    25  #include "BinarySearchTree.h") s
+365 319 M
+(    26  ) s
+365 311 M
+(    27  #include <iostream>) s
+365 303 M
+(    28  #include <fstream>) s
+365 295 M
+(    29  ) s
+365 287 M
+(    30  /** @class ArrayDictionary ArrayDictionary.h "ArrayDictionary.h") s
+365 279 M
+(    31   *) s
+365 271 M
+(    32   * An array-based implementation of the ADT dictionary that organizes) s
+365 263 M
+(    33   * its data items in sorted search-key order.  Search keys in the) s
+365 255 M
+(    34   * dictionary must be unique. */) s
+365 247 M
+(    35  template <typename KeyType, typename ItemType>) s
+365 239 M
+(    36    class ArrayDictionary : public DictionaryInterface<KeyType, ItemType> {) s
+365 231 M
+(    37   private:) s
+365 223 M
+(    38    static const int DEFAULT_CAPACITY = 21;) s
+365 215 M
+(    39  ) s
+365 207 M
+(    40    ifstream inFile;) s
+365 199 M
+(    41  ) s
+365 191 M
+(    42    int itemCount;) s
+365 183 M
+(    43  ) s
+365 175 M
+(    44    int maxItems;) s
+365 167 M
+(    45  ) s
+365 159 M
+(    46    Entry<KeyType, ItemType>* entryPtr;) s
+365 151 M
+(    47  ) s
+365 143 M
+(    48    Entry<KeyType, ItemType>* items[DEFAULT_CAPACITY];) s
+365 135 M
+(    49  ) s
+365 127 M
+(    50    BinarySearchTree<ItemType> itemTree;) s
+365 119 M
+(    51  ) s
+365 111 M
+(    52    BinarySearchTree<KeyType> keyTree;) s
+365 103 M
+(    53  ) s
+365 95 M
+(    54   public:) s
+365 87 M
+(    55    ArrayDictionary\(\);) s
+365 79 M
+(    56    ) s
+365 71 M
+(    57    virtual ~ArrayDictionary\(\);) s
+365 63 M
+(    58  ) s
+365 55 M
+(    59    virtual bool isEmpty\(\) const;) s
+365 47 M
+(    60  ) s
+365 39 M
+(    61    virtual int getNumberOfItems\(\) const;) s
+365 31 M
+(    62   ) s
+365 23 M
+(    63    virtual bool add\(const KeyType& search, ) s
+365 15 M
+(    64                     const ItemType& newItem, ) s
+365 7 M
+(    65                     const string& item, ) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 4 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (4) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    66                     const string& item1\);) s
+5 543 M
+(    67  ) s
+5 535 M
+(    68    virtual bool remove\(int position\);) s
+5 527 M
+(    69  ) s
+5 519 M
+(    70    virtual void clear\(\);) s
+5 511 M
+(    71  ) s
+5 503 M
+(    72    int getPosition\(string&\);) s
+5 495 M
+(    73  ) s
+5 487 M
+(    74    int getPositionKey\(string&\);) s
+5 479 M
+(    75  ) s
+5 471 M
+(    76    void displayEntry\(int positon\);) s
+5 463 M
+(    77  ) s
+5 455 M
+(    78    virtual void traverse\(void visit\(const ItemType&\) \);) s
+5 447 M
+(    79  ) s
+5 439 M
+(    80    void traverseKey\(void visit\(const KeyType&\) \);) s
+5 431 M
+(    81  };) s
+5 423 M
+(    82  ) s
+5 415 M
+(    83  #include "ArrayDictionary.cpp") s
+5 407 M
+(    84  ) s
+5 399 M
+(    85  #endif) s
+5 391 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n ArrayDicito) s
+336.8 391 M
+(\\033) s
+5 383 M
+([K) s
+9.2 383 M
+(\\033[K) s
+30.2 383 M
+(\\033[K) s
+51.2 383 M
+(\\033[Kctionary.cpp) s
+5 375 M
+(     1  template<typename KeyType, typename ItemType>) s
+5 367 M
+(     2  ArrayDictionary<KeyType, ItemType>::ArrayDictionary\(\) {) s
+5 359 M
+(     3    itemCount = 0;) s
+5 351 M
+(     4    maxItems = DEFAULT_CAPACITY;) s
+5 343 M
+(     5  }) s
+5 335 M
+(     6  ) s
+5 327 M
+(     7  template<typename KeyType, typename ItemType>) s
+5 319 M
+(     8  ArrayDictionary<KeyType, ItemType>::~ArrayDictionary\(\) {) s
+5 311 M
+(     9  }) s
+5 303 M
+(    10  ) s
+5 295 M
+(    11  template<typename KeyType, typename ItemType>) s
+5 287 M
+(    12  bool ArrayDictionary<KeyType, ItemType>::isEmpty\(\) const {) s
+5 279 M
+(    13    return itemCount == 0;) s
+5 271 M
+(    14  }) s
+5 263 M
+(    15  ) s
+5 255 M
+(    16  template<typename KeyType, typename ItemType>) s
+5 247 M
+(    17  void ArrayDictionary<KeyType, ItemType>::clear\(\) {) s
+5 239 M
+(    18    itemCount = 0;) s
+5 231 M
+(    19  }) s
+5 223 M
+(    20  ) s
+5 215 M
+(    21  template<typename KeyType, typename ItemType>) s
+5 207 M
+(    22  int ArrayDictionary<KeyType, ItemType>::getNumberOfItems\(\) const {) s
+5 199 M
+(    23    return itemCount;) s
+5 191 M
+(    24  }) s
+5 183 M
+(    25  ) s
+5 175 M
+(    26  template<typename KeyType, typename ItemType>) s
+5 167 M
+(    27  bool ArrayDictionary<KeyType, ItemType>::add\(const KeyType& searchKey, ) s
+5 159 M
+(    28                                               const ItemType& newItem, ) s
+5 151 M
+(    29                                               const string& item, ) s
+5 143 M
+(    30                                               const string& item1\) {) s
+5 135 M
+(    31    bool ableToAdd = itemCount < maxItems;) s
+5 127 M
+(    32  ) s
+5 119 M
+(    33    if\(ableToAdd\) {) s
+5 111 M
+(    34      entryPtr = new Entry<KeyType, ItemType>\(searchKey, newItem\);) s
+5 103 M
+(    35      entryPtr->setEthnic\(item\);) s
+5 95 M
+(    36      entryPtr->setAge\(item1\);) s
+5 87 M
+(    37      items[itemCount] = entryPtr;   ) s
+5 79 M
+(    38      itemTree.add\(newItem\);) s
+5 71 M
+(    39      keyTree.add\(searchKey\);) s
+5 63 M
+(    40      ++itemCount;) s
+5 55 M
+(    41    }) s
+5 47 M
+(    42  ) s
+5 39 M
+(    43    return ableToAdd;) s
+5 31 M
+(    44  }) s
+5 23 M
+(    45  ) s
+5 15 M
+(    46  template<typename KeyType, typename ItemType>) s
+5 7 M
+(    47  bool ArrayDictionary<KeyType, ItemType>::remove\(int position\) {) s
+365 551 M
+(    48    bool ableToRemove = position <= itemCount;) s
+365 543 M
+(    49     if \(ableToRemove\) {) s
+365 535 M
+(    50       entryPtr = items[position];) s
+365 527 M
+(    51       itemTree.remove\(entryPtr->getKey\(\) \);) s
+365 519 M
+(    52       keyTree.remove\(entryPtr->getItem\(\) \); ) s
+365 511 M
+(    53      }) s
+365 503 M
+(    54  ) s
+365 495 M
+(    55    return ableToRemove;) s
+365 487 M
+(    56  }) s
+365 479 M
+(    57  ) s
+365 471 M
+(    58  template<typename KeyType, typename ItemType>) s
+365 463 M
+(    59  void ArrayDictionary<KeyType, ItemType>::traverse\(void visit\(const ItemType) s
+365 455 M
+(&\) \) {) s
+365 447 M
+(    60         itemTree.preorderTraverse\(visit\); ) s
+365 439 M
+(    61  }) s
+365 431 M
+(    62  ) s
+365 423 M
+(    63  template<typename KeyType, typename ItemType>) s
+365 415 M
+(    64  void ArrayDictionary<KeyType, ItemType>::traverseKey\(void visit\(const KeyTy) s
+365 407 M
+(pe&\) \) {) s
+365 399 M
+(    65         keyTree.preorderTraverse\(visit\); ) s
+365 391 M
+(    66  }) s
+365 383 M
+(    67  ) s
+365 375 M
+(    68  template<typename KeyType, typename ItemType>) s
+365 367 M
+(    69  void ArrayDictionary<KeyType, ItemType>::displayEntry\(int position\) {) s
+365 359 M
+(    70    entryPtr = items[position];) s
+365 351 M
+(    71    cout << endl) s
+365 343 M
+(    72         << "Name: " << entryPtr->getItem\(\)) s
+365 335 M
+(    73         << endl) s
+365 327 M
+(    74         << "SSN: " << entryPtr->getKey\(\)) s
+365 319 M
+(    75         << endl) s
+365 311 M
+(    76         << "Age: " << entryPtr->getAge\(\)) s
+365 303 M
+(    77         << endl) s
+365 295 M
+(    78         << "Ethnicity: " << entryPtr->getEthnic\(\)) s
+365 287 M
+(    79         << endl;) s
+365 279 M
+(    80  }) s
+365 271 M
+(    81  ) s
+365 263 M
+(    82  template<typename KeyType, typename ItemType>) s
+365 255 M
+(    83  int ArrayDictionary<KeyType, ItemType>::getPosition\(string& item\) {) s
+365 247 M
+(    84    int pos = 0;) s
+365 239 M
+(    85  ) s
+365 231 M
+(    86    while \(pos < itemCount\) {) s
+365 223 M
+(    87      entryPtr = items[pos];) s
+365 215 M
+(    88      if\(item != entryPtr->getKey\(\)\)) s
+365 207 M
+(    89        ++pos;) s
+365 199 M
+(    90      else break;) s
+365 191 M
+(    91    }) s
+365 183 M
+(    92   ) s
+365 175 M
+(    93   return pos;) s
+365 167 M
+(    94  }) s
+365 159 M
+(    95  ) s
+365 151 M
+(    96  template<typename KeyType, typename ItemType>) s
+365 143 M
+(    97  int ArrayDictionary<KeyType, ItemType>::getPositionKey\(string& item\) {) s
+365 135 M
+(    98    int pos = 0;) s
+365 127 M
+(    99  ) s
+365 119 M
+(   100    while \(pos < itemCount\) {) s
+365 111 M
+(   101      entryPtr = items[pos];) s
+365 103 M
+(   102      if\(item != entryPtr->getItem\(\) \)) s
+365 95 M
+(   103        ++pos;) s
+365 87 M
+(   104      else break;) s
+365 79 M
+(   105    } ) s
+365 71 M
+(   106  ) s
+365 63 M
+(   107   return pos;) s
+365 55 M
+(   108  }) s
+365 47 M
+(   109  ) s
+365 39 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% c) s
+365 39 M
+(\\033[K\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n Entry.h) s
+365 31 M
+(     1  /** @file) s
+365 23 M
+(     2   *) s
+365 15 M
+(     3   *  @course CS1521) s
+365 7 M
+(     4   *  @section 9) s
+_R
+S
+%%Page: (5) 5
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 5 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (5) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(     5   *) s
+5 543 M
+(     6   *  Header file for an entry object in a dictionary.) s
+5 535 M
+(     7   *) s
+5 527 M
+(     8   *  Adapted from page 533 in Carrano 6e.) s
+5 519 M
+(     9   *) s
+5 511 M
+(    10   *  @author Frank M. Carrano) s
+5 503 M
+(    11   *  @author Timothy Henry) s
+5 495 M
+(    12   *  @author Steve Holtz) s
+5 487 M
+(    13   *  @author Michael Coughlin) s
+5 479 M
+(    14   *) s
+5 471 M
+(    15   *  @date 2014 Mar 20) s
+5 463 M
+(    16   *) s
+5 455 M
+(    17   *  @version 6.0 */) s
+5 447 M
+(    18  ) s
+5 439 M
+(    19  #ifndef _ENTRY) s
+5 431 M
+(    20  #define _ENTRY) s
+5 423 M
+(    21  ) s
+5 415 M
+(    22  /** @class Entry Entry.h "Entry.h") s
+5 407 M
+(    23   *) s
+5 399 M
+(    24   *  Specification for an immutable object for ADT dictionary. */) s
+5 391 M
+(    25  template <typename KeyType, typename ItemType>) s
+5 383 M
+(    26    class Entry {) s
+5 375 M
+(    27   private:) s
+5 367 M
+(    28    ItemType item;) s
+5 359 M
+(    29    KeyType searchKey;) s
+5 351 M
+(    30    string ethnic;) s
+5 343 M
+(    31    string age;) s
+5 335 M
+(    32  ) s
+5 327 M
+(    33   protected:) s
+5 319 M
+(    34    void setKey\(const KeyType& searchKey\);) s
+5 311 M
+(    35  ) s
+5 303 M
+(    36   public:) s
+5 295 M
+(    37    Entry\(\);) s
+5 287 M
+(    38  ) s
+5 279 M
+(    39    Entry\(ItemType newEntry,) s
+5 271 M
+(    40          KeyType searchKey\);) s
+5 263 M
+(    41  ) s
+5 255 M
+(    42    void setEthnic\(const string& eth\);) s
+5 247 M
+(    43  ) s
+5 239 M
+(    44    void setAge\(const string& ag\);) s
+5 231 M
+(    45  ) s
+5 223 M
+(    46    virtual ~Entry\(\);) s
+5 215 M
+(    47  ) s
+5 207 M
+(    48    ItemType getItem\(\) const;) s
+5 199 M
+(    49  ) s
+5 191 M
+(    50    KeyType getKey\(\) const;) s
+5 183 M
+(    51  ) s
+5 175 M
+(    52    string getEthnic\(\) const;) s
+5 167 M
+(    53  ) s
+5 159 M
+(    54    string getAge\(\) const;) s
+5 151 M
+(    55  ) s
+5 143 M
+(    56    void setItem\(const ItemType& newEntry\);) s
+5 135 M
+(    57  ) s
+5 127 M
+(    58    bool operator==\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 119 M
+(    59  ) s
+5 111 M
+(    60    bool operator>\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 103 M
+(    61  ) s
+5 95 M
+(    62    bool operator!=\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 87 M
+(    63  ) s
+5 79 M
+(    64    bool operator<=\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 71 M
+(    65  ) s
+5 63 M
+(    66    bool operator>=\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 55 M
+(    67  ) s
+5 47 M
+(    68    bool operator<\(const Entry<KeyType, ItemType>& rhs\) const;) s
+5 39 M
+(    69  };) s
+5 31 M
+(    70  ) s
+5 23 M
+(    71  #include "Entry.cpp") s
+5 15 M
+(    72  ) s
+5 7 M
+(    73  #endif) s
+365 551 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n Entry.cpp) s
+365 543 M
+(     1  template <typename KeyType, typename ItemType>) s
+365 535 M
+(     2  Entry<KeyType, ItemType>::Entry\(\) {) s
+365 527 M
+(     3  }) s
+365 519 M
+(     4  ) s
+365 511 M
+(     5  template <typename KeyType, typename ItemType>) s
+365 503 M
+(     6  void Entry<KeyType, ItemType>::setKey\(const KeyType& key\) {) s
+365 495 M
+(     7    searchKey = key;) s
+365 487 M
+(     8  }) s
+365 479 M
+(     9  ) s
+365 471 M
+(    10  template <typename KeyType, typename ItemType>) s
+365 463 M
+(    11  void Entry<KeyType, ItemType>::setEthnic\(const string& eth\) {) s
+365 455 M
+(    12    ethnic = eth;) s
+365 447 M
+(    13  }) s
+365 439 M
+(    14  ) s
+365 431 M
+(    15  template <typename KeyType, typename ItemType>) s
+365 423 M
+(    16  void Entry<KeyType, ItemType>::setAge\(const string& ag\) {) s
+365 415 M
+(    17    age = ag;) s
+365 407 M
+(    18  }) s
+365 399 M
+(    19  ) s
+365 391 M
+(    20  template <typename KeyType, typename ItemType>) s
+365 383 M
+(    21  Entry<KeyType, ItemType>::Entry\(ItemType newEntry, KeyType search\) {) s
+365 375 M
+(    22    item = newEntry;) s
+365 367 M
+(    23    searchKey = search;) s
+365 359 M
+(    24  }) s
+365 351 M
+(    25  ) s
+365 343 M
+(    26  template <typename KeyType, typename ItemType>) s
+365 335 M
+(    27  Entry<KeyType, ItemType>::~Entry\(\) {) s
+365 327 M
+(    28  }) s
+365 319 M
+(    29  ) s
+365 311 M
+(    30  template <typename KeyType, typename ItemType>) s
+365 303 M
+(    31  ItemType Entry<KeyType, ItemType>::getItem\(\) const {) s
+365 295 M
+(    32    return item;) s
+365 287 M
+(    33  }) s
+365 279 M
+(    34  ) s
+365 271 M
+(    35  template <typename KeyType, typename ItemType>) s
+365 263 M
+(    36  KeyType Entry<KeyType, ItemType>::getKey\(\) const {) s
+365 255 M
+(    37    return searchKey;) s
+365 247 M
+(    38  }) s
+365 239 M
+(    39  ) s
+365 231 M
+(    40  template <typename KeyType, typename ItemType>) s
+365 223 M
+(    41  string Entry<KeyType, ItemType>::getEthnic\(\) const {) s
+365 215 M
+(    42    return ethnic;) s
+365 207 M
+(    43  }) s
+365 199 M
+(    44  ) s
+365 191 M
+(    45  template <typename KeyType, typename ItemType>) s
+365 183 M
+(    46  string Entry<KeyType, ItemType>::getAge\(\) const {) s
+365 175 M
+(    47    return age;) s
+365 167 M
+(    48  }) s
+365 159 M
+(    49  ) s
+365 151 M
+(    50  template <typename KeyType, typename ItemType>) s
+365 143 M
+(    51  void Entry<KeyType, ItemType>::setItem\(const ItemType& newEntry\) {) s
+365 135 M
+(    52    item = newEntry;) s
+365 127 M
+(    53  }) s
+365 119 M
+(    54  ) s
+365 111 M
+(    55  template <typename KeyType, typename ItemType>) s
+365 103 M
+(    56  bool Entry<KeyType, ItemType>::operator==\(const Entry<KeyType, ItemType>& r) s
+365 95 M
+(hs\) const {) s
+365 87 M
+(    57    return searchKey == rhs.searchKey;) s
+365 79 M
+(    58  }) s
+365 71 M
+(    59  ) s
+365 63 M
+(    60  template <typename KeyType, typename ItemType>) s
+365 55 M
+(    61  bool Entry<KeyType, ItemType>::operator>\(const Entry<KeyType, ItemType>& rh) s
+365 47 M
+(s\) const {) s
+365 39 M
+(    62      return searchKey > rhs.searchKey;) s
+365 31 M
+(    63  }) s
+365 23 M
+(    64  ) s
+365 15 M
+(    65  template <typename KeyType, typename ItemType>) s
+365 7 M
+(    66  bool Entry<KeyType, ItemType>::operator<\(const Entry<KeyType, ItemType>& rh) s
+_R
+S
+%%Page: (6) 6
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 6 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (6) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(s\) const {) s
+5 543 M
+(    67      return searchKey < rhs.searchKey;) s
+5 535 M
+(    68  }) s
+5 527 M
+(    69  ) s
+5 519 M
+(    70  template <typename KeyType, typename ItemType>) s
+5 511 M
+(    71  bool Entry<KeyType, ItemType>::operator!=\(const Entry<KeyType, ItemType>& r) s
+5 503 M
+(hs\) const {) s
+5 495 M
+(    72      return searchKey != rhs.searchKey;) s
+5 487 M
+(    73  }) s
+5 479 M
+(    74  ) s
+5 471 M
+(    75  template <typename KeyType, typename ItemType>) s
+5 463 M
+(    76  bool Entry<KeyType, ItemType>::operator>=\(const Entry<KeyType, ItemType>& r) s
+5 455 M
+(hs\) const {) s
+5 447 M
+(    77      return searchKey >= rhs.searchKey;) s
+5 439 M
+(    78  }) s
+5 431 M
+(    79  ) s
+5 423 M
+(    80  template <typename KeyType, typename ItemType>) s
+5 415 M
+(    81  bool Entry<KeyType, ItemType>::operator<=\(const Entry<KeyType, ItemType>& r) s
+5 407 M
+(hs\) const {) s
+5 399 M
+(    82      return searchKey <= rhs.searchKey;) s
+5 391 M
+(    83  }) s
+5 383 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNode.h) s
+5 375 M
+(     1  /** @file) s
+5 367 M
+(     2   *) s
+5 359 M
+(     3   *  @course CS1521) s
+5 351 M
+(     4   *  @section 1) s
+5 343 M
+(     5   *) s
+5 335 M
+(     6   *  Header file for a node in the pointer-based implementation of the) s
+5 327 M
+(     7   *  ADT binary tree.) s
+5 319 M
+(     8   *) s
+5 311 M
+(     9   *  Adapted from page 458 in Carrano 6e.) s
+5 303 M
+(    10   *) s
+5 295 M
+(    11   *  @author Frank M. Carrano) s
+5 287 M
+(    12   *  @author Timothy Henry) s
+5 279 M
+(    13   *  @author Steve Holtz) s
+5 271 M
+(    14   *) s
+5 263 M
+(    15   *  @date 2013 Feb 07) s
+5 255 M
+(    16   *) s
+5 247 M
+(    17   *  @version 6.0 */) s
+5 239 M
+(    18  ) s
+5 231 M
+(    19  #ifndef _BINARY_NODE) s
+5 223 M
+(    20  #define _BINARY_NODE) s
+5 215 M
+(    21  ) s
+5 207 M
+(    22  /** @class BinaryNode BinaryNode.h "BinaryNode.h") s
+5 199 M
+(    23   *) s
+5 191 M
+(    24   *  Specification of a node for a link-based ADT binary tree. */) s
+5 183 M
+(    25  template <typename ItemType>) s
+5 175 M
+(    26  class BinaryNode {) s
+5 167 M
+(    27   private:) s
+5 159 M
+(    28    ItemType item;) s
+5 151 M
+(    29  ) s
+5 143 M
+(    30    BinaryNode<ItemType>* leftChildPtr;) s
+5 135 M
+(    31    BinaryNode<ItemType>* rightChildPtr;) s
+5 127 M
+(    32  ) s
+5 119 M
+(    33    BinaryNode\(\);) s
+5 111 M
+(    34    BinaryNode\(const ItemType& anItem,) s
+5 103 M
+(    35               BinaryNode<ItemType>* leftPtr = nullptr,) s
+5 95 M
+(    36               BinaryNode<ItemType>* rightPtr = nullptr\);) s
+5 87 M
+(    37  ) s
+5 79 M
+(    38     template <typename FriendItemType>) s
+5 71 M
+(    39       friend class BinaryNodeTree;) s
+5 63 M
+(    40  };) s
+5 55 M
+(    41  ) s
+5 47 M
+(    42  #include "BinaryNode.cpp") s
+5 39 M
+(    43  ) s
+5 31 M
+(    44  #endif) s
+5 23 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNode.h) s
+341 23 M
+() s
+5 15 M
+(\\033[Kcpp) s
+5 7 M
+(     1  #include <algorithm>) s
+365 551 M
+(     2  #include <iostream>) s
+365 543 M
+(     3  ) s
+365 535 M
+(     4  using namespace std;) s
+365 527 M
+(     5  ) s
+365 519 M
+(     6  template<typename ItemType>) s
+365 511 M
+(     7  BinaryNode<ItemType>::BinaryNode\(\)) s
+365 503 M
+(     8    : leftChildPtr\(nullptr\),) s
+365 495 M
+(     9      rightChildPtr\(nullptr\) {) s
+365 487 M
+(    10      }) s
+365 479 M
+(    11  ) s
+365 471 M
+(    12  template<typename ItemType>) s
+365 463 M
+(    13  BinaryNode<ItemType>::BinaryNode\(const ItemType& anItem,) s
+365 455 M
+(    14                                   BinaryNode<ItemType>* leftPtr,) s
+365 447 M
+(    15                                   BinaryNode<ItemType>* rightPtr \) {) s
+365 439 M
+(    16    item = anItem;) s
+365 431 M
+(    17    leftChildPtr = leftPtr;) s
+365 423 M
+(    18    rightChildPtr = rightPtr;) s
+365 415 M
+(    19  }) s
+365 407 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNode.cpp) s
+709.4 407 M
+() s
+705.2 407 M
+() s
+701 407 M
+() s
+696.8 407 M
+(\\033) s
+365 399 M
+([1@T\\033[1@r\\033[1@e\\033[1@e.cpp) s
+495.2 399 M
+(\\033[K) s
+516.2 399 M
+(\\033[K) s
+537.2 399 M
+(\\033[Kh) s
+365 391 M
+(     1  /** @file) s
+365 383 M
+(     2   *) s
+365 375 M
+(     3   *  @course CS1521) s
+365 367 M
+(     4   *  @section 1) s
+365 359 M
+(     5   *) s
+365 351 M
+(     6   *  Header file for a pointer-based implementation of the ADT binary) s
+365 343 M
+(     7   *  tree.) s
+365 335 M
+(     8   *) s
+365 327 M
+(     9   *  Adapted from page 460 in Carrano 6e.) s
+365 319 M
+(    10   *) s
+365 311 M
+(    11   *  @author Frank M. Carrano) s
+365 303 M
+(    12   *  @author Timothy Henry) s
+365 295 M
+(    13   *  @author Steve Holtz) s
+365 287 M
+(    14   *) s
+365 279 M
+(    15   *  @date 2014 Mar 19) s
+365 271 M
+(    16   *) s
+365 263 M
+(    17   *  @version 6.0 */) s
+365 255 M
+(    18  ) s
+365 247 M
+(    19  #ifndef _BINARY_NODE_TREE) s
+365 239 M
+(    20  #define _BINARY_NODE_TREE) s
+365 231 M
+(    21  ) s
+365 223 M
+(    22  #include "BinaryTreeInterface.h") s
+365 215 M
+(    23  #include "BinaryNode.h") s
+365 207 M
+(    24  #include "PrecondViolatedExcep.h") s
+365 199 M
+(    25  #include "NotFoundException.h") s
+365 191 M
+(    26  ) s
+365 183 M
+(    27  /** @class BinaryNodeTree BinaryNodeTree.h "BinaryNodeTree.h") s
+365 175 M
+(    28   *) s
+365 167 M
+(    29   *  Specification of a link-based ADT binary tree. */) s
+365 159 M
+(    30  template <typename ItemType>) s
+365 151 M
+(    31  class BinaryNodeTree : public BinaryTreeInterface<ItemType> {) s
+365 143 M
+(    32   private:) s
+365 135 M
+(    33    BinaryNode<ItemType>* rootPtr;) s
+365 127 M
+(    34  ) s
+365 119 M
+(    35   protected:) s
+365 111 M
+(    36    //------------------------------------------------------------) s
+365 103 M
+(    37    // Protected Utility Methods Section:) s
+365 95 M
+(    38    // Recursive helper methods for the public methods.) s
+365 87 M
+(    39    //------------------------------------------------------------) s
+365 79 M
+(    40  ) s
+365 71 M
+(    41    int getHeightHelper\(BinaryNode<ItemType>* subTreePtr\) const;) s
+365 63 M
+(    42  ) s
+365 55 M
+(    43    int getNumberOfNodesHelper\(BinaryNode<ItemType>* subTreePtr\) const;) s
+365 47 M
+(    44  ) s
+365 39 M
+(    45    // Recursively deletes all nodes from the tree.) s
+365 31 M
+(    46    void destroyTree\(BinaryNode<ItemType>* subTreePtr\);) s
+365 23 M
+(    47  ) s
+365 15 M
+(    48    // Recursively adds a new node to the tree in a left/right fashion to) s
+365 7 M
+(    49    // keep the tree balanced.) s
+_R
+S
+%%Page: (7) 7
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 7 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (7) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    50    BinaryNode<ItemType>* balancedAdd\(BinaryNode<ItemType>* subTreePtr,) s
+5 543 M
+(    51                                      BinaryNode<ItemType>* newNodePtr\);) s
+5 535 M
+(    52  ) s
+5 527 M
+(    53    // Removes the target value from the tree by calling moveValuesUpTree) s
+5 519 M
+(    54    // to overwrite value with value from child.) s
+5 511 M
+(    55    BinaryNode<ItemType>* removeValue\(BinaryNode<ItemType>* subTreePtr,) s
+5 503 M
+(    56                                      const ItemType target,) s
+5 495 M
+(    57                                      bool& success\);) s
+5 487 M
+(    58  ) s
+5 479 M
+(    59    // Copies values up the tree to overwrite value in current node until) s
+5 471 M
+(    60    // a leaf is reached; the leaf is then removed, since its value is) s
+5 463 M
+(    61    // stored in the parent.) s
+5 455 M
+(    62    BinaryNode<ItemType>* moveValuesUpTree\(BinaryNode<ItemType>* subTreePtr\);) s
+5 447 M
+(    63  ) s
+5 439 M
+(    64    // Recursively searches for target value in the tree by using a) s
+5 431 M
+(    65    // preorder traversal.) s
+5 423 M
+(    66    BinaryNode<ItemType>* findNode\(BinaryNode<ItemType>* treePtr,) s
+5 415 M
+(    67                                   const ItemType& target,) s
+5 407 M
+(    68                                   bool& success\) const;) s
+5 399 M
+(    69  ) s
+5 391 M
+(    70    // Copies the tree rooted at treePtr and returns a pointer to) s
+5 383 M
+(    71    // the copy.) s
+5 375 M
+(    72    BinaryNode<ItemType>* copyTree\(BinaryNode<ItemType>* treePtr\) const;) s
+5 367 M
+(    73  ) s
+5 359 M
+(    74    // Recursive traversal helper methods:) s
+5 351 M
+(    75    void preorder\(void visit\(ItemType&\),) s
+5 343 M
+(    76                  BinaryNode<ItemType>* treePtr\);) s
+5 335 M
+(    77    void inorder\(void visit\(ItemType&\),) s
+5 327 M
+(    78                 BinaryNode<ItemType>* treePtr\);) s
+5 319 M
+(    79    void postorder\(void visit\(ItemType&\),) s
+5 311 M
+(    80                   BinaryNode<ItemType>* treePtr\);) s
+5 303 M
+(    81  ) s
+5 295 M
+(    82    // Tools for manipulating BinaryNodes:) s
+5 287 M
+(    83  ) s
+5 279 M
+(    84    void setItem\(BinaryNode<ItemType>* nodePtr,) s
+5 271 M
+(    85                 const ItemType& anItem\);) s
+5 263 M
+(    86  ) s
+5 255 M
+(    87    ItemType getItem\(const BinaryNode<ItemType>* nodePtr\) const;) s
+5 247 M
+(    88  ) s
+5 239 M
+(    89    bool isLeaf\(const BinaryNode<ItemType>* nodePtr\) const;) s
+5 231 M
+(    90  ) s
+5 223 M
+(    91    BinaryNode<ItemType>* getLeftChildPtr\(const BinaryNode<ItemType>* nodePtr) s
+5 215 M
+(\) const;) s
+5 207 M
+(    92    BinaryNode<ItemType>* getRightChildPtr\(const BinaryNode<ItemType>* nodePt) s
+5 199 M
+(r\) const;) s
+5 191 M
+(    93  ) s
+5 183 M
+(    94    void setLeftChildPtr\(BinaryNode<ItemType>* nodePtr,) s
+5 175 M
+(    95                         BinaryNode<ItemType>* leftPtr\);) s
+5 167 M
+(    96    void setRightChildPtr\(BinaryNode<ItemType>* nodePtr,) s
+5 159 M
+(    97                          BinaryNode<ItemType>* rightPtr\);) s
+5 151 M
+(    98  ) s
+5 143 M
+(    99    BinaryNode<ItemType>* getRootPtr\(\) const;) s
+5 135 M
+(   100    void setRootPtr\(BinaryNode<ItemType>* newRootPtr\);) s
+5 127 M
+(   101  ) s
+5 119 M
+(   102    BinaryNode<ItemType>* createNewNode\(const ItemType& anItem,) s
+5 111 M
+(   103                                        BinaryNode<ItemType>* leftPtr = nullp) s
+5 103 M
+(tr,) s
+5 95 M
+(   104                                        BinaryNode<ItemType>* rightPtr = null) s
+5 87 M
+(ptr\) const;) s
+5 79 M
+(   105  ) s
+5 71 M
+(   106   public:) s
+5 63 M
+(   107    //------------------------------------------------------------) s
+5 55 M
+(   108    // Constructor and Destructor Section.) s
+5 47 M
+(   109    //------------------------------------------------------------) s
+5 39 M
+(   110    BinaryNodeTree\(\);) s
+5 31 M
+(   111    BinaryNodeTree\(const ItemType& rootItem\);) s
+5 23 M
+(   112    BinaryNodeTree\(const ItemType& rootItem,) s
+5 15 M
+(   113                   const BinaryNodeTree<ItemType>* leftTreePtr,) s
+5 7 M
+(   114                   const BinaryNodeTree<ItemType>* rightTreePtr\);) s
+365 551 M
+(   115    BinaryNodeTree\(const BinaryNodeTree<ItemType>& tree\);) s
+365 543 M
+(   116  ) s
+365 535 M
+(   117    virtual ~BinaryNodeTree\(\);) s
+365 527 M
+(   118  ) s
+365 519 M
+(   119    //------------------------------------------------------------) s
+365 511 M
+(   120    // Public BinaryTreeInterface Methods Section.) s
+365 503 M
+(   121    //------------------------------------------------------------) s
+365 495 M
+(   122    virtual bool isEmpty\(\) const;) s
+365 487 M
+(   123  ) s
+365 479 M
+(   124    virtual int getHeight\(\) const;) s
+365 471 M
+(   125  ) s
+365 463 M
+(   126    virtual int getNumberOfNodes\(\) const;) s
+365 455 M
+(   127  ) s
+365 447 M
+(   128    virtual ItemType getRootData\(\) const) s
+365 439 M
+(   129      throw\(PrecondViolatedExcep\);) s
+365 431 M
+(   130  ) s
+365 423 M
+(   131    virtual void setRootData\(const ItemType& newData\);) s
+365 415 M
+(   132  ) s
+365 407 M
+(   133    virtual bool add\(const ItemType& newData\);) s
+365 399 M
+(   134  ) s
+365 391 M
+(   135    virtual bool remove\(const ItemType& data\);) s
+365 383 M
+(   136  ) s
+365 375 M
+(   137    virtual void clear\(\);) s
+365 367 M
+(   138  ) s
+365 359 M
+(   139    virtual ItemType getEntry\(const ItemType& anEntry\) const) s
+365 351 M
+(   140      throw\(NotFoundException\);) s
+365 343 M
+(   141  ) s
+365 335 M
+(   142    virtual bool contains\(const ItemType& anEntry\) const;) s
+365 327 M
+(   143  ) s
+365 319 M
+(   144    //------------------------------------------------------------) s
+365 311 M
+(   145    // Public Traversals Section.) s
+365 303 M
+(   146    //------------------------------------------------------------) s
+365 295 M
+(   147    virtual void preorderTraverse\(void visit\(ItemType&\) \);) s
+365 287 M
+(   148    virtual void inorderTraverse\(void visit\(ItemType&\) \);) s
+365 279 M
+(   149    virtual void postorderTraverse\(void visit\(ItemType&\) \);) s
+365 271 M
+(   150  ) s
+365 263 M
+(   151    //------------------------------------------------------------) s
+365 255 M
+(   152    // Overloaded Operator Section.) s
+365 247 M
+(   153    //------------------------------------------------------------) s
+365 239 M
+(   154    BinaryNodeTree& operator=\(const BinaryNodeTree& rhs\);) s
+365 231 M
+(   155  };) s
+365 223 M
+(   156  ) s
+365 215 M
+(   157  #include "BinaryNodeTree.cpp") s
+365 207 M
+(   158  ) s
+365 199 M
+(   159  #endif) s
+365 191 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNodeTree) s
+365 183 M
+(.h) s
+369.2 183 M
+(\\033[Kcpp) s
+365 175 M
+(     1  /** @file) s
+365 167 M
+(     2   *) s
+365 159 M
+(     3   *  @course CS1521) s
+365 151 M
+(     4   *  @section 1) s
+365 143 M
+(     5   *) s
+365 135 M
+(     6   *  Implementation file for a pointer-based implementation of the ADT binar) s
+365 127 M
+(y) s
+365 119 M
+(     7   *  tree.) s
+365 111 M
+(     8   *) s
+365 103 M
+(     9   *  Adapted from page 462-471 in Carrano 6e.) s
+365 95 M
+(    10   *) s
+365 87 M
+(    11   *  @author Frank M. Carrano) s
+365 79 M
+(    12   *  @author Timothy Henry) s
+365 71 M
+(    13   *  @author Steve Holtz) s
+365 63 M
+(    14   *) s
+365 55 M
+(    15   *  @date 2014 Mar 19) s
+365 47 M
+(    16   *) s
+365 39 M
+(    17   *  @version 6.0 */) s
+365 31 M
+(    18  ) s
+365 23 M
+(    19  #include <algorithm>) s
+365 15 M
+(    20  #include <iostream>) s
+365 7 M
+(    21  ) s
+_R
+S
+%%Page: (8) 8
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 8 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (8) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    22  using namespace std;) s
+5 543 M
+(    23  ) s
+5 535 M
+(    24  //////////////////////////////////////////////////////////////) s
+5 527 M
+(    25  //      Protected Utility Methods Section) s
+5 519 M
+(    26  //////////////////////////////////////////////////////////////) s
+5 511 M
+(    27  ) s
+5 503 M
+(    28  template <typename ItemType>) s
+5 495 M
+(    29  int BinaryNodeTree<ItemType>::getHeightHelper\(BinaryNode<ItemType>* subTree) s
+5 487 M
+(Ptr\) const {) s
+5 479 M
+(    30  ) s
+5 471 M
+(    31    int height = 0;) s
+5 463 M
+(    32  ) s
+5 455 M
+(    33    if \(subTreePtr != nullptr\) {) s
+5 447 M
+(    34      height = 1 + max\(getHeightHelper\(subTreePtr->leftChildPtr\),) s
+5 439 M
+(    35                       getHeightHelper\(subTreePtr->rightChildPtr\) \);) s
+5 431 M
+(    36    }) s
+5 423 M
+(    37  ) s
+5 415 M
+(    38    return height;) s
+5 407 M
+(    39  }) s
+5 399 M
+(    40  ) s
+5 391 M
+(    41  template <typename ItemType>) s
+5 383 M
+(    42  int BinaryNodeTree<ItemType>::getNumberOfNodesHelper\(BinaryNode<ItemType>* ) s
+5 375 M
+(subTreePtr\) const {) s
+5 367 M
+(    43  ) s
+5 359 M
+(    44    int numNodes = 0;) s
+5 351 M
+(    45  ) s
+5 343 M
+(    46    if \(subTreePtr != nullptr\) {) s
+5 335 M
+(    47        numNodes = 1 +) s
+5 327 M
+(    48          getNumberOfNodesHelper\(subTreePtr->leftChildPtr\) +) s
+5 319 M
+(    49          getNumberOfNodesHelper\(subTreePtr->rightChildPtr\);) s
+5 311 M
+(    50    }) s
+5 303 M
+(    51  ) s
+5 295 M
+(    52    return numNodes;) s
+5 287 M
+(    53  }) s
+5 279 M
+(    54  ) s
+5 271 M
+(    55  template <typename ItemType>) s
+5 263 M
+(    56  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::balancedAdd\(BinaryNode<Item) s
+5 255 M
+(Type>* subTreePtr,) s
+5 247 M
+(    57                                                              BinaryNode<Item) s
+5 239 M
+(Type>* newNodePtr\) {) s
+5 231 M
+(    58  ) s
+5 223 M
+(    59    BinaryNode<ItemType>* returnPtr = newNodePtr;) s
+5 215 M
+(    60  ) s
+5 207 M
+(    61    if \(subTreePtr != nullptr\) {) s
+5 199 M
+(    62      BinaryNode<ItemType>* leftPtr = subTreePtr->leftChildPtr;) s
+5 191 M
+(    63      BinaryNode<ItemType>* rightPtr = subTreePtr->rightChildPtr;) s
+5 183 M
+(    64  ) s
+5 175 M
+(    65      if \(getHeightHelper\(leftPtr\) > getHeightHelper\(rightPtr\) \) {) s
+5 167 M
+(    66        rightPtr = balancedAdd\(rightPtr, newNodePtr\);) s
+5 159 M
+(    67        subTreePtr->rightChildPtr = rightPtr;) s
+5 151 M
+(    68      }) s
+5 143 M
+(    69      else {) s
+5 135 M
+(    70        leftPtr = balancedAdd\(leftPtr, newNodePtr\);) s
+5 127 M
+(    71        subTreePtr->leftChildPtr = leftPtr;) s
+5 119 M
+(    72      }) s
+5 111 M
+(    73  ) s
+5 103 M
+(    74      returnPtr = subTreePtr;) s
+5 95 M
+(    75    }) s
+5 87 M
+(    76  ) s
+5 79 M
+(    77    return returnPtr;) s
+5 71 M
+(    78  }) s
+5 63 M
+(    79  ) s
+5 55 M
+(    80  template <typename ItemType>) s
+5 47 M
+(    81  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::moveValuesUpTree\(BinaryNode) s
+5 39 M
+(<ItemType>* subTreePtr\) {) s
+5 31 M
+(    82  ) s
+5 23 M
+(    83    BinaryNode<ItemType>* leftPtr = subTreePtr->leftChildPtr;) s
+5 15 M
+(    84    BinaryNode<ItemType>* rightPtr = subTreePtr->rightChildPtr;) s
+5 7 M
+(    85  ) s
+365 551 M
+(    86    int leftHeight = getHeightHelper\(leftPtr\);) s
+365 543 M
+(    87    int rightHeight = getHeightHelper\(rightPtr\);) s
+365 535 M
+(    88  ) s
+365 527 M
+(    89    BinaryNode<ItemType>* returnPtr = nullptr;) s
+365 519 M
+(    90  ) s
+365 511 M
+(    91    if \(leftHeight > rightHeight\) {) s
+365 503 M
+(    92      subTreePtr->item =  leftPtr->item;) s
+365 495 M
+(    93      leftPtr = moveValuesUpTree\(leftPtr\);) s
+365 487 M
+(    94      subTreePtr->leftChildPtr = leftPtr;) s
+365 479 M
+(    95      returnPtr = subTreePtr;) s
+365 471 M
+(    96    }) s
+365 463 M
+(    97    else if \(rightPtr != nullptr\) {) s
+365 455 M
+(    98      subTreePtr->item = rightPtr->item;) s
+365 447 M
+(    99      rightPtr = moveValuesUpTree\(rightPtr\);) s
+365 439 M
+(   100      subTreePtr->rightChildPtr = rightPtr;) s
+365 431 M
+(   101      returnPtr = subTreePtr;) s
+365 423 M
+(   102    }) s
+365 415 M
+(   103    else {) s
+365 407 M
+(   104      // This is a leaf - Remove it from this tree.) s
+365 399 M
+(   105      delete subTreePtr;) s
+365 391 M
+(   106    }) s
+365 383 M
+(   107  ) s
+365 375 M
+(   108    return returnPtr;) s
+365 367 M
+(   109  }) s
+365 359 M
+(   110  ) s
+365 351 M
+(   111  /** Depth-first search of tree for item.) s
+365 343 M
+(   112   *) s
+365 335 M
+(   113   *  @param subTreePtr The tree to search.) s
+365 327 M
+(   114   *) s
+365 319 M
+(   115   *  @param target The target item to find.) s
+365 311 M
+(   116   *) s
+365 303 M
+(   117   *  @param success Communicate to client whether we found the target.) s
+365 295 M
+(   118   *) s
+365 287 M
+(   119   *  @return A pointer to the node containing the target. */) s
+365 279 M
+(   120  template <typename ItemType>) s
+365 271 M
+(   121  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::removeValue\(BinaryNode<Item) s
+365 263 M
+(Type>* subTreePtr,) s
+365 255 M
+(   122                                                              const ItemType ) s
+365 247 M
+(target,) s
+365 239 M
+(   123                                                              bool& success\) ) s
+365 231 M
+({) s
+365 223 M
+(   124  ) s
+365 215 M
+(   125    // Assume target cannot be found.) s
+365 207 M
+(   126    BinaryNode<ItemType>* returnPtr = nullptr;) s
+365 199 M
+(   127    success = false;) s
+365 191 M
+(   128  ) s
+365 183 M
+(   129    if\(subTreePtr != nullptr\) {) s
+365 175 M
+(   130      if \(subTreePtr->item == target\) {) s
+365 167 M
+(   131        subTreePtr = moveValuesUpTree\(subTreePtr\);) s
+365 159 M
+(   132        success = true;) s
+365 151 M
+(   133        returnPtr = subTreePtr;) s
+365 143 M
+(   134      }) s
+365 135 M
+(   135      else {) s
+365 127 M
+(   136        BinaryNode<ItemType>* targetNodePtr = removeValue\(subTreePtr->leftChi) s
+365 119 M
+(ldPtr,) s
+365 111 M
+(   137                                                          target,) s
+365 103 M
+(   138                                                          success\);) s
+365 95 M
+(   139        subTreePtr->leftChildPtr = targetNodePtr;) s
+365 87 M
+(   140  ) s
+365 79 M
+(   141        if \(!success\) {) s
+365 71 M
+(   142          targetNodePtr = removeValue\(subTreePtr->rightChildPtr,) s
+365 63 M
+(   143                                      target,) s
+365 55 M
+(   144                                      success\);) s
+365 47 M
+(   145          subTreePtr->rightChildPtr = targetNodePtr;) s
+365 39 M
+(   146        }) s
+365 31 M
+(   147  ) s
+365 23 M
+(   148        returnPtr = subTreePtr;) s
+365 15 M
+(   149      }) s
+365 7 M
+(   150    }) s
+_R
+S
+%%Page: (9) 9
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 9 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (9) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(   151  ) s
+5 543 M
+(   152    return returnPtr;) s
+5 535 M
+(   153  }) s
+5 527 M
+(   154  ) s
+5 519 M
+(   155  template <typename ItemType>) s
+5 511 M
+(   156  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::findNode\(BinaryNode<ItemTyp) s
+5 503 M
+(e>* subTreePtr,) s
+5 495 M
+(   157                                                           const ItemType& ta) s
+5 487 M
+(rget,) s
+5 479 M
+(   158                                                           bool& success\) con) s
+5 471 M
+(st {) s
+5 463 M
+(   159  ) s
+5 455 M
+(   160    // Assume that target cannot be found:) s
+5 447 M
+(   161    BinaryNode<ItemType>* returnPtr = nullptr;) s
+5 439 M
+(   162    success = false;) s
+5 431 M
+(   163  ) s
+5 423 M
+(   164    if \(subTreePtr != nullptr\) {) s
+5 415 M
+(   165      if \(subTreePtr->item == target\) {) s
+5 407 M
+(   166        success = true;) s
+5 399 M
+(   167        returnPtr = subTreePtr;) s
+5 391 M
+(   168      }) s
+5 383 M
+(   169      else {) s
+5 375 M
+(   170        BinaryNode<ItemType>* targetNodePtr = findNode\(subTreePtr->leftChildP) s
+5 367 M
+(tr,) s
+5 359 M
+(   171                                                       target,) s
+5 351 M
+(   172                                                       success\);) s
+5 343 M
+(   173        if \(!success\) {) s
+5 335 M
+(   174          targetNodePtr = findNode\(subTreePtr->rightChildPtr,) s
+5 327 M
+(   175                                   target,) s
+5 319 M
+(   176                                   success\);) s
+5 311 M
+(   177        }) s
+5 303 M
+(   178  ) s
+5 295 M
+(   179        returnPtr = targetNodePtr;) s
+5 287 M
+(   180      }) s
+5 279 M
+(   181    }) s
+5 271 M
+(   182  ) s
+5 263 M
+(   183    return returnPtr;) s
+5 255 M
+(   184  }) s
+5 247 M
+(   185  ) s
+5 239 M
+(   186  template <typename ItemType>) s
+5 231 M
+(   187  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::copyTree\(BinaryNode<ItemTyp) s
+5 223 M
+(e>* subTreePtr\) const {) s
+5 215 M
+(   188  ) s
+5 207 M
+(   189    BinaryNode<ItemType>* newTreePtr = nullptr;) s
+5 199 M
+(   190  ) s
+5 191 M
+(   191    // Copy tree nodes during a preorder traversal) s
+5 183 M
+(   192    if \(subTreePtr != nullptr\) {) s
+5 175 M
+(   193      newTreePtr = new BinaryNode<ItemType>\(subTreePtr->item,) s
+5 167 M
+(   194                                            copyTree\(subTreePtr->leftChildPtr) s
+5 159 M
+(\),) s
+5 151 M
+(   195                                            copyTree\(subTreePtr->rightChildPt) s
+5 143 M
+(r\) \);) s
+5 135 M
+(   196    }) s
+5 127 M
+(   197  ) s
+5 119 M
+(   198    return newTreePtr;) s
+5 111 M
+(   199  }) s
+5 103 M
+(   200  ) s
+5 95 M
+(   201  template <typename ItemType>) s
+5 87 M
+(   202  void BinaryNodeTree<ItemType>::destroyTree\(BinaryNode<ItemType>* subTreePtr) s
+5 79 M
+(\) {) s
+5 71 M
+(   203  ) s
+5 63 M
+(   204    if \(subTreePtr != nullptr\) {) s
+5 55 M
+(   205      destroyTree\(subTreePtr->leftChildPtr\);) s
+5 47 M
+(   206      destroyTree\(subTreePtr->rightChildPtr\);) s
+5 39 M
+(   207      delete subTreePtr;) s
+5 31 M
+(   208    }) s
+5 23 M
+(   209  }) s
+5 15 M
+(   210  ) s
+5 7 M
+(   211  //////////////////////////////////////////////////////////////) s
+365 551 M
+(   212  //      Protected Tree Traversal Sub-Section) s
+365 543 M
+(   213  //////////////////////////////////////////////////////////////) s
+365 535 M
+(   214  ) s
+365 527 M
+(   215  template <typename ItemType>) s
+365 519 M
+(   216  void BinaryNodeTree<ItemType>::preorder\(void visit\(ItemType&\),) s
+365 511 M
+(   217                                          BinaryNode<ItemType>* subTreePtr\) {) s
+365 503 M
+(   218  ) s
+365 495 M
+(   219    if \(subTreePtr != nullptr\) {) s
+365 487 M
+(   220      visit\(subTreePtr->item\);) s
+365 479 M
+(   221  ) s
+365 471 M
+(   222      preorder\(visit, subTreePtr->leftChildPtr\);) s
+365 463 M
+(   223      preorder\(visit, subTreePtr->rightChildPtr\);) s
+365 455 M
+(   224    }) s
+365 447 M
+(   225  }) s
+365 439 M
+(   226  ) s
+365 431 M
+(   227  template <typename ItemType>) s
+365 423 M
+(   228  void BinaryNodeTree<ItemType>::inorder\(void visit\(ItemType&\),) s
+365 415 M
+(   229                                         BinaryNode<ItemType>* subTreePtr\) {) s
+365 407 M
+(   230  ) s
+365 399 M
+(   231    if \(subTreePtr != nullptr\) {) s
+365 391 M
+(   232      inorder\(visit, subTreePtr->leftChildPtr\);) s
+365 383 M
+(   233  ) s
+365 375 M
+(   234      visit\(subTreePtr->item\);) s
+365 367 M
+(   235  ) s
+365 359 M
+(   236      inorder\(visit, subTreePtr->rightChildPtr\);) s
+365 351 M
+(   237    }) s
+365 343 M
+(   238  }) s
+365 335 M
+(   239  ) s
+365 327 M
+(   240  template <typename ItemType>) s
+365 319 M
+(   241  void BinaryNodeTree<ItemType>::postorder\(void visit\(ItemType&\),) s
+365 311 M
+(   242                                           BinaryNode<ItemType>* subTreePtr\) ) s
+365 303 M
+({) s
+365 295 M
+(   243  ) s
+365 287 M
+(   244    if \(subTreePtr != nullptr\) {) s
+365 279 M
+(   245      postorder\(visit, subTreePtr->leftChildPtr\);) s
+365 271 M
+(   246      postorder\(visit, subTreePtr->rightChildPtr\);) s
+365 263 M
+(   247  ) s
+365 255 M
+(   248      visit\(subTreePtr->item\);) s
+365 247 M
+(   249    }) s
+365 239 M
+(   250  }) s
+365 231 M
+(   251  ) s
+365 223 M
+(   252  //////////////////////////////////////////////////////////////) s
+365 215 M
+(   253  //      Protected Node Access Sub-Section) s
+365 207 M
+(   254  //////////////////////////////////////////////////////////////) s
+365 199 M
+(   255  ) s
+365 191 M
+(   256  template <typename ItemType>) s
+365 183 M
+(   257  void BinaryNodeTree<ItemType>::setItem\(BinaryNode<ItemType>* nodePtr,) s
+365 175 M
+(   258                                         const ItemType& anItem\) {) s
+365 167 M
+(   259  ) s
+365 159 M
+(   260    nodePtr->item = anItem;) s
+365 151 M
+(   261  }) s
+365 143 M
+(   262  ) s
+365 135 M
+(   263  template <typename ItemType>) s
+365 127 M
+(   264  ItemType BinaryNodeTree<ItemType>::getItem\(const BinaryNode<ItemType>* node) s
+365 119 M
+(Ptr\) const {) s
+365 111 M
+(   265  ) s
+365 103 M
+(   266    return nodePtr->item;) s
+365 95 M
+(   267  }) s
+365 87 M
+(   268  ) s
+365 79 M
+(   269  template <typename ItemType>) s
+365 71 M
+(   270  bool BinaryNodeTree<ItemType>::isLeaf\(const BinaryNode<ItemType>* nodePtr\) ) s
+365 63 M
+(const {) s
+365 55 M
+(   271  ) s
+365 47 M
+(   272     return nodePtr->leftChildPtr == nullptr &&) s
+365 39 M
+(   273       nodePtr->rightChildPtr == nullptr;) s
+365 31 M
+(   274  }) s
+365 23 M
+(   275  ) s
+365 15 M
+(   276  template <typename ItemType>) s
+365 7 M
+(   277  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::getLeftChildPtr\(const Binar) s
+_R
+S
+%%Page: (10) 10
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 10 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (10) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(yNode<ItemType>* nodePtr\) const {) s
+5 543 M
+(   278  ) s
+5 535 M
+(   279    return nodePtr->leftChildPtr;) s
+5 527 M
+(   280  }) s
+5 519 M
+(   281  ) s
+5 511 M
+(   282  template <typename ItemType>) s
+5 503 M
+(   283  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::getRightChildPtr\(const Bina) s
+5 495 M
+(ryNode<ItemType>* nodePtr\) const {) s
+5 487 M
+(   284  ) s
+5 479 M
+(   285    return nodePtr->rightChildPtr;) s
+5 471 M
+(   286  }) s
+5 463 M
+(   287  ) s
+5 455 M
+(   288  template <typename ItemType>) s
+5 447 M
+(   289  void BinaryNodeTree<ItemType>::setLeftChildPtr\(BinaryNode<ItemType>* nodePt) s
+5 439 M
+(r,) s
+5 431 M
+(   290                                                 BinaryNode<ItemType>* leftPt) s
+5 423 M
+(r\) {) s
+5 415 M
+(   291  ) s
+5 407 M
+(   292    nodePtr->leftChildPtr = leftPtr;) s
+5 399 M
+(   293  }) s
+5 391 M
+(   294  ) s
+5 383 M
+(   295  template <typename ItemType>) s
+5 375 M
+(   296  void BinaryNodeTree<ItemType>::setRightChildPtr\(BinaryNode<ItemType>* nodeP) s
+5 367 M
+(tr,) s
+5 359 M
+(   297                                                  BinaryNode<ItemType>* right) s
+5 351 M
+(Ptr\) {) s
+5 343 M
+(   298  ) s
+5 335 M
+(   299    nodePtr->rightChildPtr = rightPtr;) s
+5 327 M
+(   300  }) s
+5 319 M
+(   301  ) s
+5 311 M
+(   302  template <typename ItemType>) s
+5 303 M
+(   303  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::getRootPtr\(\) const {) s
+5 295 M
+(   304  ) s
+5 287 M
+(   305    return rootPtr;) s
+5 279 M
+(   306  }) s
+5 271 M
+(   307  ) s
+5 263 M
+(   308  template <typename ItemType>) s
+5 255 M
+(   309  void BinaryNodeTree<ItemType>::setRootPtr\(BinaryNode<ItemType>* newRootPtr\)) s
+5 247 M
+( {) s
+5 239 M
+(   310  ) s
+5 231 M
+(   311    rootPtr = newRootPtr;) s
+5 223 M
+(   312  }) s
+5 215 M
+(   313  ) s
+5 207 M
+(   314  template <typename ItemType>) s
+5 199 M
+(   315  BinaryNode<ItemType>* BinaryNodeTree<ItemType>::createNewNode\(const ItemTyp) s
+5 191 M
+(e& anItem,) s
+5 183 M
+(   316                                                                BinaryNode<It) s
+5 175 M
+(emType>* leftPtr,) s
+5 167 M
+(   317                                                                BinaryNode<It) s
+5 159 M
+(emType>* rightPtr\) const {) s
+5 151 M
+(   318    return new BinaryNode<ItemType>\(anItem,) s
+5 143 M
+(   319                                    leftPtr,) s
+5 135 M
+(   320                                    rightPtr\);) s
+5 127 M
+(   321  }) s
+5 119 M
+(   322  ) s
+5 111 M
+(   323  //////////////////////////////////////////////////////////////) s
+5 103 M
+(   324  //      PUBLIC METHODS BEGIN HERE) s
+5 95 M
+(   325  //////////////////////////////////////////////////////////////) s
+5 87 M
+(   326  ) s
+5 79 M
+(   327  //////////////////////////////////////////////////////////////) s
+5 71 M
+(   328  //      Constructor and Destructor Section) s
+5 63 M
+(   329  //////////////////////////////////////////////////////////////) s
+5 55 M
+(   330  ) s
+5 47 M
+(   331  template <typename ItemType>) s
+5 39 M
+(   332  BinaryNodeTree<ItemType>::BinaryNodeTree\(\)) s
+5 31 M
+(   333    : rootPtr\(nullptr\) {) s
+5 23 M
+(   334  }) s
+5 15 M
+(   335  ) s
+5 7 M
+(   336  template <typename ItemType>) s
+365 551 M
+(   337  BinaryNodeTree<ItemType>::BinaryNodeTree\(const ItemType& rootItem\)) s
+365 543 M
+(   338    : rootPtr\(new BinaryNode<ItemType>\(rootItem,) s
+365 535 M
+(   339                                       nullptr,) s
+365 527 M
+(   340                                       nullptr\) \) {) s
+365 519 M
+(   341  }) s
+365 511 M
+(   342  ) s
+365 503 M
+(   343  template <typename ItemType>) s
+365 495 M
+(   344  BinaryNodeTree<ItemType>::BinaryNodeTree\(const ItemType& rootItem,) s
+365 487 M
+(   345                                           const BinaryNodeTree<ItemType>* le) s
+365 479 M
+(ftTreePtr,) s
+365 471 M
+(   346                                           const BinaryNodeTree<ItemType>* ri) s
+365 463 M
+(ghtTreePtr\)) s
+365 455 M
+(   347    : rootPtr\(new BinaryNode<ItemType>\(rootItem,) s
+365 447 M
+(   348                                       copyTree\(leftTreePtr->rootPtr\),) s
+365 439 M
+(   349                                       copyTree\(rightTreePtr->rootPtr\)\) \) {) s
+365 431 M
+(   350  }) s
+365 423 M
+(   351  ) s
+365 415 M
+(   352  template <typename ItemType>) s
+365 407 M
+(   353  BinaryNodeTree<ItemType>::BinaryNodeTree\(const BinaryNodeTree<ItemType>& tr) s
+365 399 M
+(eePtr\) {) s
+365 391 M
+(   354  ) s
+365 383 M
+(   355    try {) s
+365 375 M
+(   356      rootPtr = copyTree\(treePtr.rootPtr\);) s
+365 367 M
+(   357    }) s
+365 359 M
+(   358    catch \(const bad_alloc&\) {) s
+365 351 M
+(   359      clear\(\);) s
+365 343 M
+(   360      throw;) s
+365 335 M
+(   361    }) s
+365 327 M
+(   362  }) s
+365 319 M
+(   363  ) s
+365 311 M
+(   364  template <typename ItemType>) s
+365 303 M
+(   365  BinaryNodeTree<ItemType>::~BinaryNodeTree\(\) {) s
+365 295 M
+(   366  ) s
+365 287 M
+(   367    clear\(\);) s
+365 279 M
+(   368  }) s
+365 271 M
+(   369  ) s
+365 263 M
+(   370  //////////////////////////////////////////////////////////////) s
+365 255 M
+(   371  //      Public BinaryTreeInterface Methods Section) s
+365 247 M
+(   372  //////////////////////////////////////////////////////////////) s
+365 239 M
+(   373  ) s
+365 231 M
+(   374  template <typename ItemType>) s
+365 223 M
+(   375  bool BinaryNodeTree<ItemType>::isEmpty\(\) const {) s
+365 215 M
+(   376  ) s
+365 207 M
+(   377    return rootPtr == nullptr;) s
+365 199 M
+(   378  }) s
+365 191 M
+(   379  ) s
+365 183 M
+(   380  template <typename ItemType>) s
+365 175 M
+(   381  int BinaryNodeTree<ItemType>::getHeight\(\) const {) s
+365 167 M
+(   382  ) s
+365 159 M
+(   383    return getHeightHelper\(rootPtr\);) s
+365 151 M
+(   384  }) s
+365 143 M
+(   385  ) s
+365 135 M
+(   386  template <typename ItemType>) s
+365 127 M
+(   387  int BinaryNodeTree<ItemType>::getNumberOfNodes\(\) const {) s
+365 119 M
+(   388  ) s
+365 111 M
+(   389    return getNumberOfNodesHelper\(rootPtr\);) s
+365 103 M
+(   390  }) s
+365 95 M
+(   391  ) s
+365 87 M
+(   392  template <typename ItemType>) s
+365 79 M
+(   393  void BinaryNodeTree<ItemType>::clear\(\) {) s
+365 71 M
+(   394  ) s
+365 63 M
+(   395    destroyTree\(rootPtr\);) s
+365 55 M
+(   396    rootPtr = nullptr;) s
+365 47 M
+(   397  }) s
+365 39 M
+(   398  ) s
+365 31 M
+(   399  template <typename ItemType>) s
+365 23 M
+(   400  ItemType BinaryNodeTree<ItemType>::getRootData\(\) const) s
+365 15 M
+(   401    throw\(PrecondViolatedExcep\) {) s
+365 7 M
+(   402  ) s
+_R
+S
+%%Page: (11) 11
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 11 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (11) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(   403    if \(isEmpty\(\) \) {) s
+5 543 M
+(   404      throw PrecondViolatedExcep\("getRootData\(\) called with empty tree."\);) s
+5 535 M
+(   405    }) s
+5 527 M
+(   406  ) s
+5 519 M
+(   407    return rootPtr->item;) s
+5 511 M
+(   408  }) s
+5 503 M
+(   409  ) s
+5 495 M
+(   410  template <typename ItemType>) s
+5 487 M
+(   411  void BinaryNodeTree<ItemType>::setRootData\(const ItemType& newItem\) {) s
+5 479 M
+(   412  ) s
+5 471 M
+(   413    if \(isEmpty\(\) \) {) s
+5 463 M
+(   414      try {) s
+5 455 M
+(   415        rootPtr = new BinaryNode<ItemType>\(newItem,) s
+5 447 M
+(   416                                           nullptr,) s
+5 439 M
+(   417                                           nullptr\);) s
+5 431 M
+(   418      }) s
+5 423 M
+(   419      catch \(const bad_alloc&\) {) s
+5 415 M
+(   420        // What should we do with this? Return something? Crash?) s
+5 407 M
+(   421      }) s
+5 399 M
+(   422    }) s
+5 391 M
+(   423    else {) s
+5 383 M
+(   424      rootPtr->item = newItem;) s
+5 375 M
+(   425    }) s
+5 367 M
+(   426  }) s
+5 359 M
+(   427  ) s
+5 351 M
+(   428  template <typename ItemType>) s
+5 343 M
+(   429  bool BinaryNodeTree<ItemType>::add\(const ItemType& newData\) {) s
+5 335 M
+(   430  ) s
+5 327 M
+(   431    bool canAdd = true;) s
+5 319 M
+(   432  ) s
+5 311 M
+(   433    try {) s
+5 303 M
+(   434      BinaryNode<ItemType>* newNodePtr = new BinaryNode<ItemType>\(newData\);) s
+5 295 M
+(   435  ) s
+5 287 M
+(   436      rootPtr = balancedAdd\(rootPtr, newNodePtr\);) s
+5 279 M
+(   437    }) s
+5 271 M
+(   438    catch \(const bad_alloc&\) {) s
+5 263 M
+(   439      canAdd = false;) s
+5 255 M
+(   440    }) s
+5 247 M
+(   441  ) s
+5 239 M
+(   442    return canAdd;) s
+5 231 M
+(   443  }) s
+5 223 M
+(   444  ) s
+5 215 M
+(   445  template <typename ItemType>) s
+5 207 M
+(   446  bool BinaryNodeTree<ItemType>::remove\(const ItemType& target\) {) s
+5 199 M
+(   447  ) s
+5 191 M
+(   448    bool isSuccessful = false;) s
+5 183 M
+(   449  ) s
+5 175 M
+(   450    rootPtr = removeValue\(rootPtr, target, isSuccessful\);) s
+5 167 M
+(   451  ) s
+5 159 M
+(   452    return isSuccessful;) s
+5 151 M
+(   453  }) s
+5 143 M
+(   454  ) s
+5 135 M
+(   455  template <typename ItemType>) s
+5 127 M
+(   456  ItemType BinaryNodeTree<ItemType>::getEntry\(const ItemType& anEntry\) const) s
+5 119 M
+(   457    throw\(NotFoundException\) {) s
+5 111 M
+(   458  ) s
+5 103 M
+(   459    bool isSuccessful = false;) s
+5 95 M
+(   460  ) s
+5 87 M
+(   461    BinaryNode<ItemType>* binaryNodePtr = findNode\(rootPtr, anEntry, isSucces) s
+5 79 M
+(sful\);) s
+5 71 M
+(   462  ) s
+5 63 M
+(   463    if \(!isSuccessful\) {) s
+5 55 M
+(   464      throw NotFoundException\("Entry not found in tree!"\);) s
+5 47 M
+(   465    }) s
+5 39 M
+(   466  ) s
+5 31 M
+(   467    return binaryNodePtr->item;) s
+5 23 M
+(   468  }) s
+5 15 M
+(   469  ) s
+5 7 M
+(   470  template <typename ItemType>) s
+365 551 M
+(   471  bool BinaryNodeTree<ItemType>:: contains\(const ItemType& anEntry\) const {) s
+365 543 M
+(   472  ) s
+365 535 M
+(   473    bool isSuccessful = false;) s
+365 527 M
+(   474  ) s
+365 519 M
+(   475    findNode\(rootPtr, anEntry, isSuccessful\);) s
+365 511 M
+(   476  ) s
+365 503 M
+(   477    return isSuccessful;) s
+365 495 M
+(   478  }) s
+365 487 M
+(   479  ) s
+365 479 M
+(   480  //////////////////////////////////////////////////////////////) s
+365 471 M
+(   481  //      Public Traversals Section) s
+365 463 M
+(   482  //////////////////////////////////////////////////////////////) s
+365 455 M
+(   483  ) s
+365 447 M
+(   484  template <typename ItemType>) s
+365 439 M
+(   485  void BinaryNodeTree<ItemType>::preorderTraverse\(void visit\(ItemType&\) \) {) s
+365 431 M
+(   486  ) s
+365 423 M
+(   487    preorder\(visit, rootPtr\);) s
+365 415 M
+(   488  }) s
+365 407 M
+(   489  ) s
+365 399 M
+(   490  template <typename ItemType>) s
+365 391 M
+(   491  void BinaryNodeTree<ItemType>::inorderTraverse\(void visit\(ItemType&\) \) {) s
+365 383 M
+(   492  ) s
+365 375 M
+(   493    inorder\(visit, rootPtr\);) s
+365 367 M
+(   494  }) s
+365 359 M
+(   495  ) s
+365 351 M
+(   496  template <typename ItemType>) s
+365 343 M
+(   497  void BinaryNodeTree<ItemType>::postorderTraverse\(void visit\(ItemType&\) \) {) s
+365 335 M
+(   498  ) s
+365 327 M
+(   499    postorder\(visit, rootPtr\);) s
+365 319 M
+(   500  }) s
+365 311 M
+(   501  ) s
+365 303 M
+(   502  //////////////////////////////////////////////////////////////) s
+365 295 M
+(   503  //      Overloaded Operator) s
+365 287 M
+(   504  //////////////////////////////////////////////////////////////) s
+365 279 M
+(   505  ) s
+365 271 M
+(   506  template <typename ItemType>) s
+365 263 M
+(   507  BinaryNodeTree<ItemType>& BinaryNodeTree<ItemType>::operator=\(const BinaryN) s
+365 255 M
+(odeTree<ItemType>& rhs\) {) s
+365 247 M
+(   508  ) s
+365 239 M
+(   509    if \(!isEmpty\(\) \) {) s
+365 231 M
+(   510      clear\(\);) s
+365 223 M
+(   511    }) s
+365 215 M
+(   512  ) s
+365 207 M
+(   513    this->rootPtr = copyTree\(rhs->rootPtr\);) s
+365 199 M
+(   514  ) s
+365 191 M
+(   515    return *this;) s
+365 183 M
+(   516  }) s
+365 175 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNodeTree) s
+365 167 M
+(.cpp) s
+377.6 167 M
+(\\033[K) s
+398.6 167 M
+(\\033[K) s
+419.6 167 M
+(\\033[K) s
+440.6 167 M
+(\\033[KInterface.h) s
+365 159 M
+(cat: BinaryNodeTreeInterface.h: No such file or directory) s
+365 151 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryNodeTree) s
+365 143 M
+(Interface.h) s
+407 143 M
+() s
+402.8 143 M
+() s
+398.6 143 M
+() s
+394.4 143 M
+() s
+390.2 143 M
+() s
+386 143 M
+() s
+381.8 143 M
+() s
+377.6 143 M
+() s
+373.4 143 M
+() s
+369.2 143 M
+() s
+365 143 M
+() s
+360.8 143 M
+() s
+356.6 143 M
+() s
+352.4 143 M
+() s
+348.2 143 M
+() s
+344 143 M
+(\\033[P) s
+365 143 M
+(\\033[P) s
+386 143 M
+(\\033[P) s
+407 143 M
+(\\033[P) s
+365 135 M
+(     1  /** @file) s
+365 127 M
+(     2   *) s
+365 119 M
+(     3   *  @course CS1521) s
+365 111 M
+(     4   *  @section 1) s
+365 103 M
+(     5   *) s
+365 95 M
+(     6   *  BinaryTreeInterface class template definition.) s
+365 87 M
+(     7   *) s
+365 79 M
+(     8   *  Adapted from page 441-2 in Carrano 6e.) s
+365 71 M
+(     9   *) s
+365 63 M
+(    10   *  @author Frank M. Carrano) s
+365 55 M
+(    11   *  @author Timothy Henry) s
+365 47 M
+(    12   *  @author Steve Holtz) s
+365 39 M
+(    13   *) s
+365 31 M
+(    14   *  @date 2013 Jan 30) s
+365 23 M
+(    15   *) s
+365 15 M
+(    16   *  @version 6.0 */) s
+365 7 M
+(    17  ) s
+_R
+S
+%%Page: (12) 12
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 12 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (12) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    18  #ifndef _BINARY_TREE_INTERFACE) s
+5 543 M
+(    19  #define _BINARY_TREE_INTERFACE) s
+5 535 M
+(    20  ) s
+5 527 M
+(    21  #include "NotFoundException.h") s
+5 519 M
+(    22  #include "PrecondViolatedExcep.h") s
+5 511 M
+(    23  ) s
+5 503 M
+(    24  /** @class BinaryTreeInterface BinaryTreeInterface.h "BinaryTreeInterface.h) s
+5 495 M
+(") s
+5 487 M
+(    25   *) s
+5 479 M
+(    26   *  Definition of BinaryTreeInterface class template. */) s
+5 471 M
+(    27  template <typename ItemType>) s
+5 463 M
+(    28  class BinaryTreeInterface {) s
+5 455 M
+(    29   public:) s
+5 447 M
+(    30  ) s
+5 439 M
+(    31    /** Sees whether this binary tree is empty.) s
+5 431 M
+(    32     *) s
+5 423 M
+(    33     *  @return True if this binary tree is empty, or false if not. */) s
+5 415 M
+(    34    virtual bool isEmpty\(\) const = 0;) s
+5 407 M
+(    35  ) s
+5 399 M
+(    36    /** Gets the height of this binary tree.) s
+5 391 M
+(    37     *) s
+5 383 M
+(    38     *  @return The height of this binary tree. */) s
+5 375 M
+(    39    virtual int getHeight\(\) const = 0;) s
+5 367 M
+(    40  ) s
+5 359 M
+(    41    /** Gets the number of nodes in this binary tree.) s
+5 351 M
+(    42     *) s
+5 343 M
+(    43     *  @return The number of nodes in this binary tree. */) s
+5 335 M
+(    44    virtual int getNumberOfNodes\(\) const = 0;) s
+5 327 M
+(    45  ) s
+5 319 M
+(    46    /** Gets the data stored in the root of this binary tree.) s
+5 311 M
+(    47     *) s
+5 303 M
+(    48     *  @pre This binary tree is not empty.) s
+5 295 M
+(    49     *) s
+5 287 M
+(    50     *  @post None.) s
+5 279 M
+(    51     *) s
+5 271 M
+(    52     *  @return The data stored in the root of this binary tree.) s
+5 263 M
+(    53     *) s
+5 255 M
+(    54     *  @throw PrecondViolatedExcep If the precondition is violated. */) s
+5 247 M
+(    55    virtual ItemType getRootData\(\) const) s
+5 239 M
+(    56      throw\(PrecondViolatedExcep\) = 0;) s
+5 231 M
+(    57  ) s
+5 223 M
+(    58    /** Replaces the data stored in the root of this binary tree with) s
+5 215 M
+(    59     *  the given data, if this binary tree is not empty. However, if) s
+5 207 M
+(    60     *  this binary tree is empty, then insert a new node containing) s
+5 199 M
+(    61     *  the given data into the root of this binary tree.) s
+5 191 M
+(    62     *) s
+5 183 M
+(    63     *  @pre None.) s
+5 175 M
+(    64     *) s
+5 167 M
+(    65     *  @post The data in the root of this binary tree is the given) s
+5 159 M
+(    66     *        data.) s
+5 151 M
+(    67     *) s
+5 143 M
+(    68     *  @param newData The given data. */) s
+5 135 M
+(    69    virtual void setRootData\(const ItemType& newData\) = 0;) s
+5 127 M
+(    70  ) s
+5 119 M
+(    71    /** Inserts a new node containingthe given data into this binary) s
+5 111 M
+(    72     *  tree.) s
+5 103 M
+(    73     *) s
+5 95 M
+(    74     *  @pre None.) s
+5 87 M
+(    75     *) s
+5 79 M
+(    76     *  @post This binary tree contains a new node containing the given) s
+5 71 M
+(    77     *        data.) s
+5 63 M
+(    78     *) s
+5 55 M
+(    79     *  @param newData The data for the new node.) s
+5 47 M
+(    80     *) s
+5 39 M
+(    81     *  @return True if insertion was successful, or false if not. */) s
+5 31 M
+(    82    virtual bool add\(const ItemType& newData\) = 0;) s
+5 23 M
+(    83  ) s
+5 15 M
+(    84    /** Removes the node containing data from this binary tree.) s
+5 7 M
+(    85     *) s
+365 551 M
+(    86     *  @pre None.) s
+365 543 M
+(    87     *) s
+365 535 M
+(    88     *  @post A node containing data is no longer in this binary tree.) s
+365 527 M
+(    89     *) s
+365 519 M
+(    90     *  @param data The data value to remove from this binary tree.) s
+365 511 M
+(    91     *) s
+365 503 M
+(    92     *  @return True if removal was successful, or false if not. */) s
+365 495 M
+(    93    virtual bool remove\(const ItemType& data\) = 0;) s
+365 487 M
+(    94  ) s
+365 479 M
+(    95    /** Removes all nodes from this binary tree.) s
+365 471 M
+(    96     *) s
+365 463 M
+(    97     *  @post This binary tree contains no nodes;) s
+365 455 M
+(    98     *        getNumberOfNodes\(\) == 0. */) s
+365 447 M
+(    99    virtual void clear\(\) = 0;) s
+365 439 M
+(   100  ) s
+365 431 M
+(   101    /** Retrieves a specific entry in this binary tree.) s
+365 423 M
+(   102     *) s
+365 415 M
+(   103     *  @pre None.) s
+365 407 M
+(   104     *) s
+365 399 M
+(   105     *  @post None.) s
+365 391 M
+(   106     *) s
+365 383 M
+(   107     *  @param anEntry The value of the desired entry to retrieve.) s
+365 375 M
+(   108     *) s
+365 367 M
+(   109     *  @return The entry in this binary tree that matches the given) s
+365 359 M
+(   110      *          entry.) s
+365 351 M
+(   111      *) s
+365 343 M
+(   112      *  @throw NotFoundException If the given entry was not found in) s
+365 335 M
+(   113      *         this binary tree. */) s
+365 327 M
+(   114    virtual ItemType getEntry\(const ItemType& anEntry\) const) s
+365 319 M
+(   115      throw\(NotFoundException\) = 0;) s
+365 311 M
+(   116  ) s
+365 303 M
+(   117    /** Tests whether the given entry occurs in this binary tree.) s
+365 295 M
+(   118     *) s
+365 287 M
+(   119     *  @pre None.) s
+365 279 M
+(   120     *) s
+365 271 M
+(   121     *  @post None.) s
+365 263 M
+(   122     *) s
+365 255 M
+(   123     *  @param anEntry The entry to find.) s
+365 247 M
+(   124     *) s
+365 239 M
+(   125     *  @return True if the given entry occurs in this binary tree. */) s
+365 231 M
+(   126    virtual bool contains\(const ItemType& anEntry\) const = 0;) s
+365 223 M
+(   127  ) s
+365 215 M
+(   128    /** Traverses this binary tree in preorder \(inorder, postorder\) and) s
+365 207 M
+(   129     *  calls the function visit once for each node.) s
+365 199 M
+(   130     *) s
+365 191 M
+(   131     *  @pre None.) s
+365 183 M
+(   132     *) s
+365 175 M
+(   133     *  @post The function visit has been called once per node. This) s
+365 167 M
+(   134     *        call can alter the data stored in this binary tree.) s
+365 159 M
+(   135     *) s
+365 151 M
+(   136     *  @param visit A client-defined function that will perform some) s
+365 143 M
+(   137     *               operation of the data in a node. */) s
+365 135 M
+(   138    virtual void preorderTraverse\(void visit\(ItemType&\) \) = 0;) s
+365 127 M
+(   139    virtual void inorderTraverse\(void visit\(ItemType&\) \) = 0;) s
+365 119 M
+(   140    virtual void postorderTraverse\(void visit\(ItemType&\) \) = 0;) s
+365 111 M
+(   141  };) s
+365 103 M
+(   142  ) s
+365 95 M
+(   143  #endif) s
+365 87 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinaryTreeInte) s
+365 79 M
+(rface.h\\033[47G\\033[4@Node\\033[66G\\033[55G.cpp\\033[K) s
+579.2 79 M
+() s
+575 79 M
+() s
+570.8 79 M
+(h\\033[K\\033[51G.cpp\\033[K) s
+671.6 79 M
+() s
+667.4 79 M
+() s
+663.2 79 M
+() s
+659 79 M
+(Tree.h) s
+680 79 M
+() s
+675.8 79 M
+() s
+671.6 79 M
+() s
+667.4 79 M
+() s
+663.2 79 M
+() s
+659 79 M
+() s
+654.8 79 M
+(\\033[P) s
+675.8 79 M
+(\\033[P) s
+696.8 79 M
+(\\033) s
+365 71 M
+([P) s
+369.2 71 M
+(\\033[P\\033[1@s\\033[1@e\\033[1@a\\033[1@r\\033[1@c\\033[1@h) s
+591.8 71 M
+(\\033[P) s
+612.8 71 M
+(\\033[P) s
+633.8 71 M
+(\\033[P) s
+654.8 71 M
+(\\033[P) s
+675.8 71 M
+(\\033[P) s
+696.8 71 M
+(\\033) s
+365 63 M
+([P\\033[1@S\\033[1@e\\033[1@a\\033[1@r\\033[1@c\\033[1@h) s
+365 55 M
+(     1  /** @file) s
+365 47 M
+(     2   *) s
+365 39 M
+(     3   *  @course CS1521) s
+365 31 M
+(     4   *  @section 1) s
+365 23 M
+(     5   *) s
+365 15 M
+(     6   *  Header file for a pointer-based implementation of the ADT binary) s
+365 7 M
+(     7   *  search tree.) s
+_R
+S
+%%Page: (13) 13
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 13 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (13) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(     8   *) s
+5 543 M
+(     9   *  Adapted from page 482 in Carrano 6e.) s
+5 535 M
+(    10   *) s
+5 527 M
+(    11   *  @author Frank M. Carrano) s
+5 519 M
+(    12   *  @author Timothy Henry) s
+5 511 M
+(    13   *  @author Steve Holtz) s
+5 503 M
+(    14   *) s
+5 495 M
+(    15   *  @date 2014 Mar 19) s
+5 487 M
+(    16   *) s
+5 479 M
+(    17   *  @version 6.0 */) s
+5 471 M
+(    18  ) s
+5 463 M
+(    19  #ifndef _BINARY_SEARCH_TREE) s
+5 455 M
+(    20  #define _BINARY_SEARCH_TREE) s
+5 447 M
+(    21  ) s
+5 439 M
+(    22  #include "BinaryTreeInterface.h") s
+5 431 M
+(    23  #include "BinaryNode.h") s
+5 423 M
+(    24  #include "BinaryNodeTree.h") s
+5 415 M
+(    25  #include "NotFoundException.h") s
+5 407 M
+(    26  #include "PrecondViolatedExcep.h") s
+5 399 M
+(    27  ) s
+5 391 M
+(    28  template <typename ItemType>) s
+5 383 M
+(    29  class BinarySearchTree : private BinaryNodeTree<ItemType> {) s
+5 375 M
+(    30   protected:) s
+5 367 M
+(    31    //------------------------------------------------------------) s
+5 359 M
+(    32    // Protected Utility Methods Section:) s
+5 351 M
+(    33    // Recursive helper methods for the public methods.) s
+5 343 M
+(    34    //------------------------------------------------------------) s
+5 335 M
+(    35    // Recursively finds where the given node should be placed and) s
+5 327 M
+(    36    // inserts it in a leaf at that point.) s
+5 319 M
+(    37    BinaryNode<ItemType>* insertInorder\(BinaryNode<ItemType>* subTreePtr,) s
+5 311 M
+(    38                                        BinaryNode<ItemType>* newNode\);) s
+5 303 M
+(    39  ) s
+5 295 M
+(    40    // Removes the given target value from the tree while maintaining a) s
+5 287 M
+(    41    // binary search tree.) s
+5 279 M
+(    42    BinaryNode<ItemType>* removeValue\(BinaryNode<ItemType>* subTreePtr,) s
+5 271 M
+(    43                                      const ItemType target,) s
+5 263 M
+(    44                                      bool& success\);) s
+5 255 M
+(    45  ) s
+5 247 M
+(    46    // Removes a given node from a tree while maintaining a) s
+5 239 M
+(    47    // binary search tree.) s
+5 231 M
+(    48    BinaryNode<ItemType>* removeNode\(BinaryNode<ItemType>* nodePtr\);) s
+5 223 M
+(    49  ) s
+5 215 M
+(    50    // Removes the leftmost node in the left subtree of the node) s
+5 207 M
+(    51    // pointed to by nodePtr.) s
+5 199 M
+(    52    // Sets inorderSuccessor to the value in this node.) s
+5 191 M
+(    53    // Returns a pointer to the revised subtree.) s
+5 183 M
+(    54    BinaryNode<ItemType>* removeLeftmostNode\(BinaryNode<ItemType>* subTreePtr) s
+5 175 M
+(,) s
+5 167 M
+(    55                                             ItemType& inorderSuccessor\);) s
+5 159 M
+(    56  ) s
+5 151 M
+(    57    // Returns a pointer to the node containing the given value,) s
+5 143 M
+(    58    // or nullptr if not found.) s
+5 135 M
+(    59    BinaryNode<ItemType>* findNode\(BinaryNode<ItemType>* treePtr,) s
+5 127 M
+(    60                                   const ItemType& target\) const;) s
+5 119 M
+(    61  ) s
+5 111 M
+(    62    // Required with alternate removeNode implementation:) s
+5 103 M
+(    63    // ItemType findSuccessorValue\(BinaryNode<ItemType>* subTreePtr\);) s
+5 95 M
+(    64  ) s
+5 87 M
+(    65    // Recursive traversal helper methods:) s
+5 79 M
+(    66    void preorder\(void visit\(const ItemType&\),) s
+5 71 M
+(    67                  const BinaryNode<ItemType>* const treePtr\) const;) s
+5 63 M
+(    68    void inorder\(void visit\(const ItemType&\),) s
+5 55 M
+(    69                 const BinaryNode<ItemType>* const treePtr\) const;) s
+5 47 M
+(    70    void postorder\(void visit\(const ItemType&\),) s
+5 39 M
+(    71                   const BinaryNode<ItemType>* const treePtr\) const;) s
+5 31 M
+(    72  ) s
+5 23 M
+(    73   public:) s
+5 15 M
+(    74    //------------------------------------------------------------) s
+5 7 M
+(    75    // Constructor and Destructor Section.) s
+365 551 M
+(    76    //------------------------------------------------------------) s
+365 543 M
+(    77    BinarySearchTree\(\);) s
+365 535 M
+(    78    BinarySearchTree\(const ItemType& rootItem\);) s
+365 527 M
+(    79    BinarySearchTree\(const BinarySearchTree<ItemType>& tree\);) s
+365 519 M
+(    80  ) s
+365 511 M
+(    81    virtual ~BinarySearchTree\(\);) s
+365 503 M
+(    82  ) s
+365 495 M
+(    83    //------------------------------------------------------------) s
+365 487 M
+(    84    // Public Methods Section.) s
+365 479 M
+(    85    //------------------------------------------------------------) s
+365 471 M
+(    86    virtual bool isEmpty\(\) const;) s
+365 463 M
+(    87  ) s
+365 455 M
+(    88    virtual int getHeight\(\) const;) s
+365 447 M
+(    89  ) s
+365 439 M
+(    90    virtual int getNumberOfNodes\(\) const;) s
+365 431 M
+(    91  ) s
+365 423 M
+(    92    virtual ItemType getRootData\(\) const) s
+365 415 M
+(    93      throw\(PrecondViolatedExcep\);) s
+365 407 M
+(    94  ) s
+365 399 M
+(    95    // Remove setRootData so that it is privately inherited.) s
+365 391 M
+(    96    // virtual void setRootData\(const ItemType& newData\) const) s
+365 383 M
+(    97    //    throw\(PrecondViolatedExcep\);) s
+365 375 M
+(    98  ) s
+365 367 M
+(    99    virtual bool add\(const ItemType& newEntry\);) s
+365 359 M
+(   100  ) s
+365 351 M
+(   101    virtual bool remove\(const ItemType& anEntry\);) s
+365 343 M
+(   102  ) s
+365 335 M
+(   103    virtual void clear\(\);) s
+365 327 M
+(   104  ) s
+365 319 M
+(   105    virtual ItemType getEntry\(const ItemType& anEntry\) const) s
+365 311 M
+(   106      throw\(NotFoundException\);) s
+365 303 M
+(   107  ) s
+365 295 M
+(   108    virtual bool contains\(const ItemType& anEntry\) const;) s
+365 287 M
+(   109  ) s
+365 279 M
+(   110    //------------------------------------------------------------) s
+365 271 M
+(   111    // Public Traversals Section.) s
+365 263 M
+(   112    //------------------------------------------------------------) s
+365 255 M
+(   113    void preorderTraverse\(void visit\(const ItemType&\) \) const;) s
+365 247 M
+(   114    void inorderTraverse\(void visit\(const ItemType&\) \) const;) s
+365 239 M
+(   115    void postorderTraverse\(void visit\(const ItemType&\) \) const;) s
+365 231 M
+(   116  ) s
+365 223 M
+(   117    //------------------------------------------------------------) s
+365 215 M
+(   118    // Overloaded Operator Section.) s
+365 207 M
+(   119    //------------------------------------------------------------) s
+365 199 M
+(   120    BinarySearchTree<ItemType>& operator=\(const BinarySearchTree<ItemType>& r) s
+365 191 M
+(hs\);) s
+365 183 M
+(   121   ) s
+365 175 M
+(   122    template <typename KeyType, typename FriendItemType>) s
+365 167 M
+(   123    friend class ArrayDictionary;) s
+365 159 M
+(   124  ) s
+365 151 M
+(   125  };) s
+365 143 M
+(   126  ) s
+365 135 M
+(   127  #include "BinarySearchTree.cpp") s
+365 127 M
+(   128  ) s
+365 119 M
+(   129  #endif) s
+365 111 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n BinarySearchTr) s
+365 103 M
+(ee.h) s
+377.6 103 M
+(\\033[Kcpp) s
+365 95 M
+(     1  /** @file) s
+365 87 M
+(     2   *) s
+365 79 M
+(     3   *  @course CS1521) s
+365 71 M
+(     4   *  @section 1) s
+365 63 M
+(     5   *) s
+365 55 M
+(     6   *  Implementation file for a pointer-based implementation of the ADT) s
+365 47 M
+(     7   *  binary search tree.) s
+365 39 M
+(     8   *) s
+365 31 M
+(     9   *  Not in Carrano 6e.) s
+365 23 M
+(    10   *) s
+365 15 M
+(    11   *  @author Frank M. Carrano) s
+365 7 M
+(    12   *  @author Timothy Henry) s
+_R
+S
+%%Page: (14) 14
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 14 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (14) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(    13   *  @author Steve Holtz) s
+5 543 M
+(    14   *) s
+5 535 M
+(    15   *  @date 2014 Mar 19) s
+5 527 M
+(    16   *) s
+5 519 M
+(    17   *  @version 6.0 */) s
+5 511 M
+(    18  ) s
+5 503 M
+(    19  //////////////////////////////////////////////////////////////) s
+5 495 M
+(    20  //) s
+5 487 M
+(    21  //      Protected Utility Methods Section) s
+5 479 M
+(    22  //) s
+5 471 M
+(    23  //////////////////////////////////////////////////////////////) s
+5 463 M
+(    24  ) s
+5 455 M
+(    25  template <typename ItemType>) s
+5 447 M
+(    26  BinaryNode<ItemType>* BinarySearchTree<ItemType>::insertInorder\(BinaryNode<) s
+5 439 M
+(ItemType>* subTreePtr,) s
+5 431 M
+(    27                                                                  BinaryNode<) s
+5 423 M
+(ItemType>* newNodePtr\) {) s
+5 415 M
+(    28  ) s
+5 407 M
+(    29    BinaryNode<ItemType>* returnPtr = newNodePtr;) s
+5 399 M
+(    30  ) s
+5 391 M
+(    31    if \(subTreePtr != nullptr\) {) s
+5 383 M
+(    32      if \(this->getItem\(subTreePtr\) > this->getItem\(newNodePtr\) \) {) s
+5 375 M
+(    33        this->setLeftChildPtr\(subTreePtr,) s
+5 367 M
+(    34                              insertInorder\(this->getLeftChildPtr\(subTreePtr\)) s
+5 359 M
+(,) s
+5 351 M
+(    35                                            newNodePtr\) \);) s
+5 343 M
+(    36      }) s
+5 335 M
+(    37      else {) s
+5 327 M
+(    38        this->setRightChildPtr\(subTreePtr,) s
+5 319 M
+(    39                               insertInorder\(this->getRightChildPtr\(subTreePt) s
+5 311 M
+(r\),) s
+5 303 M
+(    40                                             newNodePtr\) \);) s
+5 295 M
+(    41      }) s
+5 287 M
+(    42  ) s
+5 279 M
+(    43      returnPtr = subTreePtr;) s
+5 271 M
+(    44    }) s
+5 263 M
+(    45  ) s
+5 255 M
+(    46    return returnPtr;) s
+5 247 M
+(    47  }) s
+5 239 M
+(    48  ) s
+5 231 M
+(    49  template <typename ItemType>) s
+5 223 M
+(    50  BinaryNode<ItemType>* BinarySearchTree<ItemType>::removeValue\(BinaryNode<It) s
+5 215 M
+(emType>* subTreePtr,) s
+5 207 M
+(    51                                                                const ItemTyp) s
+5 199 M
+(e target,) s
+5 191 M
+(    52                                                                bool& success) s
+5 183 M
+(\) {) s
+5 175 M
+(    53  ) s
+5 167 M
+(    54    BinaryNode<ItemType>* returnPtr = nullptr;) s
+5 159 M
+(    55  ) s
+5 151 M
+(    56    if \(subTreePtr == nullptr\) {) s
+5 143 M
+(    57      success = false;) s
+5 135 M
+(    58    }) s
+5 127 M
+(    59    else if \(this->getItem\(subTreePtr\) == target\) {) s
+5 119 M
+(    60      subTreePtr = removeNode\(subTreePtr\);) s
+5 111 M
+(    61      success = true;) s
+5 103 M
+(    62      returnPtr = subTreePtr;) s
+5 95 M
+(    63    }) s
+5 87 M
+(    64    else {) s
+5 79 M
+(    65      if \(this->getItem\(subTreePtr\) > target\) {) s
+5 71 M
+(    66        // Search the left subtree) s
+5 63 M
+(    67        this->setLeftChildPtr\(subTreePtr,) s
+5 55 M
+(    68                              removeValue\(this->getLeftChildPtr\(subTreePtr\),) s
+5 47 M
+(    69                                          target,) s
+5 39 M
+(    70                                          success\) \);) s
+5 31 M
+(    71      }) s
+5 23 M
+(    72      else {) s
+5 15 M
+(    73        // Search the right subtree) s
+5 7 M
+(    74        this->setRightChildPtr\(subTreePtr,) s
+365 551 M
+(    75                               removeValue\(this->getRightChildPtr\(subTreePtr\)) s
+365 543 M
+(,) s
+365 535 M
+(    76                                           target,) s
+365 527 M
+(    77                                           success\) \);) s
+365 519 M
+(    78      }) s
+365 511 M
+(    79  ) s
+365 503 M
+(    80      returnPtr = subTreePtr;) s
+365 495 M
+(    81    }) s
+365 487 M
+(    82  ) s
+365 479 M
+(    83    return returnPtr;) s
+365 471 M
+(    84  }) s
+365 463 M
+(    85  ) s
+365 455 M
+(    86  template <typename ItemType>) s
+365 447 M
+(    87  BinaryNode<ItemType>* BinarySearchTree<ItemType>::removeNode\(BinaryNode<Ite) s
+365 439 M
+(mType>* nodePtr\) {) s
+365 431 M
+(    88  ) s
+365 423 M
+(    89    BinaryNode<ItemType>* returnPtr = nullptr;) s
+365 415 M
+(    90  ) s
+365 407 M
+(    91    // Case 1\) Node is a leaf - it is deleted) s
+365 399 M
+(    92    if \(this->isLeaf\(nodePtr\) \) {) s
+365 391 M
+(    93      delete nodePtr;) s
+365 383 M
+(    94      nodePtr = nullptr;) s
+365 375 M
+(    95    }) s
+365 367 M
+(    96    // Case 2\) Node has one child - parent adopts child) s
+365 359 M
+(    97    else if \(this->getLeftChildPtr\(nodePtr\) == nullptr\) { // Has rightChild o) s
+365 351 M
+(nly) s
+365 343 M
+(    98      BinaryNode<ItemType>* nodeToConnectPtr = this->getRightChildPtr\(nodePtr) s
+365 335 M
+(\);) s
+365 327 M
+(    99      delete nodePtr;) s
+365 319 M
+(   100      nodePtr = nullptr;) s
+365 311 M
+(   101      returnPtr = nodeToConnectPtr;) s
+365 303 M
+(   102    }) s
+365 295 M
+(   103    else if \(this->getRightChildPtr\(nodePtr\) == nullptr\) { // Has left child ) s
+365 287 M
+(only) s
+365 279 M
+(   104      BinaryNode<ItemType>* nodeToConnectPtr = this->getLeftChildPtr\(nodePtr\)) s
+365 271 M
+(;) s
+365 263 M
+(   105      delete nodePtr;) s
+365 255 M
+(   106      nodePtr = nullptr;) s
+365 247 M
+(   107      returnPtr = nodeToConnectPtr;) s
+365 239 M
+(   108    }) s
+365 231 M
+(   109    // Case 3\) Node has two children:) s
+365 223 M
+(   110    else {) s
+365 215 M
+(   111      // Traditional way to remove a value in a node with two children) s
+365 207 M
+(   112      ItemType newNodeValue;) s
+365 199 M
+(   113  ) s
+365 191 M
+(   114      this->setRightChildPtr\(nodePtr,) s
+365 183 M
+(   115                             removeLeftmostNode\(this->getRightChildPtr\(nodePt) s
+365 175 M
+(r\),) s
+365 167 M
+(   116                                                newNodeValue\) \);) s
+365 159 M
+(   117      this->setItem\(nodePtr, newNodeValue\);) s
+365 151 M
+(   118  ) s
+365 143 M
+(   119      returnPtr = nodePtr;) s
+365 135 M
+(   120  ) s
+365 127 M
+(   121      // Alernative way to remove a value in a node with two children;) s
+365 119 M
+(   122      // does not require pass-by-reference.  We need to check whether) s
+365 111 M
+(   123      // this right child has a left child.  This is similar to the) s
+365 103 M
+(   124      // base case in "findSuccessorValue" but we need to remove the) s
+365 95 M
+(   125      // special case where the right child *is* the inorder successor) s
+365 87 M
+(   126      /*) s
+365 79 M
+(   127        BinaryNode<ItemType>* myRightChildPtr = this->getRightChildPtr\(nodePt) s
+365 71 M
+(r\);) s
+365 63 M
+(   128        BinaryNode<ItemType>* myLeftGrandChildPtr = this->getLeftChildPtr\(myR) s
+365 55 M
+(ightChildPtr\);) s
+365 47 M
+(   129  ) s
+365 39 M
+(   130        // Special case - right child is successor) s
+365 31 M
+(   131        if \(myLeftGrandChildPtr == nullptr\) {) s
+365 23 M
+(   132           this->setItem\(nodePtr, this->getItem\(myRightChildPtr\) \);) s
+365 15 M
+(   133           this->setRightChildPtr\(nodePtr, removeNode\(myRightChildPtr\) \);) s
+365 7 M
+(   134           returnPtr = nodePtr;) s
+_R
+S
+%%Page: (15) 15
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 15 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (15) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(   135        }) s
+5 543 M
+(   136        else {) s
+5 535 M
+(   137           this->setItem\(nodePtr, findSuccessorValue\(this->getRightChildPtr\(n) s
+5 527 M
+(odePtr\)\) \);) s
+5 519 M
+(   138           returnPtr = nodePtr;) s
+5 511 M
+(   139        }) s
+5 503 M
+(   140      */) s
+5 495 M
+(   141    }) s
+5 487 M
+(   142  ) s
+5 479 M
+(   143    return returnPtr;) s
+5 471 M
+(   144  }) s
+5 463 M
+(   145  ) s
+5 455 M
+(   146  template <typename ItemType>) s
+5 447 M
+(   147  BinaryNode<ItemType>* BinarySearchTree<ItemType>::removeLeftmostNode\(Binary) s
+5 439 M
+(Node<ItemType>* nodePtr,) s
+5 431 M
+(   148                                                                       ItemTy) s
+5 423 M
+(pe& inorderSuccessor\) {) s
+5 415 M
+(   149  ) s
+5 407 M
+(   150    BinaryNode<ItemType>* returnPtr = nullptr;) s
+5 399 M
+(   151  ) s
+5 391 M
+(   152    if \(this->getLeftChildPtr\(nodePtr\) == nullptr\) {) s
+5 383 M
+(   153      inorderSuccessor = this->getItem\(nodePtr\);) s
+5 375 M
+(   154  ) s
+5 367 M
+(   155      returnPtr = removeNode\(nodePtr\);) s
+5 359 M
+(   156    }) s
+5 351 M
+(   157    else {) s
+5 343 M
+(   158      this->setLeftChildPtr\(nodePtr,) s
+5 335 M
+(   159                            removeLeftmostNode\(this->getLeftChildPtr\(nodePtr\)) s
+5 327 M
+(,) s
+5 319 M
+(   160                                               inorderSuccessor\) \);) s
+5 311 M
+(   161  ) s
+5 303 M
+(   162      returnPtr = nodePtr;) s
+5 295 M
+(   163    }) s
+5 287 M
+(   164  ) s
+5 279 M
+(   165    return returnPtr;) s
+5 271 M
+(   166  }) s
+5 263 M
+(   167  ) s
+5 255 M
+(   168  /*) s
+5 247 M
+(   169    template <typename ItemType>) s
+5 239 M
+(   170  ItemType BinarySearchTree<ItemType>::findSuccessorValue\(BinaryNode<ItemType) s
+5 231 M
+(>* subTreePtr\) {) s
+5 223 M
+(   171     BinaryNode<ItemType>* myLeftChildPtr = this->getLeftChildPtr\(subTreePtr\)) s
+5 215 M
+(;) s
+5 207 M
+(   172  ) s
+5 199 M
+(   173     ItemType returnItem;) s
+5 191 M
+(   174  ) s
+5 183 M
+(   175     if \(this->getLeftChildPtr\(myLeftChildPtr\) == nullptr\) {) s
+5 175 M
+(   176        returnItem = this->getItem\(myLeftChildPtr\);) s
+5 167 M
+(   177        this->setLeftChildPtr\(subTreePtr, removeNode\(myLeftChildPtr\) \);) s
+5 159 M
+(   178     }) s
+5 151 M
+(   179     else {) s
+5 143 M
+(   180        returnItem = findSuccessorValue\(this->getLeftChildPtr\(subTreePtr\) \);) s
+5 135 M
+(   181     }) s
+5 127 M
+(   182  ) s
+5 119 M
+(   183     return returnItem;) s
+5 111 M
+(   184  }) s
+5 103 M
+(   185  */) s
+5 95 M
+(   186  ) s
+5 87 M
+(   187  template <typename ItemType>) s
+5 79 M
+(   188  BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode\(BinaryNode<ItemT) s
+5 71 M
+(ype>* subTreePtr,) s
+5 63 M
+(   189                                                             const ItemType& ) s
+5 55 M
+(target\) const {) s
+5 47 M
+(   190  ) s
+5 39 M
+(   191    BinaryNode<ItemType>* returnPtr = nullptr;) s
+5 31 M
+(   192  ) s
+5 23 M
+(   193    if \(subTreePtr != nullptr\) {) s
+5 15 M
+(   194      if \(this->getItem\(subTreePtr\) == target\) {) s
+5 7 M
+(   195        returnPtr = subTreePtr;) s
+365 551 M
+(   196      }) s
+365 543 M
+(   197      else if \(this->getItem\(subTreePtr\) > target\) {) s
+365 535 M
+(   198        returnPtr = findNode\(this->getLeftChildPtr\(subTreePtr\), target\);) s
+365 527 M
+(   199      }) s
+365 519 M
+(   200      else {) s
+365 511 M
+(   201        returnPtr = findNode\(this->getRightChildPtr\(subTreePtr\), target\);) s
+365 503 M
+(   202      }) s
+365 495 M
+(   203    }) s
+365 487 M
+(   204  ) s
+365 479 M
+(   205    return returnPtr;) s
+365 471 M
+(   206  }) s
+365 463 M
+(   207  ) s
+365 455 M
+(   208  template <typename ItemType>) s
+365 447 M
+(   209  void BinarySearchTree<ItemType>::preorder\(void visit\(const ItemType&\),) s
+365 439 M
+(   210                                            const BinaryNode<ItemType>* const) s
+365 431 M
+( treePtr\) const {) s
+365 423 M
+(   211  ) s
+365 415 M
+(   212    if \(treePtr != nullptr\) {) s
+365 407 M
+(   213      visit\(this->getItem\(treePtr\) \);) s
+365 399 M
+(   214      preorder\(visit, this->getLeftChildPtr\(treePtr\) \);) s
+365 391 M
+(   215      preorder\(visit, this->getRightChildPtr\(treePtr\) \);) s
+365 383 M
+(   216    }) s
+365 375 M
+(   217  }) s
+365 367 M
+(   218  ) s
+365 359 M
+(   219  template <typename ItemType>) s
+365 351 M
+(   220  void BinarySearchTree<ItemType>::inorder\(void visit\(const ItemType&\),) s
+365 343 M
+(   221                                           const BinaryNode<ItemType>* const ) s
+365 335 M
+(treePtr\) const {) s
+365 327 M
+(   222  ) s
+365 319 M
+(   223    if \(treePtr != nullptr\) {) s
+365 311 M
+(   224      inorder\(visit, this->getLeftChildPtr\(treePtr\) \);) s
+365 303 M
+(   225      visit\(this->getItem\(treePtr\) \);) s
+365 295 M
+(   226      inorder\(visit, this->getRightChildPtr\(treePtr\) \);) s
+365 287 M
+(   227    }) s
+365 279 M
+(   228  }) s
+365 271 M
+(   229  ) s
+365 263 M
+(   230  template <typename ItemType>) s
+365 255 M
+(   231  void BinarySearchTree<ItemType>::postorder\(void visit\(const ItemType&\),) s
+365 247 M
+(   232                                             const BinaryNode<ItemType>* cons) s
+365 239 M
+(t treePtr\) const {) s
+365 231 M
+(   233  ) s
+365 223 M
+(   234    if \(treePtr != nullptr\) {) s
+365 215 M
+(   235      postorder\(visit, this->getLeftChildPtr\(treePtr\) \);) s
+365 207 M
+(   236      postorder\(visit, this->getRightChildPtr\(treePtr\) \);) s
+365 199 M
+(   237      visit\(this->getItem\(treePtr\) \);) s
+365 191 M
+(   238    }) s
+365 183 M
+(   239  }) s
+365 175 M
+(   240  ) s
+365 167 M
+(   241  //////////////////////////////////////////////////////////////) s
+365 159 M
+(   242  //      PUBLIC METHODS BEGIN HERE) s
+365 151 M
+(   243  //////////////////////////////////////////////////////////////) s
+365 143 M
+(   244  ) s
+365 135 M
+(   245  //////////////////////////////////////////////////////////////) s
+365 127 M
+(   246  //      Constructor and Destructor Section) s
+365 119 M
+(   247  //////////////////////////////////////////////////////////////) s
+365 111 M
+(   248  ) s
+365 103 M
+(   249  template <typename ItemType>) s
+365 95 M
+(   250  BinarySearchTree<ItemType>::BinarySearchTree\(\)) s
+365 87 M
+(   251    : BinaryNodeTree<ItemType>\(\) {) s
+365 79 M
+(   252  }) s
+365 71 M
+(   253  ) s
+365 63 M
+(   254  template <typename ItemType>) s
+365 55 M
+(   255  BinarySearchTree<ItemType>::BinarySearchTree\(const ItemType& rootItem\)) s
+365 47 M
+(   256    : BinaryNodeTree<ItemType>\(rootItem\) {) s
+365 39 M
+(   257  }) s
+365 31 M
+(   258  ) s
+365 23 M
+(   259  template <typename ItemType>) s
+365 15 M
+(   260  BinarySearchTree<ItemType>::BinarySearchTree\(const BinarySearchTree<ItemTyp) s
+365 7 M
+(e>& rhs\) {) s
+_R
+S
+%%Page: (16) 16
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 16 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (16) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(   261  ) s
+5 543 M
+(   262    try {) s
+5 535 M
+(   263      this->setRootPtr\(this->copyTree\(rhs.getRootPtr\(\)\) \);) s
+5 527 M
+(   264    }) s
+5 519 M
+(   265    catch \(const bad_alloc&\) {) s
+5 511 M
+(   266      clear\(\);) s
+5 503 M
+(   267      throw;) s
+5 495 M
+(   268    }) s
+5 487 M
+(   269  }) s
+5 479 M
+(   270  ) s
+5 471 M
+(   271  template <typename ItemType>) s
+5 463 M
+(   272  BinarySearchTree<ItemType>::~BinarySearchTree\(\) {) s
+5 455 M
+(   273  ) s
+5 447 M
+(   274    clear\(\);) s
+5 439 M
+(   275  }) s
+5 431 M
+(   276  ) s
+5 423 M
+(   277  //////////////////////////////////////////////////////////////) s
+5 415 M
+(   278  //      Public BinaryTreeInterface Methods Section) s
+5 407 M
+(   279  //////////////////////////////////////////////////////////////) s
+5 399 M
+(   280  ) s
+5 391 M
+(   281  template <typename ItemType>) s
+5 383 M
+(   282  bool BinarySearchTree<ItemType>::isEmpty\(\) const {) s
+5 375 M
+(   283  ) s
+5 367 M
+(   284    return BinaryNodeTree<ItemType>::isEmpty\(\);) s
+5 359 M
+(   285  }) s
+5 351 M
+(   286  ) s
+5 343 M
+(   287  template <typename ItemType>) s
+5 335 M
+(   288  int BinarySearchTree<ItemType>::getHeight\(\) const {) s
+5 327 M
+(   289  ) s
+5 319 M
+(   290    return this->getHeightHelper\(this->getRootPtr\(\) \);) s
+5 311 M
+(   291  }) s
+5 303 M
+(   292  ) s
+5 295 M
+(   293  template <typename ItemType>) s
+5 287 M
+(   294  int BinarySearchTree<ItemType>::getNumberOfNodes\(\) const {) s
+5 279 M
+(   295  ) s
+5 271 M
+(   296    return this->getNumberOfNodesHelper\(this->getRootPtr\(\) \);) s
+5 263 M
+(   297  }) s
+5 255 M
+(   298  ) s
+5 247 M
+(   299  template <typename ItemType>) s
+5 239 M
+(   300  void BinarySearchTree<ItemType>::clear\(\) {) s
+5 231 M
+(   301  ) s
+5 223 M
+(   302    this->destroyTree\(this->getRootPtr\(\) \);) s
+5 215 M
+(   303    this->setRootPtr\(nullptr\);) s
+5 207 M
+(   304  }) s
+5 199 M
+(   305  ) s
+5 191 M
+(   306  template <typename ItemType>) s
+5 183 M
+(   307  ItemType BinarySearchTree<ItemType>::getRootData\(\) const) s
+5 175 M
+(   308    throw\(PrecondViolatedExcep\) {) s
+5 167 M
+(   309  ) s
+5 159 M
+(   310    if \(isEmpty\(\) \) {) s
+5 151 M
+(   311      throw PrecondViolatedExcep\("getRootData\(\) called with empty tree."\);) s
+5 143 M
+(   312     }) s
+5 135 M
+(   313  ) s
+5 127 M
+(   314     return this->getItem\(this->getRootPtr\(\) \);) s
+5 119 M
+(   315  }) s
+5 111 M
+(   316  ) s
+5 103 M
+(   317  // Must override setRootData to disable its affect:) s
+5 95 M
+(   318  // IMPOSSIBLE - base version can still be called - this indicates) s
+5 87 M
+(   319  // that PUBLIC INHERITANCE SHOULD NOT BE USED.) s
+5 79 M
+(   320  ) s
+5 71 M
+(   321  // Must not implement in derived class - private inheritance makes it) s
+5 63 M
+(   322  // private here, so clients cannot destroy the ordering of the search) s
+5 55 M
+(   323  // tree.) s
+5 47 M
+(   324  ) s
+5 39 M
+(   325  // template <typename ItemType>) s
+5 31 M
+(   326  // void BinarySearchTree<ItemType>::setRootData\(const ItemType& newItem\) co) s
+5 23 M
+(nst) s
+5 15 M
+(   327  //    throw\(PrecondViolatedExcep\) {) s
+5 7 M
+(   328  ) s
+365 551 M
+(   329  //    throw PrecondViolatedExcep\("Cannot change root value in a BST!"\);) s
+365 543 M
+(   330  // }) s
+365 535 M
+(   331  ) s
+365 527 M
+(   332  template <typename ItemType>) s
+365 519 M
+(   333  bool BinarySearchTree<ItemType>::add\(const ItemType& newData\) {) s
+365 511 M
+(   334  ) s
+365 503 M
+(   335     bool canAdd = true;) s
+365 495 M
+(   336  ) s
+365 487 M
+(   337     try {) s
+365 479 M
+(   338        this->setRootPtr\(insertInorder\(this->getRootPtr\(\),) s
+365 471 M
+(   339                                       this->createNewNode\(newData\)\) \);) s
+365 463 M
+(   340     }) s
+365 455 M
+(   341     catch \(const bad_alloc&\) {) s
+365 447 M
+(   342        canAdd = false;) s
+365 439 M
+(   343     }) s
+365 431 M
+(   344  ) s
+365 423 M
+(   345     return canAdd;) s
+365 415 M
+(   346  }) s
+365 407 M
+(   347  ) s
+365 399 M
+(   348  template <typename ItemType>) s
+365 391 M
+(   349  bool BinarySearchTree<ItemType>::remove\(const ItemType& target\) {) s
+365 383 M
+(   350  ) s
+365 375 M
+(   351     bool isSuccessful = false;) s
+365 367 M
+(   352  ) s
+365 359 M
+(   353     this->setRootPtr\(removeValue\(this->getRootPtr\(\),) s
+365 351 M
+(   354                                  target,) s
+365 343 M
+(   355                                  isSuccessful\) \);) s
+365 335 M
+(   356  ) s
+365 327 M
+(   357     return isSuccessful;) s
+365 319 M
+(   358  }) s
+365 311 M
+(   359  ) s
+365 303 M
+(   360  template <typename ItemType>) s
+365 295 M
+(   361  ItemType BinarySearchTree<ItemType>::getEntry\(const ItemType& anEntry\) cons) s
+365 287 M
+(t) s
+365 279 M
+(   362     throw\(NotFoundException\) {) s
+365 271 M
+(   363  ) s
+365 263 M
+(   364     BinaryNode<ItemType>* nodeWithEntry = findNode\(this->getRootPtr\(\),) s
+365 255 M
+(   365                                                    anEntry\);) s
+365 247 M
+(   366  ) s
+365 239 M
+(   367     if \(nodeWithEntry == nullptr\) {) s
+365 231 M
+(   368        throw NotFoundException\("Entry not found in tree."\);) s
+365 223 M
+(   369     }) s
+365 215 M
+(   370     else {) s
+365 207 M
+(   371        return this->getItem\(nodeWithEntry\);) s
+365 199 M
+(   372     }) s
+365 191 M
+(   373  }) s
+365 183 M
+(   374  ) s
+365 175 M
+(   375  template <typename ItemType>) s
+365 167 M
+(   376  bool BinarySearchTree<ItemType>::contains\(const ItemType& anEntry\) const {) s
+365 159 M
+(   377  ) s
+365 151 M
+(   378     return findNode\(this->getRootPtr\(\), anEntry\);) s
+365 143 M
+(   379  }) s
+365 135 M
+(   380  ) s
+365 127 M
+(   381  //////////////////////////////////////////////////////////////) s
+365 119 M
+(   382  //      Public Traversals Section) s
+365 111 M
+(   383  //////////////////////////////////////////////////////////////) s
+365 103 M
+(   384  ) s
+365 95 M
+(   385  template <typename ItemType>) s
+365 87 M
+(   386  void BinarySearchTree<ItemType>::preorderTraverse\(void visit\(const ItemType) s
+365 79 M
+(&\) \) const {) s
+365 71 M
+(   387  ) s
+365 63 M
+(   388     this->preorder\(visit, this->getRootPtr\(\) \);) s
+365 55 M
+(   389  }) s
+365 47 M
+(   390  ) s
+365 39 M
+(   391  template <typename ItemType>) s
+365 31 M
+(   392  void BinarySearchTree<ItemType>::inorderTraverse\(void visit\(const ItemType&) s
+365 23 M
+(\) \) const {) s
+365 15 M
+(   393  ) s
+365 7 M
+(   394     this->inorder\(visit, this->getRootPtr\(\) \);) s
+_R
+S
+%%Page: (17) 17
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 17 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (17) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(   395  }) s
+5 543 M
+(   396  ) s
+5 535 M
+(   397  template <typename ItemType>) s
+5 527 M
+(   398  void BinarySearchTree<ItemType>::postorderTraverse\(void visit\(const ItemTyp) s
+5 519 M
+(e&\) \) const {) s
+5 511 M
+(   399  ) s
+5 503 M
+(   400     this->postorder\(visit, this->getRootPtr\(\) \);) s
+5 495 M
+(   401  }) s
+5 487 M
+(   402  ) s
+5 479 M
+(   403  //////////////////////////////////////////////////////////////) s
+5 471 M
+(   404  //      Overloaded Operator) s
+5 463 M
+(   405  //////////////////////////////////////////////////////////////) s
+5 455 M
+(   406  ) s
+5 447 M
+(   407  template <typename ItemType>) s
+5 439 M
+(   408  BinarySearchTree<ItemType>& BinarySearchTree<ItemType>:: operator=\(const Bi) s
+5 431 M
+(narySearchTree<ItemType>& rhs\) {) s
+5 423 M
+(   409  ) s
+5 415 M
+(   410     if \(!isEmpty\(\) \) {) s
+5 407 M
+(   411        clear\(\);) s
+5 399 M
+(   412     }) s
+5 391 M
+(   413  ) s
+5 383 M
+(   414     this->setRootPtr\(this->copyTree\(rhs.getRootPtr\(\)\) \);) s
+5 375 M
+(   415  ) s
+5 367 M
+(   416     return *this;) s
+5 359 M
+(   417  }) s
+5 351 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n NotFoundExcept) s
+5 343 M
+(ion.h) s
+5 335 M
+(     1  #ifndef _NOT_FOUND_EXCEP) s
+5 327 M
+(     2  #define _NOT_FOUND_EXCEP) s
+5 319 M
+(     3  ) s
+5 311 M
+(     4  #include <stdexcept>) s
+5 303 M
+(     5  #include <string>) s
+5 295 M
+(     6  ) s
+5 287 M
+(     7  using namespace std;) s
+5 279 M
+(     8  ) s
+5 271 M
+(     9  /** @class PrecondViolatedExcep PrecondViolatedExcep.h "PrecondViolatedExce) s
+5 263 M
+(p.h") s
+5 255 M
+(    10   *) s
+5 247 M
+(    11   *  Specification for an object thrown on violation of precondition. */) s
+5 239 M
+(    12  class NotFoundException : public logic_error {) s
+5 231 M
+(    13   public:) s
+5 223 M
+(    14  ) s
+5 215 M
+(    15    explicit NotFoundException\(const string& message = ""\);) s
+5 207 M
+(    16  ) s
+5 199 M
+(    17    virtual ~NotFoundException\(\) throw\(\);) s
+5 191 M
+(    18  };) s
+5 183 M
+(    19  ) s
+5 175 M
+(    20  #endif) s
+5 167 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n NotFoundExcept) s
+5 159 M
+(ion.h) s
+21.8 159 M
+(\\033[Kcpp) s
+5 151 M
+(     1  #include "NotFoundException.h") s
+5 143 M
+(     2  ) s
+5 135 M
+(     3  NotFoundException::NotFoundException\(const string& message\)) s
+5 127 M
+(     4    : logic_error\(message.c_str\(\) \) {) s
+5 119 M
+(     5  }) s
+5 111 M
+(     6  ) s
+5 103 M
+(     7  NotFoundException::~NotFoundException\(\)) s
+5 95 M
+(     8    throw\(\) {) s
+5 87 M
+(     9  }) s
+5 79 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n PrecondViolate) s
+5 71 M
+(dExcep.h) s
+5 63 M
+(     1  /** @file) s
+5 55 M
+(     2   *) s
+5 47 M
+(     3   *  @course CS1521) s
+5 39 M
+(     4   *  @section 1) s
+5 31 M
+(     5   *) s
+5 23 M
+(     6   *  Header file for an object thrown on violation of precondition.) s
+5 15 M
+(     7   *) s
+5 7 M
+(     8   *  Adapted from page 249 in Carrano 6e.) s
+365 551 M
+(     9   *) s
+365 543 M
+(    10   *  @author Frank M. Carrano) s
+365 535 M
+(    11   *  @author Timothy Henry) s
+365 527 M
+(    12   *  @author Steve Holtz) s
+365 519 M
+(    13   *) s
+365 511 M
+(    14   *  @date 2013 Nov 27) s
+365 503 M
+(    15   *) s
+365 495 M
+(    16   *  @version 6.0 */) s
+365 487 M
+(    17  ) s
+365 479 M
+(    18  #ifndef _PRECOND_VIOLATED_EXCEP) s
+365 471 M
+(    19  #define _PRECOND_VIOLATED_EXCEP) s
+365 463 M
+(    20  ) s
+365 455 M
+(    21  #include <stdexcept>) s
+365 447 M
+(    22  #include <string>) s
+365 439 M
+(    23  ) s
+365 431 M
+(    24  using namespace std;) s
+365 423 M
+(    25  ) s
+365 415 M
+(    26  /** @class PrecondViolatedExcep PrecondViolatedExcep.h "PrecondViolatedExce) s
+365 407 M
+(p.h") s
+365 399 M
+(    27   *) s
+365 391 M
+(    28   *  Specification for an object thrown on violation of precondition. */) s
+365 383 M
+(    29  class PrecondViolatedExcep : public logic_error {) s
+365 375 M
+(    30   public:) s
+365 367 M
+(    31  ) s
+365 359 M
+(    32    explicit PrecondViolatedExcep\(const string& message = ""\);) s
+365 351 M
+(    33  ) s
+365 343 M
+(    34    virtual ~PrecondViolatedExcep\(\) throw\(\);) s
+365 335 M
+(    35  };) s
+365 327 M
+(    36  ) s
+365 319 M
+(    37  #endif) s
+365 311 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n PrecondViolate) s
+365 303 M
+(dExcep.h) s
+394.4 303 M
+(\\033[Kcpp) s
+365 295 M
+(     1  /** @file) s
+365 287 M
+(     2   *) s
+365 279 M
+(     3   *  @course CS1521) s
+365 271 M
+(     4   *  @section 1) s
+365 263 M
+(     5   *) s
+365 255 M
+(     6   *  Implementation file for an object thrown on violation of) s
+365 247 M
+(     7   *  precondition.) s
+365 239 M
+(     8   *) s
+365 231 M
+(     9   *  Adapted from page 250 in Carrano 6e.) s
+365 223 M
+(    10   *) s
+365 215 M
+(    11   *  @author Frank M. Carrano) s
+365 207 M
+(    12   *  @author Timothy Henry) s
+365 199 M
+(    13   *  @author Steve Holtz) s
+365 191 M
+(    14   *) s
+365 183 M
+(    15   *  @date 2013 Nov 27) s
+365 175 M
+(    16   *) s
+365 167 M
+(    17   *  @version 6.0 */) s
+365 159 M
+(    18  ) s
+365 151 M
+(    19  #include "PrecondViolatedExcep.h") s
+365 143 M
+(    20  ) s
+365 135 M
+(    21  PrecondViolatedExcep::PrecondViolatedExcep\(const string& message\)) s
+365 127 M
+(    22    : logic_error\(message.c_str\(\) \) {) s
+365 119 M
+(    23  }) s
+365 111 M
+(    24  ) s
+365 103 M
+(    25  PrecondViolatedExcep::~PrecondViolatedExcep\(\)) s
+365 95 M
+(    26    throw\(\) {) s
+365 87 M
+(    27  }) s
+365 79 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% cat -n io) s
+659 79 M
+(\\033[Knformat) s
+365 71 M
+(ion.dat) s
+365 63 M
+(     1  Sophia 525-54-3452 Chinese 21) s
+365 55 M
+(     2  Emma 142-34-2344 Aryan 18) s
+365 47 M
+(     3  Ethan 124-35-3456 German 17) s
+365 39 M
+(     4  Zoe 987-65-4320 Japanese 32) s
+365 31 M
+(     5  Michael 987-65-4329 Korean 22) s
+365 23 M
+(     6  Ryan 456-36-1234 French 54) s
+365 15 M
+(     7  Sarah 105-67-1646 English 20) s
+365 7 M
+(     8  Addison 902-43-2315 Thai 19) s
+_R
+S
+%%Page: (18) 18
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 18 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (18) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(     9  Hannah 239-23-9812 English 18) s
+5 543 M
+(    10  Andrew 546-22-5686 Italian 18) s
+5 535 M
+(    11  William 123-64-7432 Irish 16) s
+5 527 M
+(    12  Natalie 724-38-1112 English 45) s
+5 519 M
+(    13  Owen 223-12-1213 Spanish 34) s
+5 511 M
+(    14  Lucas 723-66-6213 German 12) s
+5 503 M
+(    15  Hailey 232-14-6616 Indian 19\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/pr) s
+5 495 M
+(oject7\\033[0m% ,) s
+68 495 M
+(\\033[Kmake) s
+5 487 M
+(g++ -Wall -ansi -std=c++0x -c -o main.o main.cpp) s
+5 479 M
+(g++ -Wall -ansi -std=c++0x -c -o PrecondViolatedExcep.o PrecondViolatedExcep.cpp) s
+5 471 M
+(g++ -Wall -ansi -std=c++0x -c -o NotFoundException.o NotFoundException.cpp) s
+5 463 M
+(g++ -Wall -ansi -std=c++0x -o output main.o PrecondViolatedExcep.o NotFoundExceptio) s
+5 455 M
+(n.o) s
+5 447 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% ./output) s
+5 431 M
+(Welcome to the Two Layered Organization Program) s
+5 415 M
+(Please enter a filename: information.dat) s
+5 399 M
+(        Menu Options) s
+5 383 M
+(\(A\)dd an item.) s
+5 375 M
+(\(R\)emove an item.) s
+5 367 M
+(\(L\)ist all items.) s
+5 359 M
+(\(D\)isplay item information.) s
+5 351 M
+(\(Q\)uit) s
+5 335 M
+(Please enter a command: A) s
+5 327 M
+(Please enter the name of the person: NewPerson) s
+5 319 M
+(Please enter NewPerson's social-security number: 123-45-6789) s
+5 311 M
+(Please enter NewPerson's age: 23) s
+5 303 M
+(Please enter NewPerson's ethnic background: English) s
+5 295 M
+(NewPerson's information was successfully added!) s
+5 279 M
+(        Menu Options) s
+5 263 M
+(\(A\)dd an item.) s
+5 255 M
+(\(R\)emove an item.) s
+5 247 M
+(\(L\)ist all items.) s
+5 239 M
+(\(D\)isplay item information.) s
+5 231 M
+(\(Q\)uit) s
+5 215 M
+(Please enter a command: l) s
+5 207 M
+(Which search-key would you like to display from?) s
+5 191 M
+(\(N\)ames) s
+5 183 M
+(\(S\)ocial-Security Numbers) s
+5 167 M
+(Please enter a command: n) s
+5 151 M
+(Names List:) s
+5 135 M
+(Sophia) s
+5 127 M
+(Emma) s
+5 119 M
+(Addison) s
+5 111 M
+(Andrew) s
+5 103 M
+(Ethan) s
+5 95 M
+(Michael) s
+5 87 M
+(Hannah) s
+5 79 M
+(Hailey) s
+5 71 M
+(Lucas) s
+5 63 M
+(Ryan) s
+5 55 M
+(Natalie) s
+5 47 M
+(Owen) s
+5 39 M
+(NewPerson) s
+5 31 M
+(Sarah) s
+5 23 M
+(Zoe) s
+5 15 M
+(William) s
+365 551 M
+(        Menu Options) s
+365 535 M
+(\(A\)dd an item.) s
+365 527 M
+(\(R\)emove an item.) s
+365 519 M
+(\(L\)ist all items.) s
+365 511 M
+(\(D\)isplay item information.) s
+365 503 M
+(\(Q\)uit) s
+365 487 M
+(Please enter a command: L) s
+365 479 M
+(Which search-key would you like to display from?) s
+365 463 M
+(\(N\)ames) s
+365 455 M
+(\(S\)ocial-Security Numbers) s
+365 439 M
+(Please enter a command: S) s
+365 423 M
+(SSN List:) s
+365 407 M
+(525-54-3452) s
+365 399 M
+(142-34-2344) s
+365 391 M
+(124-35-3456) s
+365 383 M
+(105-67-1646) s
+365 375 M
+(123-64-7432) s
+365 367 M
+(123-45-6789) s
+365 359 M
+(456-36-1234) s
+365 351 M
+(239-23-9812) s
+365 343 M
+(223-12-1213) s
+365 335 M
+(232-14-6616) s
+365 327 M
+(987-65-4320) s
+365 319 M
+(902-43-2315) s
+365 311 M
+(546-22-5686) s
+365 303 M
+(724-38-1112) s
+365 295 M
+(723-66-6213) s
+365 287 M
+(987-65-4329) s
+365 271 M
+(        Menu Options) s
+365 255 M
+(\(A\)dd an item.) s
+365 247 M
+(\(R\)emove an item.) s
+365 239 M
+(\(L\)ist all items.) s
+365 231 M
+(\(D\)isplay item information.) s
+365 223 M
+(\(Q\)uit) s
+365 207 M
+(Please enter a command: d) s
+365 199 M
+(Which search-key would you like to display from?) s
+365 183 M
+(\(N\)ames) s
+365 175 M
+(\(S\)ocial-Security Numbers) s
+365 159 M
+(Please enter a command: n) s
+365 143 M
+(Names List:) s
+365 127 M
+(Sophia) s
+365 119 M
+(Emma) s
+365 111 M
+(Addison) s
+365 103 M
+(Andrew) s
+365 95 M
+(Ethan) s
+365 87 M
+(Michael) s
+365 79 M
+(Hannah) s
+365 71 M
+(Hailey) s
+365 63 M
+(Lucas) s
+365 55 M
+(Ryan) s
+365 47 M
+(Natalie) s
+365 39 M
+(Owen) s
+365 31 M
+(NewPerson) s
+365 23 M
+(Sarah) s
+365 15 M
+(Zoe) s
+365 7 M
+(William) s
+_R
+S
+%%Page: (19) 19
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 19 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (19) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 543 M
+(Please enter the name you would like to display:) s
+5 535 M
+(Emma) s
+5 519 M
+(Name: Emma) s
+5 511 M
+(SSN: 142-34-2344) s
+5 503 M
+(Age: 18) s
+5 495 M
+(Ethnicity: Aryan) s
+5 479 M
+(        Menu Options) s
+5 463 M
+(\(A\)dd an item.) s
+5 455 M
+(\(R\)emove an item.) s
+5 447 M
+(\(L\)ist all items.) s
+5 439 M
+(\(D\)isplay item information.) s
+5 431 M
+(\(Q\)uit) s
+5 415 M
+(Please enter a command: d) s
+5 407 M
+(Which search-key would you like to display from?) s
+5 391 M
+(\(N\)ames) s
+5 383 M
+(\(S\)ocial-Security Numbers) s
+5 367 M
+(Please enter a command: s) s
+5 351 M
+(SSN List:) s
+5 335 M
+(525-54-3452) s
+5 327 M
+(142-34-2344) s
+5 319 M
+(124-35-3456) s
+5 311 M
+(105-67-1646) s
+5 303 M
+(123-64-7432) s
+5 295 M
+(123-45-6789) s
+5 287 M
+(456-36-1234) s
+5 279 M
+(239-23-9812) s
+5 271 M
+(223-12-1213) s
+5 263 M
+(232-14-6616) s
+5 255 M
+(987-65-4320) s
+5 247 M
+(902-43-2315) s
+5 239 M
+(546-22-5686) s
+5 231 M
+(724-38-1112) s
+5 223 M
+(723-66-6213) s
+5 215 M
+(987-65-4329) s
+5 199 M
+(Please enter the SSN you would like to display:) s
+5 191 M
+(123-45-6789) s
+5 175 M
+(Name: NewPerson) s
+5 167 M
+(SSN: 123-45-6789) s
+5 159 M
+(Age: 23) s
+5 151 M
+(Ethnicity: English) s
+5 135 M
+(        Menu Options) s
+5 119 M
+(\(A\)dd an item.) s
+5 111 M
+(\(R\)emove an item.) s
+5 103 M
+(\(L\)ist all items.) s
+5 95 M
+(\(D\)isplay item information.) s
+5 87 M
+(\(Q\)uit) s
+5 71 M
+(Please enter a command: R) s
+5 63 M
+(Which search-key would you like to remove from?) s
+5 47 M
+(\(N\)ames) s
+5 39 M
+(\(S\)ocial-Security Numbers) s
+5 23 M
+(Please enter a command: N) s
+5 7 M
+(Names List:) s
+365 543 M
+(Sophia) s
+365 535 M
+(Emma) s
+365 527 M
+(Addison) s
+365 519 M
+(Andrew) s
+365 511 M
+(Ethan) s
+365 503 M
+(Michael) s
+365 495 M
+(Hannah) s
+365 487 M
+(Hailey) s
+365 479 M
+(Lucas) s
+365 471 M
+(Ryan) s
+365 463 M
+(Natalie) s
+365 455 M
+(Owen) s
+365 447 M
+(NewPerson) s
+365 439 M
+(Sarah) s
+365 431 M
+(Zoe) s
+365 423 M
+(William) s
+365 407 M
+(Please enter the name you would like to remove:) s
+365 399 M
+(Owen) s
+365 391 M
+(Owen and its corresponding information has been successfully removed!) s
+365 375 M
+(        Menu Options) s
+365 359 M
+(\(A\)dd an item.) s
+365 351 M
+(\(R\)emove an item.) s
+365 343 M
+(\(L\)ist all items.) s
+365 335 M
+(\(D\)isplay item information.) s
+365 327 M
+(\(Q\)uit) s
+365 311 M
+(Please enter a command: e) s
+465.8 311 M
+( ) s
+465.8 311 M
+(r) s
+365 303 M
+(Which search-key would you like to remove from?) s
+365 287 M
+(\(N\)ames) s
+365 279 M
+(\(S\)ocial-Security Numbers) s
+365 263 M
+(Please enter a command: s) s
+365 247 M
+(SSN List:) s
+365 231 M
+(525-54-3452) s
+365 223 M
+(142-34-2344) s
+365 215 M
+(124-35-3456) s
+365 207 M
+(105-67-1646) s
+365 199 M
+(123-64-7432) s
+365 191 M
+(123-45-6789) s
+365 183 M
+(456-36-1234) s
+365 175 M
+(239-23-9812) s
+365 167 M
+(232-14-6616) s
+365 159 M
+(987-65-4320) s
+365 151 M
+(902-43-2315) s
+365 143 M
+(546-22-5686) s
+365 135 M
+(724-38-1112) s
+365 127 M
+(723-66-6213) s
+365 119 M
+(987-65-4329) s
+365 103 M
+(Please enter the SSN you would like to remove:) s
+365 95 M
+(123-45-6789) s
+365 87 M
+(The information corresponding with 123-45-6789 has been successfully removed!) s
+365 71 M
+(        Menu Options) s
+365 55 M
+(\(A\)dd an item.) s
+365 47 M
+(\(R\)emove an item.) s
+365 39 M
+(\(L\)ist all items.) s
+365 31 M
+(\(D\)isplay item information.) s
+365 23 M
+(\(Q\)uit) s
+365 7 M
+(Please enter a command: l) s
+_R
+S
+%%Page: (20) 20
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 20 def
+/fname (typescript) def
+/fdir (.) def
+/ftail (typescript) def
+% User defined strings:
+/fmodstr (Mon May 05 16:09:45 2014) def
+/pagenumstr (20) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(Which search-key would you like to display from?) s
+5 535 M
+(\(N\)ames) s
+5 527 M
+(\(S\)ocial-Security Numbers) s
+5 511 M
+(Please enter a command: n) s
+5 495 M
+(Names List:) s
+5 479 M
+(Sophia) s
+5 471 M
+(Emma) s
+5 463 M
+(Addison) s
+5 455 M
+(Andrew) s
+5 447 M
+(Ethan) s
+5 439 M
+(Michael) s
+5 431 M
+(Hannah) s
+5 423 M
+(Hailey) s
+5 415 M
+(Lucas) s
+5 407 M
+(Ryan) s
+5 399 M
+(Natalie) s
+5 391 M
+(Sarah) s
+5 383 M
+(Zoe) s
+5 375 M
+(William) s
+5 359 M
+(        Menu Options) s
+5 343 M
+(\(A\)dd an item.) s
+5 335 M
+(\(R\)emove an item.) s
+5 327 M
+(\(L\)ist all items.) s
+5 319 M
+(\(D\)isplay item information.) s
+5 311 M
+(\(Q\)uit) s
+5 295 M
+(Please enter a command: Q) s
+5 279 M
+(Thank you and have a nice day!) s
+5 263 M
+(\\033[4mukko\\033[24m:\\033[1m~/cs1521/projects/project7\\033[0m% ^D) s
+269.6 263 M
+() s
+265.4 263 M
+(exit) s
+5 247 M
+(Script done on Mon 05 May 2014 04:19:31 PM CDT) s
+_R
+S
+%%Trailer
+false page_prefeed
+%%Pages: 20
+%%DocumentNeededResources: font Courier-Bold Courier 
+%%EOF

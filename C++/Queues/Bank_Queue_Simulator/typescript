@@ -1,0 +1,1854 @@
+Script started on Mon 07 Apr 2014 02:29:21 PM CDT
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% pwd
+/home/csugrads/cough058/cs1521/projects/project5/part1
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ls -l
+total 140
+-rw-r--r-- 1 cough058 cough058  464 Apr  4 22:56 #EventBuilder.cpp#
+-rw-r--r-- 1 cough058 cough058 1196 Apr  7 13:09 EventBuilder.cpp
+-rw-r--r-- 1 cough058 cough058 1290 Apr  4 18:47 EventBuilder.h
+-rw-r--r-- 1 cough058 cough058  454 Apr  4 17:43 Event.cpp
+-rw-r--r-- 1 cough058 cough058  894 Apr  4 17:41 Event.h
+-rw-r--r-- 1 cough058 cough058   86 Apr  1 18:36 EventType.h
+-rw-r--r-- 1 cough058 cough058   16 Dec 28 13:11 input0.dat
+-rw-r--r-- 1 cough058 cough058    0 Dec 28 13:11 input1.dat
+-rw-r--r-- 1 cough058 cough058   17 Dec 28 13:11 input2.dat
+-rw-r--r-- 1 cough058 cough058   23 Dec 28 13:11 input3.dat
+-rw-r--r-- 1 cough058 cough058   47 Dec 28 13:11 input4.dat
+-rw-r--r-- 1 cough058 cough058  865 Dec 28 13:11 input5.dat
+-rw-r--r-- 1 cough058 cough058 1754 Dec 28 13:11 input6.dat
+-rw-r--r-- 1 cough058 cough058 2950 Dec 28 13:11 input7.dat
+-rw-r--r-- 1 cough058 cough058 2618 Apr  1 17:45 LinkedQueue.cpp
+-rw-r--r-- 1 cough058 cough058 1006 Apr  1 17:52 LinkedQueue.h
+-rw-r--r-- 1 cough058 cough058 5189 Apr  5 21:18 LinkedSortedList.cpp
+-rw-r--r-- 1 cough058 cough058 2105 Apr  1 17:23 LinkedSortedList.h
+-rw-r--r-- 1 cough058 cough058 2112 Apr  1 18:51 Makefile
+-rw-r--r-- 1 cough058 cough058 1086 Apr  1 17:27 Node.cpp
+-rw-r--r-- 1 cough058 cough058  725 Apr  1 17:26 Node.h
+-rw-r--r-- 1 cough058 cough058  504 Apr  1 17:25 PrecondViolatedExcep.cpp
+-rw-r--r-- 1 cough058 cough058  750 Apr  1 17:24 PrecondViolatedExcep.h
+-rw-r--r-- 1 cough058 cough058 1245 Apr  1 17:21 PriorityQueue.cpp
+-rw-r--r-- 1 cough058 cough058 1054 Apr  1 17:21 PriorityQueue.h
+-rw-r--r-- 1 cough058 cough058 1821 Apr  1 17:22 PriorityQueueInterface.h
+-rw-r--r-- 1 cough058 cough058  167 Apr  4 22:43 project5.cpp
+-rw-r--r-- 1 cough058 cough058 1612 Apr  1 17:46 QueueInterface.h
+-rw-r--r-- 1 cough058 cough058 2232 Apr  6 16:30 Simulation.cpp
+-rw-r--r-- 1 cough058 cough058  538 Apr  5 22:33 Simulation.h
+-rw-r--r-- 1 cough058 cough058 3513 Apr  1 17:26 SortedListInterface.h
+-rw-r--r-- 1 cough058 cough058 1711 Apr  5 00:49 Statistics.cpp
+-rw-r--r-- 1 cough058 cough058  895 Apr  7 14:20 Statistics.h
+-rw-r--r-- 1 cough058 cough058   55 Apr  6 16:57 #Time.h#
+-rw-r--r-- 1 cough058 cough058   56 Apr  1 18:35 Time.h
+-rw------- 1 cough058 cough058    0 Apr  7 14:20 typescript
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n Makefile
+     1	# Define the C++ compiler to use.
+     2	CXX = g++
+     3	
+     4	# Define the flags we want to send to the compiler when we compile.
+     5	CPPFLAGS = -Wall -ansi -std=c++0x
+     6	
+     7	# Define any directories we want to add to the default locations
+     8	# searched for standard libraries of object code.
+     9	INCLUDES =
+    10	
+    11	# Define any additional libraries that our code requires.
+    12	LIBS =
+    13	
+    14	# Define any flags required by those libraries.
+    15	LFLAGS =
+    16	
+    17	# Define the name of the executable that we are creating here.
+    18	TARGET = project5
+    19	
+    20	# Define a list of source files used to make the TARGET executable.
+    21	SRCS = $(TARGET).cpp EventBuilder.cpp PrecondViolatedExcep.cpp \
+    22	 Simulation.cpp Statistics.cpp Event.cpp
+    23	
+    24	# Define the names of the intermediate object files that will be
+    25	# created in the compilation of the TARGET executable.
+    26	OBJS = $(SRCS:.cpp=.o)
+    27	
+    28	# Define phony targets in this Makefile - that is, targets that do not
+    29	# lead to an executable product.
+    30	#
+    31	# The command:
+    32	# % make clean
+    33	#
+    34	# will remove intermediate object files and the TARGET executable from
+    35	# the system, allowing the system to be rebuilt from scratch.
+    36	#
+    37	# The command:
+    38	# % make
+    39	#
+    40	# will (re)build TARGET.
+    41	
+    42	# The (first and thus) default target in this Makefile.  A target has
+    43	# the form:
+    44	#
+    45	# target : dependency1 dependency2 ...
+    46	# <tab> command
+    47	# <tab> optionalCommand
+    48	# ...
+    49	# In this case, the command simply echos to the screen.
+    50	
+    51	all: $(TARGET)
+    52		@echo All done compiling $(TARGET)
+    53	
+    54	# A target defining how to build the TARGET executable.  The TARGET
+    55	# is dependent on the object files.  The command builds the excutable
+    56	# TARGET.
+    57	
+    58	$(TARGET): $(OBJS)
+    59		$(CXX) $(CPPFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LFLAGS) $(LIBS)
+    60	
+    61	# A target defining how to build an object file (.o) from a source
+    62	# file (.cpp).  The $@ in the command represents the object file to
+    63	# the left of the ':'.  The $< in the command represents the source
+    64	# file to the right of the ':'.
+    65	
+    66	%.o: %.cpp
+    67		$(CXX) $(CPPFLAGS) -c -o $@ $<
+    68	
+    69	# The clean phony target.
+    70	
+    71	.PHONY: clean
+    72	
+    73	clean:
+    74		-$(RM) $(TARGET) *.exe *.o *~ *.bak core *.stackdump *.dep
+    75		chmod 644 *
+    76	
+    77	%.dep: %.cpp
+    78		$(CXX) -MM $(CPPFLAGS) $< -MF $@
+    79	
+    80	-include $(OBJS:.o=.dep)
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n Time[K[K[K[K"Time.h"
+     1	#ifndef _TIME
+     2	#define _TIME
+     3	
+     4	
+     5	typedef int Time;
+     6	
+     7	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Time.h".h"[K"[K"[K"[K"[K"[KE"v"e"n"t"T"y"p"e"."h"
+     1	#ifndef _EVENT_TYPE
+     2	#define _EVENT_TYPE
+     3	
+     4	
+     5	enum EventType {ARRIVAL, DEPARTURE};
+     6	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "EventType.h""[K"[K"[K"[K"[K"[KB"u"i"l"d"e"r"."h"
+     1	#ifndef _EVENT_BUILDER
+     2	#define _EVENT_BUILDER
+     3	
+     4	#include <fstream>
+     5	#include <iostream>
+     6	
+     7	using namespace std;
+     8	
+     9	#include "Event.h"
+    10	
+    11	class EventBuilder {
+    12	public:
+    13	
+    14	   /** Three things must happen to create an EventBuilder:
+    15	    *  1) Prompt the user for the name of an input file
+    16	    *  2) Attempt to open this file on the 'inputFile' data member
+    17	    *  3) If the file doesn't open, repeat steps 1 and 2 */
+    18	   EventBuilder();
+    19	
+    20	   /** Create and return an event with members:
+    21	    *  type == ARRIVAL
+    22	    *  number == 'number'
+    23	    *  time == time read from 'inputFile'
+    24	    *  length == transaction length read from 'inputFile'
+    25	    *
+    26	    *  If 'inputFile' has been completely read, then set the return
+    27	    *  event.number field to zero (as no event will be numbered zero).
+    28	    *  This can then be used to tell when the external file is either
+    29	    *  empty or EOF has been reached. */
+    30	   Event createArrivalEvent(const int number);
+    31	
+    32	   /** Create and return an event with members:
+    33	    *  type == DEPATURE
+    34	    *  number == 'number'
+    35	    *  time == 'currentEventTime' + 'transactionLength' */
+    36	   Event createDepartureEvent(const Time& currentEventTime,
+    37	                              const Time& transactionLength,
+    38	                              const int number);
+    39	private:
+    40	
+    41	   ifstream inFile;
+    42	};
+    43	
+    44	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "EventBuilder.h""[Kc"p"p"
+     1	#include "EventBuilder.h"
+     2	
+     3	EventBuilder::EventBuilder() {
+     4	  string filename;
+     5	  cout << "Enter a filename: ";
+     6	  cin >> filename;
+     7	
+     8	  inFile.open(filename.c_str() );
+     9	
+    10	  while (!inFile) {
+    11	    cerr << "File "
+    12		 << filename
+    13		 << " failed to open for input."
+    14		 << endl;
+    15	    cout << "Enter a filename: ";
+    16	    cin >> filename;
+    17	    inFile.open(filename.c_str() );
+    18	  }
+    19	}
+    20	
+    21	Event EventBuilder::createArrivalEvent(const int number) {
+    22	  //number is the customer number, should start at 1.
+    23	  Event event; 
+    24	  int arrTime, durTime;
+    25	  event.setType(ARRIVAL);
+    26	
+    27	  if( inFile >> arrTime >> durTime ) { 
+    28	   event.setDuration(durTime);
+    29	   event.setNumber(number);
+    30	   event.setTime(arrTime);
+    31	
+    32	  }
+    33	   else event.setNumber(0);
+    34	  //in the Simulation class, you should test the event.number field for zero.
+    35	
+    36	  return event;
+    37	}
+    38	
+    39	Event EventBuilder::createDepartureEvent(const Time& currentEventTime, 
+    40	                                         const Time& transactionLength, 
+    41	                                         const int number) {
+    42	  Event departureEvent;
+    43	 
+    44	  departureEvent.setType(DEPARTURE);
+    45	  departureEvent.setTime(currentEventTime + transactionLength);
+    46	  departureEvent.setNumber(number);
+    47	
+    48	  return departureEvent;
+    49	} 
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "EventBuilder.cpp"p"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Kt"."h"
+     1	#ifndef _EVENT
+     2	#define _EVENT
+     3	
+     4	#include "Time.h"
+     5	#include "EventType.h"
+     6	
+     7	using namespace std;
+     8	
+     9	class Event {
+    10	 private:
+    11	  EventType type;
+    12	  Time time;
+    13	  Time length;
+    14	  int number;
+    15	 
+    16	 public:
+    17	  Event();
+    18	  EventType getType() const;
+    19	
+    20	  int getNumber() const;
+    21	  Time getTime() const;
+    22	  Time getDuration() const;
+    23	
+    24	  void setType(EventType ty);
+    25	  void setNumber(int num);
+    26	  void setTime(Time tim);
+    27	  void setDuration(Time dur);
+    28	
+    29	  bool operator<(const Event& rhs) const {
+    30	    return time < rhs.time;
+    31	  }
+    32	
+    33	 bool operator>(const Event& rhs) const {
+    34	    return time > rhs.time;
+    35	  }
+    36	
+    37	 bool operator<=(const Event& rhs) const {
+    38	    return time <= rhs.time;
+    39	  }
+    40	
+    41	 bool operator>=(const Event& rhs) const {
+    42	    return time >= rhs.time;
+    43	  }
+    44	
+    45	 bool operator==(const Event& rhs) const {
+    46	    return time == rhs.time;
+    47	  }
+    48	
+    49	 bool operator!=(const Event& rhs) const {
+    50	    return time != rhs.time;
+    51	  }
+    52	 
+    53	};
+    54	
+    55	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Event.h""[Kc"p"p"
+     1	#include "Event.h"
+     2	
+     3	Event::Event() {
+     4	}
+     5	
+     6	Time Event::getTime() const {
+     7	  return time;
+     8	}
+     9	
+    10	EventType Event::getType() const {
+    11	  return type;
+    12	}
+    13	
+    14	int Event::getNumber() const {
+    15	  return number;
+    16	}
+    17	
+    18	Time Event::getDuration() const {
+    19	  return length;
+    20	}
+    21	
+    22	void Event::setType(EventType ty) {
+    23	  type = ty;
+    24	}
+    25	
+    26	void Event::setNumber(int num) {
+    27	  number = num;
+    28	}
+    29	
+    30	void Event::setDuration(Time dur) {
+    31	  length = dur;
+    32	}
+    33	
+    34	void Event::setTime(Time tim) {
+    35	  time = tim;
+    36	}
+    37	
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Event.cpp""[K"[K"[K"[K"[K"[K"[K"[K"[KS"i"m"u"l"a"t"i"o"n"."h"
+     1	#ifndef SIMULATION_H
+     2	#define SIMULATION_H 1
+     3	
+     4	#include "Event.h"
+     5	#include "EventBuilder.h"
+     6	#include "LinkedQueue.h"
+     7	#include "PriorityQueue.h"
+     8	#include "Statistics.h"
+     9	#include <iostream>
+    10	
+    11	using namespace std;
+    12	
+    13	class Simulation {
+    14	private:
+    15	   void processArrival();
+    16	   void processDeparture();
+    17	
+    18	   Event currentEvent;
+    19	   EventBuilder eventBuilder;
+    20	   LinkedQueue<Event> line;
+    21	   PriorityQueue<Event> events;
+    22	   Statistics stats;
+    23	   // LinkedSortedList<Event> events;
+    24	public:
+    25	   Simulation();
+    26	   ~Simulation();
+    27	   void simulate();
+    28	};
+    29	
+    30	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Simulation.h""[Kc"p"p"
+     1	#include "Simulation.h"
+     2	
+     3	Simulation::Simulation(){
+     4	}
+     5	
+     6	Simulation::~Simulation() {
+     7	}
+     8	
+     9	void Simulation::simulate() {
+    10	 cout << "\nSimulation of 1 Queue Begins\n";
+    11	  
+    12	 events.add(eventBuilder.createArrivalEvent(1)); // Create an initial arrival event, 
+    13	                                                 // put that event into the event list
+    14	
+    15	 while (!events.isEmpty()) {
+    16	   currentEvent = events.peek(); //  Retrieve the next event from the event list
+    17	       
+    18	   if (currentEvent.getType() == ARRIVAL) {
+    19	     if (currentEvent.getNumber() == 0)
+    20	       break;
+    21	      else  
+    22	        processArrival();
+    23		 }
+    24	    else {
+    25	       processDeparture();
+    26		 }
+    27	   stats.addEvent(currentEvent); // Add the event to the statistics object
+    28	     }
+    29	 stats.reportStats(); //  Generate a statistics report 
+    30	}
+    31	
+    32	void Simulation::processArrival() {
+    33	  bool lineIsEmpty = line.isEmpty(); 
+    34	  line.enqueue(currentEvent); //Put currentEvent at the end of the queue
+    35	  events.remove(); //Delete currentEvent from event list
+    36	 
+    37	     if (lineIsEmpty) {
+    38	       events.add(eventBuilder.createDepartureEvent(currentEvent.getTime(), 
+    39	                                                    currentEvent.getDuration(), 
+    40	                                                    currentEvent.getNumber() )); 
+    41	       // Insert into event list a departure event corresponding
+    42	       // to current event (customer) with currTime = currTime + transLength
+    43	     }
+    44	     Event newEvent = eventBuilder.createArrivalEvent(currentEvent.getNumber() + 1); // Create a new arrival event newEvent
+    45					 
+    46	  if (newEvent.getNumber() != 0) {
+    47	      events.add(newEvent);
+    48		}  
+    49	}
+    50	
+    51	void Simulation::processDeparture() {
+    52	  line.dequeue();// Remove the event from front of queue. Customer leaves bank
+    53	  events.remove(); // Delete currentEvent from event list
+    54	
+    55	 
+    56	
+    57	    if (!line.isEmpty() ) {
+    58	     Event newEvent = line.peekFront();
+    59	     events.add(eventBuilder.createDepartureEvent(currentEvent.getTime(), 
+    60	                                                  newEvent.getDuration(),
+    61	                                                  newEvent.getNumber() ));
+    62	     // Insert into event list a departure event
+    63	     //	corresponding to event (customer) at front of queue
+    64	     // with currTime = currTime + transLength
+    65		}
+    66	
+    67	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Simulation.cpp""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Ko"r"t"e"d"L"i"n"k"e"d"L"i"s"t"."h"
+cat: SortedLinkedList.h: No such file or directory
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "SortedLinkedList.h".h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[K.h"[KL.h"i.h"n.h"k.h"e.h"d.h"S.h"o.h"r.h"t.h"e.h"d.h"L.h"i.h"s.h"t.h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a pointer-based implementation of the ADT sorted
+     7	 *  list.
+     8	 *
+     9	 *  Adapted from page 353-4 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Jan 19
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#ifndef _LINKED_SORTED_LIST
+    20	#define _LINKED_SORTED_LIST
+    21	
+    22	#include "SortedListInterface.h"
+    23	#include "Node.h"
+    24	#include "PrecondViolatedExcep.h"
+    25	
+    26	/** @class LinkedSortedList LinkedSortedList.h "LinkedSortedList.h"
+    27	 *
+    28	 *  Specification of a pointer-based ADT sorted list. */
+    29	template <typename ItemType>
+    30	class LinkedSortedList : public SortedListInterface<ItemType> {
+    31	 private:
+    32	  Node<ItemType>* headPtr;
+    33	
+    34	  int itemCount;
+    35	
+    36	  /** Locates the node that is before the node that does or should
+    37	   *  contain the given entry.
+    38	   *
+    39	   * @pre None.
+    40	   *
+    41	   * @post None.
+    42	   *
+    43	   * @param anEntry The entry to find.
+    44	   *
+    45	   * @return Either a pointer to the node before the node that
+    46	   *         contains or should contain the given entry, or nullptr
+    47	   *         if no prior node exists. */
+    48	  Node<ItemType>* getNodeBefore(const ItemType& anEntry) const;
+    49	
+    50	  Node<ItemType>* getNodeAt(const int position) const;
+    51	
+    52	  /** Copy the chain of nodes pointed to by origChainPtr.
+    53	   *
+    54	   * @pre None.
+    55	   *
+    56	   * @post None.
+    57	   *
+    58	   * @para origChainPtr A pointer to the chain of nodes to copy.
+    59	   *
+    60	   * @return A pointer to a copy of the nodes pointed to by
+    61	   *         origChainPtr. */
+    62	  Node<ItemType>* copyChain(const Node<ItemType>* origChainPtr);
+    63	
+    64	 public:
+    65	  LinkedSortedList();
+    66	
+    67	  LinkedSortedList(const LinkedSortedList<ItemType>& aList);
+    68	
+    69	  virtual ~LinkedSortedList();
+    70	
+    71	  virtual bool isEmpty() const;
+    72	
+    73	  virtual int getLength() const;
+    74	
+    75	  virtual bool insertSorted(const ItemType& newEntry);
+    76	
+    77	  virtual bool removeSorted(const ItemType& anEntry);
+    78	
+    79	  virtual bool remove(const int position);
+    80	
+    81	  virtual void clear();
+    82	
+    83	  virtual ItemType getEntry(const int position) const
+    84	    throw(PrecondViolatedExcep);
+    85	
+    86	  virtual int getPosition(const ItemType& newEntry) const;
+    87	};
+    88	
+    89	#include "LinkedSortedList.cpp"
+    90	
+    91	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "LinkedSortedList.h""[Kc"p"p"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a pointer-based implementation of the ADT
+     7	 *  sorted list.
+     8	 *
+     9	 *  Adapted from page 354-6 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Jan 19
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#include <string>
+    20	#include <new>
+    21	
+    22	using namespace std;
+    23	
+    24	#include <cassert>
+    25	
+    26	template <typename ItemType>
+    27	LinkedSortedList<ItemType>::LinkedSortedList()
+    28	  : headPtr(nullptr),
+    29	    itemCount(0) {
+    30	}
+    31	
+    32	template <typename ItemType>
+    33	LinkedSortedList<ItemType>::LinkedSortedList(const LinkedSortedList<ItemType>& aList) {
+    34	
+    35	  try {
+    36	    headPtr = copyChain(aList.headPtr);
+    37	  }
+    38	  catch (const bad_alloc&) {
+    39	    clear();
+    40	    throw;
+    41	  }
+    42	}
+    43	
+    44	template <typename ItemType>
+    45	Node<ItemType>* LinkedSortedList<ItemType>::copyChain(const Node<ItemType>* origChainPtr) {
+    46	
+    47	  Node<ItemType>* copiedChainPtr = nullptr;
+    48	
+    49	  if (origChainPtr == nullptr) {
+    50	    itemCount = 0;
+    51	  }
+    52	  else {
+    53	    copiedChainPtr = new Node<ItemType>(origChainPtr->getItem() );
+    54	
+    55	    copiedChainPtr->setNext(copyChain(origChainPtr->getNext()) );
+    56	
+    57	    ++itemCount;
+    58	  }
+    59	
+    60	  return copiedChainPtr;
+    61	}
+    62	
+    63	template <typename ItemType>
+    64	LinkedSortedList<ItemType>::~LinkedSortedList() {
+    65	
+    66	  clear();
+    67	}
+    68	
+    69	template <typename ItemType>
+    70	bool LinkedSortedList<ItemType>::isEmpty() const {
+    71	
+    72	  return itemCount == 0;
+    73	}
+    74	
+    75	template <typename ItemType>
+    76	int LinkedSortedList<ItemType>::getLength() const {
+    77	
+    78	  return itemCount;
+    79	}
+    80	
+    81	template <typename ItemType>
+    82	bool LinkedSortedList<ItemType>::insertSorted(const ItemType& newEntry) {
+    83	
+    84	  bool canInsert = true;
+    85	
+    86	  try {
+    87	    Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+    88	    Node<ItemType>* prevPtr = getNodeBefore(newEntry);
+    89	
+    90	    if (isEmpty() || prevPtr == nullptr) {
+    91	      newNodePtr->setNext(headPtr);
+    92	      headPtr = newNodePtr;
+    93	    }
+    94	    else {
+    95	      Node<ItemType>* aftPtr = prevPtr->getNext();
+    96	      newNodePtr->setNext(aftPtr);
+    97	      prevPtr->setNext(newNodePtr);
+    98	    }
+    99	
+   100	    ++itemCount;
+   101	  }
+   102	  catch (const bad_alloc&) {
+   103	    canInsert = false;
+   104	  }
+   105	
+   106	  return canInsert;
+   107	}
+   108	
+   109	template <typename ItemType>
+   110	Node<ItemType>* LinkedSortedList<ItemType>::getNodeBefore(const ItemType& anEntry) const {
+   111	
+   112	  Node<ItemType>* curPtr = headPtr;
+   113	  Node<ItemType>* prevPtr = nullptr;
+   114	
+   115	  while (curPtr != nullptr && anEntry < curPtr->getItem() ) { // made change here originally was >
+   116	    prevPtr = curPtr;
+   117	    curPtr = curPtr->getNext();
+   118	  }
+   119	
+   120	  return prevPtr;
+   121	}
+   122	
+   123	template <typename ItemType>
+   124	bool LinkedSortedList<ItemType>::removeSorted(const ItemType& anEntry) {
+   125	
+   126	  bool ableToRemove = false;
+   127	
+   128	  if (!isEmpty() ) {
+   129	    int position = getPosition(anEntry);
+   130	
+   131	    if (position > 0) {
+   132	      // This will work instead of line 135 below:
+   133	      // Node<ItemType>* nodeToDeletePtr = getNodeAt(position);
+   134	      Node<ItemType>* prevPtr = getNodeBefore(anEntry);
+   135	      Node<ItemType>* nodeToDeletePtr = prevPtr->getNext();
+   136	
+   137	      ableToRemove = true;
+   138	
+   139	      prevPtr->setNext(nodeToDeletePtr->getNext() );
+   140	
+   141	      nodeToDeletePtr->setNext(nullptr);
+   142	      delete nodeToDeletePtr;
+   143	      nodeToDeletePtr = nullptr;
+   144	
+   145	      --itemCount;
+   146	    }
+   147	  }
+   148	
+   149	  return ableToRemove;
+   150	}
+   151	
+   152	template <typename ItemType>
+   153	bool LinkedSortedList<ItemType>::remove(const int position) {
+   154	
+   155	   bool ableToRemove = position >= 1 &&
+   156	     position <= itemCount;
+   157	
+   158	   if (ableToRemove) {
+   159	     Node<ItemType>* nodeToDeletePtr = nullptr;
+   160	
+   161	     if (position == 1) {
+   162	       nodeToDeletePtr = headPtr;
+   163	       headPtr = headPtr->getNext();
+   164	     }
+   165	     else {
+   166	       Node<ItemType>* prevPtr = getNodeAt(position - 1);
+   167	
+   168	       nodeToDeletePtr = prevPtr->getNext();
+   169	
+   170	       prevPtr->setNext(nodeToDeletePtr->getNext() );
+   171	     }
+   172	
+   173	     nodeToDeletePtr->setNext(nullptr);
+   174	     delete nodeToDeletePtr;
+   175	     nodeToDeletePtr = nullptr;
+   176	
+   177	     --itemCount;
+   178	   }
+   179	
+   180	   return ableToRemove;
+   181	}
+   182	
+   183	template <typename ItemType>
+   184	void LinkedSortedList<ItemType>::clear() {
+   185	
+   186	  while (!isEmpty() ) {
+   187	    remove(1);
+   188	  }
+   189	}
+   190	
+   191	template <typename ItemType>
+   192	ItemType LinkedSortedList<ItemType>::getEntry(const int position) const
+   193	  throw(PrecondViolatedExcep) {
+   194	
+   195	   const bool ableToGet = position >= 1 &&
+   196	     position <= itemCount;
+   197	
+   198	   if (ableToGet) {
+   199	     Node<ItemType>* nodePtr = getNodeAt(position);
+   200	
+   201	     return nodePtr->getItem();
+   202	   }
+   203	   else {
+   204	     string message = "LinkedSortedList::getEntry() called with an empty ";
+   205	     message += "list or an invalid position.";
+   206	
+   207	     throw PrecondViolatedExcep(message);
+   208	   }
+   209	}
+   210	
+   211	template <typename ItemType>
+   212	Node<ItemType>* LinkedSortedList<ItemType>::getNodeAt(const int position) const {
+   213	
+   214	  assert(position >= 1 && position <= itemCount);
+   215	
+   216	  Node<ItemType>* curPtr = headPtr;
+   217	
+   218	  for (int skip = 1; skip < position; ++skip) {
+   219	    curPtr = curPtr->getNext();
+   220	  }
+   221	
+   222	  return curPtr;
+   223	}
+   224	
+   225	template <typename ItemType>
+   226	int LinkedSortedList<ItemType>::getPosition(const ItemType& anEntry) const {
+   227	
+   228	  int pos = 1;
+   229	  Node<ItemType>* curPtr = headPtr;
+   230	  bool foundIt = false;
+   231	
+   232	  while (!foundIt && curPtr != nullptr && anEntry >= curPtr->getItem() ) {
+   233	    if (curPtr->getItem() == anEntry) {
+   234	      foundIt = true;
+   235	    }
+   236	    else {
+   237	      curPtr = curPtr->getNext();
+   238	      ++pos;
+   239	    }
+   240	  }
+   241	
+   242	  if (!foundIt) {
+   243	    pos = -pos;
+   244	  }
+   245	
+   246	  return pos;
+   247	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "LinkedSortedList.cpp"p"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Ks"t"a"t""[K"[K"[K"[KS"t"a"t"i"s"t"i"c"s"."h"
+     1	#ifndef _STATISTICS
+     2	#define _STATISTICS
+     3	
+     4	//#define TESTING 1
+     5	
+     6	#include "Event.h"
+     7	#include "LinkedQueue.h"
+     8	
+     9	class Statistics {
+    10	private:
+    11	   int count;
+    12	
+    13	   Time waitTime;
+    14	
+    15	   /** Arrival events get stored until we encounter the next departure
+    16	    *  event.  This arrival along with the departure are then used to
+    17	    *  generate the wait time of this arrival. */
+    18	   LinkedQueue<Event> arrivalEvents;
+    19	
+    20	public:
+    21	   Statistics();
+    22	
+    23	   virtual ~Statistics();
+    24	
+    25	   /** Adds 'event' to the statistics collected so far.
+    26	    *
+    27	    * If 'event' is an arrival event, increment 'count' and store it
+    28	    * for use with the next departure event.
+    29	    *
+    30	    * If 'event' is a departure event, calculate the wait time for
+    31	    * this customer and add it onto 'waitTime'. */
+    32	   void addEvent(const Event& event);
+    33	
+    34	   /** Output a report of the statistics for this simulation. */
+    35	   void reportStats() const;
+    36	};
+    37	
+    38	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Statistics.h""[Kc"p"p"
+     1	#include <iostream>
+     2	
+     3	using namespace std;
+     4	
+     5	#include "Statistics.h"
+     6	
+     7	Statistics::Statistics()
+     8	   : count(0),
+     9	     waitTime(0) {
+    10	}
+    11	
+    12	Statistics::~Statistics() {
+    13	}
+    14	
+    15	void Statistics::addEvent(const Event& event) {
+    16	
+    17	   if (event.getType() == ARRIVAL) {
+    18	#ifdef TESTING
+    19	      cout << "Processing arrival event "
+    20	           << event.getNumber()
+    21	           << " at time: "
+    22	           << event.getTime()
+    23	           << endl;
+    24	#endif
+    25	      arrivalEvents.enqueue(event);
+    26	      ++count;
+    27	   }
+    28	   else { // event is a departure event
+    29	#ifdef TESTING
+    30	      cout << "Processing departure event "
+    31	           << event.getNumber()
+    32	           << " at time: "
+    33	           << event.getTime();
+    34	#endif
+    35	      if (!arrivalEvents.isEmpty() ) {
+    36	         Event arrivalEvent;
+    37	
+    38	         arrivalEvent = arrivalEvents.peekFront();
+    39	         arrivalEvents.dequeue();
+    40	         waitTime += event.getTime() - (arrivalEvent.getTime() + arrivalEvent.getDuration() );
+    41	#ifdef TESTING
+    42	         cout << " event "
+    43	              << arrivalEvent.getNumber()
+    44	              << " waited: "
+    45	              << event.getTime() - (arrivalEvent.getTime() + arrivalEvent.getDuration() );
+    46	#endif
+    47	      }
+    48	#ifdef TESTING
+    49	      else {
+    50	         cout << " no events waiting.";
+    51	      }
+    52	      cout << endl;
+    53	#endif
+    54	   }
+    55	}
+    56	
+    57	void Statistics::reportStats() const {
+    58	  cout << "Simulation Ends\n" << endl;
+    59	
+    60	   cout << "Final Statistics:"
+    61	        << endl
+    62	        << "  Total number of people processed: "
+    63	        << count
+    64	        << endl
+    65	        << "  Total wait time: "
+    66	        << waitTime
+    67	        << endl
+    68	        << "  Average amount of time spent waiting: ";
+    69	   if (count != 0) {
+    70	      cout << (double)waitTime / (double)count;
+    71	   }
+    72	   else {
+    73	      cout << 0.0;
+    74	   }
+    75	   cout << endl;
+    76	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% make
+g++ -MM -Wall -ansi -std=c++0x Event.cpp -MF Event.dep
+g++ -MM -Wall -ansi -std=c++0x Statistics.cpp -MF Statistics.dep
+g++ -MM -Wall -ansi -std=c++0x Simulation.cpp -MF Simulation.dep
+g++ -MM -Wall -ansi -std=c++0x PrecondViolatedExcep.cpp -MF PrecondViolatedExcep.dep
+g++ -MM -Wall -ansi -std=c++0x EventBuilder.cpp -MF EventBuilder.dep
+g++ -MM -Wall -ansi -std=c++0x project5.cpp -MF project5.dep
+g++ -Wall -ansi -std=c++0x -c -o project5.o project5.cpp
+g++ -Wall -ansi -std=c++0x -c -o EventBuilder.o EventBuilder.cpp
+g++ -Wall -ansi -std=c++0x -c -o PrecondViolatedExcep.o PrecondViolatedExcep.cpp
+g++ -Wall -ansi -std=c++0x -c -o Simulation.o Simulation.cpp
+g++ -Wall -ansi -std=c++0x -c -o Statistics.o Statistics.cpp
+g++ -Wall -ansi -std=c++0x -c -o Event.o Event.cpp
+g++ -Wall -ansi -std=c++0x  -o project5 project5.o EventBuilder.o PrecondViolatedExcep.o Simulation.o Statistics.o Event.o  
+All done compiling project5
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./proe[Kject5
+Enter a filename: input0.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 4
+  Total wait time: 39
+  Average amount of time spent waiting: 9.75
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: inpu1 t1.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 0
+  Total wait time: 0
+  Average amount of time spent waiting: 0
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input2.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 4
+  Total wait time: 0
+  Average amount of time spent waiting: 0
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input3.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 5
+  Total wait time: 13
+  Average amount of time spent waiting: 2.6
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input4.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 10
+  Total wait time: 56
+  Average amount of time spent waiting: 5.6
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input5, .dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 150
+  Total wait time: 1953
+  Average amount of time spent waiting: 13.02
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input6.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 300
+  Total wait time: 49564
+  Average amount of time spent waiting: 165.213
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ./project5
+Enter a filename: input7.dat
+
+Simulation of 1 Queue Begins
+Simulation Ends
+
+Final Statistics:
+  Total number of people processed: 500
+  Total wait time: 85115
+  Average amount of time spent waiting: 170.23
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "LinkedQueue.h"
+     1	 /** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a pointer-based implementation of the ADT queue.
+     7	 *
+     8	 *  Adapted from page 401-2 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Jan 23
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _LINKED_QUEUE
+    19	#define _LINKED_QUEUE
+    20	
+    21	#include "QueueInterface.h"
+    22	#include "Node.h"
+    23	#include "PrecondViolatedExcep.h"
+    24	
+    25	/** @class LinkedQueue LinkedQueue.h "LinkedQueue.h"
+    26	 *
+    27	 *  Specification of a pointer-based ADT queue. */
+    28	template <typename ItemType>
+    29	class LinkedQueue : public QueueInterface<ItemType> {
+    30	 private:
+    31	  Node<ItemType>* backPtr;
+    32	  Node<ItemType>* frontPtr;
+    33	
+    34	 public:
+    35	  LinkedQueue();
+    36	
+    37	  LinkedQueue(const LinkedQueue<ItemType>& aQueue);
+    38	
+    39	  virtual ~LinkedQueue();
+    40	
+    41	  virtual bool isEmpty() const;
+    42	
+    43	  virtual bool enqueue(const ItemType& newEntry);
+    44	
+    45	  virtual bool dequeue();
+    46	
+    47	  virtual ItemType peekFront() const
+    48	    throw(PrecondViolatedExcep);
+    49	};
+    50	
+    51	#include "LinkedQueue.cpp"
+    52	
+    53	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "LinkedQueue.h""[Kc"p"p"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a pointer-based implementation of the ADT
+     7	 *  queue.
+     8	 *
+     9	 *  Adapted from page 402-4 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Jan 23
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#include <new>
+    20	
+    21	using namespace std;
+    22	
+    23	template <typename ItemType>
+    24	LinkedQueue<ItemType>::LinkedQueue()
+    25	  : backPtr(nullptr),
+    26	    frontPtr(nullptr) {
+    27	    }
+    28	
+    29	template <typename ItemType>
+    30	LinkedQueue<ItemType>::LinkedQueue(const LinkedQueue<ItemType>& aQueue) {
+    31	
+    32	  if (aQueue.frontPtr == nullptr) {
+    33	    frontPtr = nullptr;
+    34	    backPtr = nullptr;
+    35	  }
+    36	  else {
+    37	    Node<ItemType>* aQueuePtr = aQueue.frontPtr;
+    38	
+    39	    try {
+    40	      frontPtr = new Node<ItemType>();
+    41	      frontPtr->setItem(aQueuePtr->getItem() );
+    42	
+    43	      backPtr = frontPtr;
+    44	
+    45	      aQueuePtr = aQueuePtr->getNext();
+    46	
+    47	      while (aQueuePtr != nullptr) {
+    48		ItemType nextItem = aQueuePtr->getItem();
+    49	
+    50		Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+    51	
+    52		backPtr->setNext(newNodePtr);
+    53	
+    54		backPtr = backPtr->getNext();
+    55	
+    56		aQueuePtr = aQueuePtr->getNext();
+    57	      }
+    58	
+    59	      backPtr->setNext(nullptr);
+    60	    }
+    61	    catch (const bad_alloc&) {
+    62	      while (!isEmpty() ) {
+    63		dequeue();
+    64	      }
+    65	      throw;
+    66	    }
+    67	  }
+    68	}
+    69	
+    70	template <typename ItemType>
+    71	LinkedQueue<ItemType>::~LinkedQueue() {
+    72	
+    73	  while (!isEmpty() ) {
+    74	    dequeue();
+    75	  }
+    76	}
+    77	
+    78	template <typename ItemType>
+    79	bool LinkedQueue<ItemType>::isEmpty() const {
+    80	
+    81	  return frontPtr == nullptr;
+    82	}
+    83	
+    84	template <typename ItemType>
+    85	bool LinkedQueue<ItemType>::enqueue(const ItemType& newEntry) {
+    86	
+    87	  bool ableToEnqueue = true;
+    88	
+    89	  try {
+    90	    Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+    91	
+    92	    if (isEmpty() ) {
+    93	      frontPtr = newNodePtr;
+    94	    }
+    95	    else {
+    96	      backPtr->setNext(newNodePtr);
+    97	    }
+    98	
+    99	    backPtr = newNodePtr;
+   100	  }
+   101	  catch (const bad_alloc&) {
+   102	    ableToEnqueue = false;
+   103	  }
+   104	
+   105	  return ableToEnqueue;
+   106	}
+   107	
+   108	template <typename ItemType>
+   109	bool LinkedQueue<ItemType>::dequeue() {
+   110	
+   111	  bool result = false;
+   112	
+   113	  if (!isEmpty() ) {
+   114	    Node<ItemType>* nodeToDeletePtr = frontPtr;
+   115	
+   116	    if (frontPtr == backPtr) {
+   117	      frontPtr = nullptr;
+   118	      backPtr = nullptr;
+   119	    }
+   120	    else {
+   121	      frontPtr = frontPtr->getNext();
+   122	    }
+   123	
+   124	    nodeToDeletePtr->setNext(nullptr);
+   125	    delete nodeToDeletePtr;
+   126	    nodeToDeletePtr = nullptr;
+   127	
+   128	    result = true;
+   129	  }
+   130	
+   131	  return result;
+   132	}
+   133	
+   134	template <typename ItemType>
+   135	ItemType LinkedQueue<ItemType>::peekFront() const
+   136	  throw(PrecondViolatedExcep) {
+   137	
+   138	  if (isEmpty() ) {
+   139	    throw PrecondViolatedExcep("peekFront() called on an empty queue.");
+   140	  }
+   141	
+   142	  return frontPtr->getItem();
+   143	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "LinkedQueue.cpp""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[KN"o"d"e"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a node in the linked implementation of the ADT
+     7	 *  bag.
+     8	 *
+     9	 *  Adapted from page 136 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 18
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#ifndef _NODE
+    20	#define _NODE
+    21	
+    22	template <typename ItemType>
+    23	class Node {
+    24	 private:
+    25	  ItemType item;
+    26	  Node<ItemType>* next;
+    27	
+    28	 public:
+    29	  Node();
+    30	  Node(const ItemType& anItem);
+    31	  Node(const ItemType& anItem,
+    32	       Node<ItemType>* nextNodePtr);
+    33	
+    34	  void setItem(const ItemType& anItem);
+    35	  void setNext(Node<ItemType>* nextNodePtr);
+    36	
+    37	  ItemType getItem() const;
+    38	  Node<ItemType>* getNext() const;
+    39	};
+    40	
+    41	#include "Node.cpp"
+    42	
+    43	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Node.h"h"[Kc"p"p"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a node in the linked implementation of the
+     7	 *  ADT bag.
+     8	 *
+     9	 *  Adapted from page 136-7 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 18
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	template <typename ItemType>
+    20	Node<ItemType>::Node()
+    21	  : next(nullptr) {
+    22	}
+    23	
+    24	template <typename ItemType>
+    25	Node<ItemType>::Node(const ItemType& anItem)
+    26	  : item(anItem),
+    27	    next(nullptr) {
+    28	    }
+    29	
+    30	template <typename ItemType>
+    31	Node<ItemType>::Node(const ItemType& anItem,
+    32	                     Node<ItemType>* nextNodePtr)
+    33	  : item(anItem),
+    34	    next(nextNodePtr) {
+    35	    }
+    36	
+    37	template <typename ItemType>
+    38	void Node<ItemType>::setItem(const ItemType& anItem) {
+    39	
+    40	  item = anItem;
+    41	}
+    42	
+    43	template <typename ItemType>
+    44	void Node<ItemType>::setNext(Node<ItemType>* nextNodePtr) {
+    45	
+    46	  next = nextNodePtr;
+    47	}
+    48	
+    49	template <typename ItemType>
+    50	ItemType Node<ItemType>::getItem() const {
+    51	
+    52	  return item;
+    53	}
+    54	
+    55	template <typename ItemType>
+    56	Node<ItemType>* Node<ItemType>::getNext() const {
+    57	
+    58	  return next;
+    59	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Node.cpp""[K"[K"[K"[K"[K"[K"[K"[KP"r"e"c"o"n"d"V"i"o"l"a"t"e"d"E"c"x""[K"[Kx"c"e"p"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for an object thrown on violation of precondition.
+     7	 *
+     8	 *  Adapted from page 249 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Nov 27
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _PRECOND_VIOLATED_EXCEP
+    19	#define _PRECOND_VIOLATED_EXCEP
+    20	
+    21	#include <stdexcept>
+    22	#include <string>
+    23	
+    24	using namespace std;
+    25	
+    26	/** @class PrecondViolatedExcep PrecondViolatedExcep.h "PrecondViolatedExcep.h"
+    27	 *
+    28	 *  Specification for an object thrown on violation of precondition. */
+    29	class PrecondViolatedExcep : public logic_error {
+    30	 public:
+    31	
+    32	  explicit PrecondViolatedExcep(const string& message = "");
+    33	
+    34	  virtual ~PrecondViolatedExcep() throw();
+    35	};
+    36	
+    37	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "PrecondViolatedExcep.h""[Kc"p"p"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for an object thrown on violation of
+     7	 *  precondition.
+     8	 *
+     9	 *  Adapted from page 250 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 27
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#include "PrecondViolatedExcep.h"
+    20	
+    21	PrecondViolatedExcep::PrecondViolatedExcep(const string& message)
+    22	  : logic_error(message.c_str() ) {
+    23	}
+    24	
+    25	PrecondViolatedExcep::~PrecondViolatedExcep()
+    26	  throw() {
+    27	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "PrecondViolatedExcep.cpp"""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Ki"o"r"i"t"y"Q"u"e"u"e"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a sorted list-based implementation of the ADT
+     7	 *  priority queue.
+     8	 *
+     9	 *  Adapted from page 411 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Jan 23
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#ifndef _PRIORITY_QUEUE
+    20	#define _PRIORITY_QUEUE
+    21	
+    22	#include "PriorityQueueInterface.h"
+    23	#include "LinkedSortedList.h"
+    24	#include "PrecondViolatedExcep.h"
+    25	
+    26	/** @class PriorityQueue PriorityQueue.h "PriorityQueue.h"
+    27	 *
+    28	 *  Specification of a sorted list-based ADT priority queue. */
+    29	template <typename ItemType>
+    30	class PriorityQueue : public PriorityQueueInterface<ItemType> {
+    31	 private:
+    32	  LinkedSortedList<ItemType>* sListPtr;
+    33	
+    34	 public:
+    35	  PriorityQueue();
+    36	
+    37	  PriorityQueue(const PriorityQueue<ItemType>& pq);
+    38	
+    39	  virtual ~PriorityQueue();
+    40	
+    41	  virtual bool isEmpty() const;
+    42	
+    43	  virtual bool add(const ItemType& newEntry);
+    44	
+    45	  virtual bool remove();
+    46	
+    47	  virtual ItemType peek() const
+    48	    throw(PrecondViolatedExcep);
+    49	};
+    50	
+    51	#include "PriorityQueue.cpp"
+    52	
+    53	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "PriorityQueue.h""[Kc"p"p"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a sorted list-based implementation of the
+     7	 *  ADT priority queue.
+     8	 *
+     9	 *  Adapted from page 411-2 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Jan 23
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	template <typename ItemType>
+    20	PriorityQueue<ItemType>::PriorityQueue()
+    21	  : sListPtr(new LinkedSortedList<ItemType>() ) {
+    22	}
+    23	
+    24	template <typename ItemType>
+    25	PriorityQueue<ItemType>::PriorityQueue(const PriorityQueue<ItemType>& pq)
+    26	  : sListPtr(new LinkedSortedList<ItemType>(*pq.sListPtr)) {
+    27	}
+    28	
+    29	template <typename ItemType>
+    30	PriorityQueue<ItemType>::~PriorityQueue() {
+    31	
+    32	  delete sListPtr;
+    33	}
+    34	
+    35	template <typename ItemType>
+    36	bool PriorityQueue<ItemType>::isEmpty() const {
+    37	
+    38	  return sListPtr->isEmpty();
+    39	}
+    40	
+    41	template <typename ItemType>
+    42	bool PriorityQueue<ItemType>::add(const ItemType& newEntry) {
+    43	
+    44	  return sListPtr->insertSorted(newEntry);
+    45	}
+    46	
+    47	template <typename ItemType>
+    48	bool PriorityQueue<ItemType>::remove() {
+    49	
+    50	  return sListPtr->remove(sListPtr->getLength() );
+    51	}
+    52	
+    53	template <typename ItemType>
+    54	ItemType PriorityQueue<ItemType>::peek() const
+    55	  throw(PrecondViolatedExcep) {
+    56	
+    57	  return sListPtr->getEntry(sListPtr->getLength() );
+    58	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "PriorityQueue.cpp"cpp"[K"[K"[K"[KI"n"t"e"r"f"a"c"e"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  PriorityQueueInterface class template definition.
+     7	 *
+     8	 *  Not in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Jan 22
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _PRIORITY_QUEUE_INTERFACE
+    19	#define _PRIORITY_QUEUE_INTERFACE
+    20	
+    21	#include "PrecondViolatedExcep.h"
+    22	
+    23	/** @class PriorityQueueInterface PriorityQueueInterface.h "PriorityQueueInterface.h"
+    24	 *
+    25	 *  Definition of PriorityQueueInterface class template. */
+    26	template <typename ItemType>
+    27	class PriorityQueueInterface {
+    28	 public:
+    29	
+    30	  /** Virtual destructor . */
+    31	  virtual ~PriorityQueueInterface() {}
+    32	
+    33	  /** Sees whether this queue is empty.
+    34	   *
+    35	   *  @return True if the queue is empty, or false if not. */
+    36	  virtual bool isEmpty() const = 0;
+    37	
+    38	  /** Adds a new entry to this priority queue.
+    39	   *
+    40	   *  @pre The template parameter type, ItemType, *must* implement a
+    41	   *       full range of relational operator overloads: <, >, <=,
+    42	   *       >=, ==, and !=.
+    43	   *
+    44	   *  @post If successful, newEntry is stored at its correct
+    45	   *        position in this priority queue.
+    46	   *
+    47	   *  @param newEntry The object to be added as a new entry.
+    48	   *
+    49	   *  @return True if addition was successful, or false if not. */
+    50	  virtual bool add(const ItemType& newEntry) = 0;
+    51	
+    52	  /** Removes the front of this priority queue.
+    53	   *
+    54	   *  @post If successful, the front of this priority queue has been
+    55	   *        removed.
+    56	   *
+    57	   *  @return True if removal was successful, or false if not. */
+    58	  virtual bool remove() = 0;
+    59	
+    60	  /** Retrieves the front of this priority queue.
+    61	   *
+    62	   *  @pre This priority queue is not empty.
+    63	   *
+    64	   *  @post None.
+    65	   *
+    66	   *  @return The front entry in this priority queue. */
+    67	  virtual ItemType peek() const
+    68	    throw(PrecondViolatedExcep) = 0;
+    69	};
+    70	
+    71	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "PriorityQueueInterface.h""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Kp"r"o"j"e"c"t"5"."c"p"p"
+     1	#include <cstdlib>
+     2	#include <iostream>
+     3	using namespace std;
+     4	
+     5	#include "Simulation.h"
+     6	
+     7	int main() {
+     8	
+     9	    Simulation sim;
+    10	
+    11	   sim.simulate();
+    12	
+    13	   return EXIT_SUCCESS;
+    14	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "project5.cpp""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[KQ"u"e"u"e"I"n"t"e"r"f"a"c"e"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  QueueInterface class template definition.
+     7	 *
+     8	 *  Adapted from page 376 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Jan 22
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _QUEUE_INTERFACE
+    19	#define _QUEUE_INTERFACE
+    20	
+    21	#include "PrecondViolatedExcep.h"
+    22	
+    23	/** @class QueueInterface QueueInterface.h "QueueInterface.h"
+    24	 *
+    25	 *  Definition of QueueInterface class template. */
+    26	template <typename ItemType>
+    27	class QueueInterface {
+    28	 public:
+    29	
+    30	  /** Virtual destructor. */
+    31	  virtual ~QueueInterface() {}
+    32	
+    33	  /** Sees whether this queue is empty.
+    34	   *
+    35	   *  @return True if the queue is empty, or false if not. */
+    36	  virtual bool isEmpty() const = 0;
+    37	
+    38	  /** Adds a new entry to the back of this queue.
+    39	   *
+    40	   *  @post If successful, newEntry is stored at the back of this
+    41	   *        queue.
+    42	   *
+    43	   *  @param newEntry The object to be added as a new entry.
+    44	   *
+    45	   *  @return True if addition was successful, or false if not. */
+    46	  virtual bool enqueue(const ItemType& newEntry) = 0;
+    47	
+    48	  /** Removes the front of this queue.
+    49	   *
+    50	   *  @post If successful, the front of this queue has been
+    51	   *        removed.
+    52	   *
+    53	   *  @return True if removal was successful, or false if not. */
+    54	  virtual bool dequeue() = 0;
+    55	
+    56	  /** Retrieves the front of this queue.
+    57	   *
+    58	   *  @pre This queue is not empty.
+    59	   *
+    60	   *  @post None.
+    61	   *
+    62	   *  @throw PrecondViolatedExcep If precondition is violated.
+    63	   *
+    64	   *  @return The front entry in this queue. */
+    65	  virtual ItemType peekFront() const
+    66	    throw(PrecondViolatedExcep) = 0;
+    67	};
+    68	
+    69	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "QueueInterface.h""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[KS"o"r"t"e"d"L"i"s"t"I"n"t"e"r"f"a"c"e"."h"
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  SortedListInterface class template definition.
+     7	 *
+     8	 *  Adapted from page 350-1 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Jan 19
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _SORTED_LIST_INTERFACE
+    19	#define _SORTED_LIST_INTERFACE
+    20	
+    21	#include "PrecondViolatedExcep.h"
+    22	
+    23	/** @class SortedListInterface SortedListInterface.h "SortedListInterface.h"
+    24	 *
+    25	 *  Definition of SortedListInterface class template. */
+    26	template <typename ItemType>
+    27	class SortedListInterface {
+    28	 public:
+    29	
+    30	  /** Sees whether this list is empty.
+    31	   *
+    32	   *  @return True if this list is empty, or false if not. */
+    33	  virtual bool isEmpty() const = 0;
+    34	
+    35	  /** Gets the current number of entries in this list.
+    36	   *
+    37	   *  @return The integer number of entries in this list. */
+    38	  virtual int getLength() const = 0;
+    39	
+    40	  /** Insert an entry into this sorted list in its proper order so
+    41	   *  that this sorted list remains sorted.
+    42	   *
+    43	   *  @pre None.
+    44	   *
+    45	   *  @post newEntry is stored this sorted list, and this sorted
+    46	   *        list remains sorted.
+    47	   *
+    48	   *  @param newEntry The object to be inserted in this sorted
+    49	   *                  list.
+    50	   *
+    51	   *  @return True if the insertion is successful, else false. */
+    52	  virtual bool insertSorted(const ItemType& newEntry) = 0;
+    53	
+    54	  /** Removes the first or only occurrance of the given entry from
+    55	   *  this sorted list.
+    56	   *
+    57	   *  @pre None.
+    58	   *
+    59	   *  @post If the removal is successful, the first occurrance of
+    60	   *        the given entry is no longer in this sorted list.
+    61	   *
+    62	   *  @param anEntry The entry to remove.
+    63	   *
+    64	   *  @return True if removal was successful, or false if not. */
+    65	  virtual bool removeSorted(const ItemType& anEntry) = 0;
+    66	
+    67	  /** Removes the entry at the given position from this list.
+    68	   *
+    69	   *  @pre None.
+    70	   *
+    71	   *  @post If 1 <= position <= getLength() and the removal is
+    72	   *        successful, the entry at the given position in this list
+    73	   *        is removed, other entries are renumbered accordingly.
+    74	   *
+    75	   *  @param position The list position of the entry to remove.
+    76	   *
+    77	   *  @return True if removal was successful, or false if not. */
+    78	  virtual bool remove(const int position) = 0;
+    79	
+    80	  /** Removes all entries from this list.
+    81	   *
+    82	   *  @post List conntains no entries; getLength() == 0. */
+    83	  virtual void clear() = 0;
+    84	
+    85	  /** Retrieves the entry at the given position in this list.
+    86	   *
+    87	   *  @pre 1 <= position <= getLength().
+    88	   *
+    89	   *  @post None.
+    90	   *
+    91	   *  @param position The position of the desired entry to
+    92	   *         retrieve.
+    93	   *
+    94	   *  @throw PrecondViolatedExcep If the precondition is violated.
+    95	   *
+    96	   *  @return The entry at the desired position in this list. */
+    97	  virtual ItemType getEntry(const int position) const
+    98	    throw(PrecondViolatedExcep) = 0;
+    99	
+   100	  /** Gets the position of the first or only occurrance of the given
+   101	   *  entry in this sorted list. In the case the entry is not in this
+   102	   *  sorted list, it determines the position where the entry should
+   103	    *  be located if it were in this sorted list.
+   104	    *
+   105	    *  @pre None.
+   106	    *
+   107	    *  @post None.
+   108	    *
+   109	    *  @param anEntry The entry to locate.
+   110	    *
+   111	    *  @return Either the position of the first or only occurrance of
+   112				  *          the given entry if its is in this sorted list, or the
+   113								      *          position where the entry would occur, but as a negative
+   114	    *          integer. */
+   115	  virtual int getPosition(const ItemType& anEntry) const = 0;
+   116	};
+   117	
+   118	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "SortedListInterface.h""[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[K"[Kt"a"t"i"s"t"i"c"s"."h"
+     1	#ifndef _STATISTICS
+     2	#define _STATISTICS
+     3	
+     4	//#define TESTING 1
+     5	
+     6	#include "Event.h"
+     7	#include "LinkedQueue.h"
+     8	
+     9	class Statistics {
+    10	private:
+    11	   int count;
+    12	
+    13	   Time waitTime;
+    14	
+    15	   /** Arrival events get stored until we encounter the next departure
+    16	    *  event.  This arrival along with the departure are then used to
+    17	    *  generate the wait time of this arrival. */
+    18	   LinkedQueue<Event> arrivalEvents;
+    19	
+    20	public:
+    21	   Statistics();
+    22	
+    23	   virtual ~Statistics();
+    24	
+    25	   /** Adds 'event' to the statistics collected so far.
+    26	    *
+    27	    * If 'event' is an arrival event, increment 'count' and store it
+    28	    * for use with the next departure event.
+    29	    *
+    30	    * If 'event' is a departure event, calculate the wait time for
+    31	    * this customer and add it onto 'waitTime'. */
+    32	   void addEvent(const Event& event);
+    33	
+    34	   /** Output a report of the statistics for this simulation. */
+    35	   void reportStats() const;
+    36	};
+    37	
+    38	#endif
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% cat -n "Statistics.h""[Kc"p"p"
+     1	#include <iostream>
+     2	
+     3	using namespace std;
+     4	
+     5	#include "Statistics.h"
+     6	
+     7	Statistics::Statistics()
+     8	   : count(0),
+     9	     waitTime(0) {
+    10	}
+    11	
+    12	Statistics::~Statistics() {
+    13	}
+    14	
+    15	void Statistics::addEvent(const Event& event) {
+    16	
+    17	   if (event.getType() == ARRIVAL) {
+    18	#ifdef TESTING
+    19	      cout << "Processing arrival event "
+    20	           << event.getNumber()
+    21	           << " at time: "
+    22	           << event.getTime()
+    23	           << endl;
+    24	#endif
+    25	      arrivalEvents.enqueue(event);
+    26	      ++count;
+    27	   }
+    28	   else { // event is a departure event
+    29	#ifdef TESTING
+    30	      cout << "Processing departure event "
+    31	           << event.getNumber()
+    32	           << " at time: "
+    33	           << event.getTime();
+    34	#endif
+    35	      if (!arrivalEvents.isEmpty() ) {
+    36	         Event arrivalEvent;
+    37	
+    38	         arrivalEvent = arrivalEvents.peekFront();
+    39	         arrivalEvents.dequeue();
+    40	         waitTime += event.getTime() - (arrivalEvent.getTime() + arrivalEvent.getDuration() );
+    41	#ifdef TESTING
+    42	         cout << " event "
+    43	              << arrivalEvent.getNumber()
+    44	              << " waited: "
+    45	              << event.getTime() - (arrivalEvent.getTime() + arrivalEvent.getDuration() );
+    46	#endif
+    47	      }
+    48	#ifdef TESTING
+    49	      else {
+    50	         cout << " no events waiting.";
+    51	      }
+    52	      cout << endl;
+    53	#endif
+    54	   }
+    55	}
+    56	
+    57	void Statistics::reportStats() const {
+    58	  cout << "Simulation Ends\n" << endl;
+    59	
+    60	   cout << "Final Statistics:"
+    61	        << endl
+    62	        << "  Total number of people processed: "
+    63	        << count
+    64	        << endl
+    65	        << "  Total wait time: "
+    66	        << waitTime
+    67	        << endl
+    68	        << "  Average amount of time spent waiting: ";
+    69	   if (count != 0) {
+    70	      cout << (double)waitTime / (double)count;
+    71	   }
+    72	   else {
+    73	      cout << 0.0;
+    74	   }
+    75	   cout << endl;
+    76	}
+[4mukko[24m:[1m~/cs1521/projects/project5/part1[0m% ^Dexit
+
+Script done on Mon 07 Apr 2014 02:34:29 PM CDT

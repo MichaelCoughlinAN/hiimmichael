@@ -1,0 +1,39 @@
+PARAB 334
+
+Find all possible n such that it is impossible to dissect a square
+into n squares.
+
+Journal: Parabola
+Publisher: University of New South Wales
+volume(year)page references:
+Proposal: 13(1977/1)24
+Solution: 13(1977/3)28
+Classification: Geometry | dissection problems | squares | squares
+
+
+KVANT M832 by V. A. Li
+
+(a) Prove that for any natural number n > 6, a square can be cut up
+   into n smaller squares (some of which may be congruent).
+(b) Prove that for any natural number n > 100, a cube can be cut up
+   into n smaller cube (some of which may be congruent).
+
+Journal: Kvant
+Publisher: Academy of Sciences of the USSR
+volume(year)page references:
+Proposal: (1983/11)37 by V. A. Li 
+Classification: Geometry | dissection problems | squares
+
+
+MSJ 499
+
+Prove that if n is a positive integer greater than 5, then it is possible
+to subdivide a square into n smaller squares whose sides are parallel to
+the sides of the original square.
+
+Journal: The Mathematics Student Journal
+Publisher: National Council of Teachers of Mathematics
+volume(year)page references:
+Proposal: 26(1979/8)2
+Solution: 27(1980/4)3 by Eric Carlson 
+Classification: Geometry | dissection problems | squares | squares

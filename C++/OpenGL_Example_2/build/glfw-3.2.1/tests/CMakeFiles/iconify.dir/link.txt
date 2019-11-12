@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/iconify.dir/iconify.c.o CMakeFiles/iconify.dir/__/deps/getopt.c.o CMakeFiles/iconify.dir/__/deps/glad.c.o  -o iconify -rdynamic ../src/libglfw3.a -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor 

@@ -1,0 +1,11 @@
+Simple compile by typing:
+
+make
+
+Then, run using 
+
+./lab5
+
+Note:
+
+I increased the speed to 2 so you can move more quickly. I also use triangles to construct a single sphere.

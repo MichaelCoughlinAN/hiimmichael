@@ -1,0 +1,14 @@
+Standard Compilation - use make (make clean removes unnecessary files).
+My image files are not the same as the ones shown in the lab write-up. But, they display 
+the same concepts. 
+
+*Note, make sure to look at the test .in files, I am using various 3D objects but it may be hard to tell.
+
+    make
+    ./hw6 [input_filename]
+
+Example:
+    
+    ./hw6 test/image1.in
+
+

@@ -1,0 +1,2 @@
+g++ -Wall -ansi -std=c++0x -c -o lab2.o lab2.cpp
+g++ -Wall -ansi -std=c++0x -o output lab2.o 

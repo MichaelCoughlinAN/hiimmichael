@@ -1,0 +1,57 @@
+package bridge;
+
+/**
+ * This class represents moves in the Bridge Crossing problem.
+ * A move object stores its move name and knows how to apply itself
+ * to a bridge state to create a new state representing the result
+ * of the move.
+ * @author your name here
+ */
+public class BridgeMove {
+
+    /**
+     * Constructs a new bridge move object.
+     * @param moveName the name of this move.
+     * It is an error if the name is not one of the following:
+     * <ul>
+     * <li> "P1 crosses alone" </li>
+     * <li> "P2 crosses alone" </li>
+     * <li> "P5 crosses alone" </li>
+     * <li> "P10 crosses alone" </li>
+     * <li> "P1 crosses with P2" </li>
+     * <li> "P1 crosses with P5" </li>
+     * <li> "P1 crosses with P10" </li>
+     * <li> "P2 crosses with P5" </li>
+     * <li> "P2 crosses with P10" </li>
+     * <li> "P5 crosses with P10" </li>
+     * </ul>
+     */
+    public BridgeMove(String moveName) {
+        // You must provide
+    }
+
+    /**
+     * Getter (accessor) for this move object's move name.
+     * @return this move object's move name
+     */
+    public String getMoveName() {
+        return null; // You must provide
+    }
+    
+    /**
+     * Attempts to perform this move on a given bridge state.
+     * The move to perform is determined by this object's move name.
+     * If the move can be performed a new bridge state object is returned that
+     * reflects this move.
+     * A move cannot be performed if the flashlight is not on the same side
+     * as the crossing person(s), or if a pair of persons who are crossing are not
+     * on the same side.
+     * If the move cannot be performed <b>null</b> is returned.
+     * @param state the bridge state on which this move is to be performed
+     * @return a new bridge state reflecting the move, or <b>null</b> if it
+     * cannot be performed
+     */
+    public BridgeState doMove(BridgeState state) {
+        return null;  // You must provide
+    }
+}

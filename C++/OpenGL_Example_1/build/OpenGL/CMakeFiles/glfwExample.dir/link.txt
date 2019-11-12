@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/glfwExample.dir/glfwExample.cpp.o  -o glfwExample -rdynamic -lGLU -lGL -lGLEW ../glfw-3.2.1/src/libglfw3.a -lpng -lz -lz -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor 

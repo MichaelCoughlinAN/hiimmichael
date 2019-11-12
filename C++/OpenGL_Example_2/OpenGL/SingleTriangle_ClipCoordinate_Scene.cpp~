@@ -1,0 +1,86 @@
+#include <iostream>
+#include "SingleTriangle_ClipCoordinate_Scene.h"
+
+SingleTriangle_ClipCoordinate_Scene::SingleTriangle_ClipCoordinate_Scene() 
+    : m_VAO(0) 
+{}
+
+SingleTriangle_ClipCoordinate_Scene::~SingleTriangle_ClipCoordinate_Scene() 
+{}
+    
+void SingleTriangle_ClipCoordinate_Scene::initialize()
+{
+    glGenBuffers(1, m_triangleVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_triangleVBO[0]);
+
+    numVertices = 3;
+
+    int tIdx = 0;
+    float* host_VertexBuffer = new float[ numVertices * 3 ];
+
+    // ////////////////////////
+    // V0
+    host_VertexBuffer[ tIdx++ ] = -0.5f;      
+    host_VertexBuffer[ tIdx++ ] = -0.5f;      
+    host_VertexBuffer[ tIdx++ ] = 0.0f;     
+
+    // ////////////////////////
+    // V1
+    host_VertexBuffer[ tIdx++ ] = 0.5f;     
+    host_VertexBuffer[ tIdx++ ] = -0.5f;     
+    host_VertexBuffer[ tIdx++ ] = 0.0f;     
+
+    // ////////////////////////
+    // V2
+    host_VertexBuffer[ tIdx++ ] = 0.0f;      
+    host_VertexBuffer[ tIdx++ ] = 0.5f;     
+    host_VertexBuffer[ tIdx++ ] = 0.0f;     
+
+    // There are 3 vertices and each vertices contains 3 floats so the
+    // size is 3 vertices * 3 floats/vertice * sizeof(float) bytes
+    int numBytes = (numVertices * 3) * sizeof(float);
+    glBufferData(GL_ARRAY_BUFFER, numBytes, host_VertexBuffer, GL_STATIC_DRAW);
+
+    // Once glBufferData returns, the vertex buffer resides in the
+    // memory of the device (i.e. graphics card), which means you can
+    // now safely delete this memory from the host.
+    delete [] host_VertexBuffer;
+
+    // Unbind the vertex buffer to put the OpenGL state back to the
+    // default.
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // Create a shader using the GLSLObject classes to do all the work
+    // of binding and compiling.
+    shader.addShader( "vertexShader_passthrough.glsl", sivelab::GLSLObject::VERTEX_SHADER );
+    shader.addShader( "fragmentShader_passthrough.glsl", sivelab::GLSLObject::FRAGMENT_SHADER );
+    shader.createProgram();
+
+    // //////////////////////
+    // VAO - Vertex Array Object
+    glGenVertexArrays(1, &m_VAO);
+    glBindVertexArray(m_VAO);
+
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, m_triangleVBO[0]);
+    glVertexAttribPointer(0, numVertices, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+    glBindVertexArray(0);
+
+    // The scene can describe its own background color here by setting
+    // the OpenGL state for the clear color.
+    glClearColor(0.4, 0.4, 0.4, 1.0);
+}
+
+void SingleTriangle_ClipCoordinate_Scene::render() 
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    shader.activate();
+
+    glBindVertexArray(m_VAO);
+    glDrawArrays(GL_TRIANGLES, 0, numVertices);
+    glBindVertexArray(0);
+
+    shader.deactivate();
+}
+    

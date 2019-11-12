@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/empty.dir/empty.c.o CMakeFiles/empty.dir/__/deps/tinycthread.c.o CMakeFiles/empty.dir/__/deps/glad.c.o  -o empty -rdynamic ../src/libglfw3.a -lpthread -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor 

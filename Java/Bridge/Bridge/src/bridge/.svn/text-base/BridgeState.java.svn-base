@@ -1,0 +1,79 @@
+package bridge;
+
+/**
+ * This class represents states of the Bridge Crossing problem.
+ * It creates new bridge states, tests states for equality,
+ * and produces string representations of them.
+ * @author your name here
+ */
+public class BridgeState {
+
+    /**
+     * Creates a new bridge state.  
+     * Besides storing the positions of the persons and flashlight, a
+     * bridge state should also store the time taken so far to cross in
+     * integer minutes.
+     * @param p1Position position of the person who can cross in 1 minute
+     * @param p2Position position of the person who can cross in 2 minutes
+     * @param flashlightPosition position of the flashlight
+     * @param p5Position position of the person who can cross in 5 minutes
+     * @param p10Position  position of the person who can cross in 10 minutes
+     * @param timeSoFar time taken so far
+     */
+    public BridgeState(Position p1Position, 
+                       Position p2Position, 
+                       Position flashlightPosition, 
+                       Position p5Position, 
+                       Position p10Position,
+                       int timeSoFar) {
+        // You must provide
+    }
+    
+    /**
+     * Tests this bridge state with another for equality.
+     * Two bridge states are equal if the positions of the persons and 
+     * flashlight in one state are matched by their positions in the other.
+     * Note that the time taken to cross so far is not taken into account
+     * when considering equality.
+     * @param other the other bridge state to be tested against this one.
+     * @return true if this state is equal to the other state, false otherwise
+     */
+    public boolean equals(BridgeState other) {
+        return false;  // You must provide
+    }
+    
+    /**
+     * Creates a string representation of this state for display to the user
+     * trying to solve the problem.
+     * Note that the time so far to cross is part of the string representation.
+     * @return the string representation of this state
+     */
+    public String toString() {
+	return null;  // You must provide
+    }
+
+    public Position getFlashlightPosition() {
+        return null;  // You must provide
+    }
+
+    public Position getP10Position() {
+        return null;  // You must provide
+    }
+
+    public Position getP1Position() {
+        return null;  // You must provide
+    }
+
+    public Position getP2Position() {
+        return null;  // You must provide
+    }
+
+    public Position getP5Position() {
+        return null;  // You must provide
+    }
+
+    public int getTimeSoFar() {
+        return 0;  // You must provide
+    }
+    
+}

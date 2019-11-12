@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/Vector3D.h
+cassert
+-
+iostream
+-
+cmath
+-
+
+/home/autumn/Desktop/OpenGL_Lab1-master/utests/utest_Vector3D.cpp
+boost/test/included/unit_test.hpp
+-
+Vector3D.h
+/home/autumn/Desktop/OpenGL_Lab1-master/utests/Vector3D.h
+

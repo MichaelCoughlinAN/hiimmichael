@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/autumn/CS 5721/CMake - Cross Platform build system/class1.cpp
+class1.h
+/home/autumn/CS 5721/CMake - Cross Platform build system/class1.h
+
+/home/autumn/CS 5721/CMake - Cross Platform build system/class1.h
+
+/home/autumn/CS 5721/CMake - Cross Platform build system/test1_main.cpp
+class1.h
+/home/autumn/CS 5721/CMake - Cross Platform build system/class1.h
+iostream
+-
+

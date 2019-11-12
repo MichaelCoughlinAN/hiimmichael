@@ -1,0 +1,662 @@
+Script started on Sun 02 Mar 2014 06:19:18 PM CST
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% pwd
+/home/csugrads/cough058/cs1521/projects/project3
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% ls -l
+total 48
+-rw------- 1 cough058 cough058  185 Mar  1 20:53 DivideByZeroExcep.cpp
+-rw------- 1 cough058 cough058  293 Mar  1 20:57 DivideByZeroExcep.h
+-rw------- 1 cough058 cough058   25 Mar  2 13:31 expressions.txt
+-rw------- 1 cough058 cough058 2832 Mar  2 17:58 Infix.cpp
+-rw------- 1 cough058 cough058  570 Mar  2 15:55 Infix.h
+-rw------- 1 cough058 cough058 2308 Mar  2 14:23 LinkedStack.cpp
+-rw------- 1 cough058 cough058  896 Mar  1 13:50 LinkedStack.h
+-rw------- 1 cough058 cough058  891 Mar  2 18:07 main.cpp
+-rw------- 1 cough058 cough058  512 Mar  1 22:04 Makefile
+-rw------- 1 cough058 cough058 1086 Mar  1 13:40 Node.cpp
+-rw------- 1 cough058 cough058  725 Mar  1 13:40 Node.h
+-rw------- 1 cough058 cough058 1354 Mar  1 13:41 StackInterface.h
+-rw------- 1 cough058 cough058    0 Mar  2 18:11 typescript
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n Makefile
+     1	CXX = g++
+     2	CXXFLAGS = -Wall -ansi -std=c++0x
+     3	TARGET = output
+     4	OBJS = main.o DivideByZeroExcep.o Infix.o 
+     5	
+     6	$(TARGET) : $(OBJS)
+     7		$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+     8	
+     9	%.o : %.cpp
+    10		$(CXX) $(CXXFLAGS) -c -o $@ $<
+    11	
+    12	.PHONY : clean
+    13	clean :
+    14		rm $(OBJS) *~ output  
+    15	
+    16	main.o : main.cpp StackInterface.h LinkedStack.h LinkedStack.cpp Node.h Node.cpp Infix.h DivideByZeroExcep.h  
+    17	DivideByZeroExcep.o :  DivideByZeroExcep.cpp  DivideByZeroExcep.h
+    18	Infix.o : Infix.cpp Infix.h StackInterface.h LinkedStack.h Node.h Node.cpp 
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n main.cpp
+     1	#include <iostream>
+     2	#include <string>
+     3	#include <cstdlib>
+     4	
+     5	#include "LinkedStack.h"
+     6	#include "Infix.h"
+     7	
+     8	using namespace std;
+     9	
+    10	int main() {
+    11	  string exp;
+    12	  Infix eval;
+    13	 
+    14	
+    15	  cout << "\nWelcome to the Infix Calculator!\n" 
+    16	       << endl
+    17	       << "If a file was not redirected, please enter an infix expression "
+    18	       << "(you may use parentheses).\n"
+    19	       << "Otherwise, type \"done\" to exit.\n"
+    20	       << endl; 
+    21	
+    22	  while (getline(cin,  exp))  {          
+    23	    if (exp == "DONE" || exp == "done" || exp == "Done") {
+    24	      cout << "Thank you and have a nice day!\n";
+    25	      break;
+    26	  }   
+    27	 eval.setExpStr(exp);
+    28	     try {
+    29		  cout << eval.getExpStr() << " = "
+    30		       << eval.evaluateExp(exp)
+    31		       << endl;
+    32		 	}
+    33		catch (const overflow_error& e) {
+    34		  cout << exp << " = ";
+    35	       	  cerr << e.what()
+    36		       << endl;
+    37		 }
+    38	}
+    39	  cout << endl
+    40	       << "EXIT SUCCESS\n";
+    41	
+    42	 return EXIT_SUCCESS;
+    43	}
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n StackInterface.h
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  StackInterface class template definition.
+     7	 *
+     8	 *  Adapted from page 199 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Nov 26
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _STACK_INTERFACE
+    19	#define _STACK_INTERFACE
+    20	
+    21	/** @class StackInterface StackInterface.h "StackInterface.h"
+    22	 *
+    23	 *  Definition of StackInterface class template. */
+    24	template <typename ItemType>
+    25	class StackInterface {
+    26	 public:
+    27	  /** Sees whether this stack is empty.
+    28	   *
+    29	   *  @return True if the stack is empty, or false. */
+    30	  virtual bool isEmpty() const = 0;
+    31	
+    32	  /** Adds a new entry to the top of this stack.
+    33	   *
+    34	   *  @post If successful, newEntry is stored at the top of this
+    35	   *        stack.
+    36	   *
+    37	   *  @param newEntry The object to be added as a new entry.
+    38	   *
+    39	   *  @return True if addition was successful, or false. */
+    40	  virtual bool push(const ItemType& newEntry) = 0;
+    41	
+    42	  /** Removes the top of this stack.
+    43	   *
+    44	   *  @post If successful, the top of this stack has been removed.
+    45	   *
+    46	   *  @return True if removal was successful, or false. */
+    47	  virtual bool pop() = 0;
+    48	
+    49	  /** Retrieves the top of this stack.
+    50	   *
+    51	   *  @pre This stack is not empty.
+    52	   *
+    53	   *  @post None.
+    54	   *
+    55	   *  @return The top of this stack. */
+    56	  virtual ItemType peek() const = 0;
+    57	};
+    58	
+    59	#endif
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n LinkedStack.h
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a pointer-based implementation of the ADT stack.
+     7	 *
+     8	 *  Adapted from page 246 in Carrano 6e.
+     9	 *
+    10	 *  @author Frank M. Carrano
+    11	 *  @author Timothy Henry
+    12	 *  @author Steve Holtz
+    13	 *
+    14	 *  @date 2013 Nov 27
+    15	 *
+    16	 *  @version 6.0 */
+    17	
+    18	#ifndef _LINKED_STACK
+    19	#define _LINKED_STACK
+    20	
+    21	#include "StackInterface.h"
+    22	#include "Node.h"
+    23	
+    24	/** @class LinkedStack LinkedStack.h "LinkedStack.h"
+    25	 *
+    26	 *  Specification of a pointer-based ADT stack. */
+    27	template <typename ItemType>
+    28	class LinkedStack : public StackInterface<ItemType> {
+    29	 private:
+    30	  Node<ItemType>* topPtr;
+    31	
+    32	 public:
+    33	  LinkedStack();
+    34	
+    35	  LinkedStack(const LinkedStack<ItemType>& aStack);
+    36	
+    37	  virtual ~LinkedStack();
+    38	
+    39	  virtual bool isEmpty() const;
+    40	
+    41	  virtual bool push(const ItemType& newEntry);
+    42	
+    43	  virtual bool pop();
+    44	
+    45	  virtual ItemType peek() const;
+    46	};
+    47	
+    48	#include "LinkedStack.cpp"
+    49	
+    50	#endif
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n LinkedStack.cpp
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a pointer-based implementation of the ADT
+     7	 *  stack.
+     8	 *
+     9	 *  Adapted from page 246-8 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 27
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#define NDEBUG
+    20	
+    21	#include <new>
+    22	
+    23	using namespace std;
+    24	
+    25	#include <cassert>
+    26	
+    27	template <typename ItemType>
+    28	LinkedStack<ItemType>::LinkedStack()
+    29	  : topPtr(nullptr) {
+    30	}
+    31	
+    32	template <typename ItemType>
+    33	LinkedStack<ItemType>::LinkedStack(const LinkedStack<ItemType>& aStack) {
+    34	
+    35	  if (aStack.topPtr == nullptr) {
+    36	    topPtr = nullptr;
+    37	  }
+    38	  else {
+    39	    Node<ItemType>* origChainPtr = aStack.topPtr;
+    40	
+    41	    try {
+    42	      topPtr = new Node<ItemType>();
+    43	      topPtr->setItem(origChainPtr->getItem() );
+    44	
+    45	      Node<ItemType>* newChainPtr = topPtr;
+    46	
+    47	      origChainPtr = origChainPtr->getNext();
+    48	
+    49	      while (origChainPtr != nullptr) {
+    50		ItemType nextItem = origChainPtr->getItem();
+    51	
+    52		Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+    53	
+    54		newChainPtr->setNext(newNodePtr);
+    55	
+    56		newChainPtr = newChainPtr->getNext();
+    57	
+    58		origChainPtr = origChainPtr->getNext();
+    59	      }
+    60	
+    61	      newChainPtr->setNext(nullptr);
+    62	    }
+    63	    catch(const bad_alloc&) {
+    64	      while (!isEmpty() ) {
+    65		pop();
+    66	      }
+    67	      throw;
+    68	    }
+    69	  }
+    70	}
+    71	
+    72	template <typename ItemType>
+    73	LinkedStack<ItemType>::~LinkedStack() {
+    74	
+    75	  while (!isEmpty() ) {
+    76	    pop();
+    77	  }
+    78	}
+    79	
+    80	template <typename ItemType>
+    81	bool LinkedStack<ItemType>::isEmpty() const {
+    82	
+    83	  return topPtr == nullptr;
+    84	}
+    85	
+    86	template <typename ItemType>
+    87	bool LinkedStack<ItemType>::push(const ItemType& newItem) {
+    88	
+    89	  bool result = true;
+    90	
+    91	  try {
+    92	    Node<ItemType>* newNodePtr = new Node<ItemType>(newItem, topPtr);
+    93	
+    94	    topPtr = newNodePtr;
+    95	
+    96	    newNodePtr = nullptr;
+    97	  }
+    98	  catch(const bad_alloc&) {
+    99	    result = false;
+   100	  }
+   101	
+   102	  return result;
+   103	}
+   104	
+   105	template <typename ItemType>
+   106	bool LinkedStack<ItemType>::pop() {
+   107	
+   108	  bool result = false;
+   109	
+   110	  if (!isEmpty() ) {
+   111	    Node<ItemType>* nodeToDeletePtr = topPtr;
+   112	
+   113	    topPtr = topPtr->getNext();
+   114	
+   115	    nodeToDeletePtr->setNext(nullptr);
+   116	    delete nodeToDeletePtr;
+   117	    nodeToDeletePtr = nullptr;
+   118	
+   119	    result = true;
+   120	  }
+   121	
+   122	  return result;
+   123	}
+   124	
+   125	template <typename ItemType>
+   126	ItemType LinkedStack<ItemType>::peek() const {
+   127	
+   128	  assert(!isEmpty() );
+   129	
+   130	  return topPtr->getItem();
+   131	}
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n Node.h
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Header file for a node in the linked implementation of the ADT
+     7	 *  bag.
+     8	 *
+     9	 *  Adapted from page 136 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 18
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	#ifndef _NODE
+    20	#define _NODE
+    21	
+    22	template <typename ItemType>
+    23	class Node {
+    24	 private:
+    25	  ItemType item;
+    26	  Node<ItemType>* next;
+    27	
+    28	 public:
+    29	  Node();
+    30	  Node(const ItemType& anItem);
+    31	  Node(const ItemType& anItem,
+    32	       Node<ItemType>* nextNodePtr);
+    33	
+    34	  void setItem(const ItemType& anItem);
+    35	  void setNext(Node<ItemType>* nextNodePtr);
+    36	
+    37	  ItemType getItem() const;
+    38	  Node<ItemType>* getNext() const;
+    39	};
+    40	
+    41	#include "Node.cpp"
+    42	
+    43	#endif
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n Node.cpp
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *
+     6	 *  Implementation file for a node in the linked implementation of the
+     7	 *  ADT bag.
+     8	 *
+     9	 *  Adapted from page 136-7 in Carrano 6e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 2013 Nov 18
+    16	 *
+    17	 *  @version 6.0 */
+    18	
+    19	template <typename ItemType>
+    20	Node<ItemType>::Node()
+    21	  : next(nullptr) {
+    22	}
+    23	
+    24	template <typename ItemType>
+    25	Node<ItemType>::Node(const ItemType& anItem)
+    26	  : item(anItem),
+    27	    next(nullptr) {
+    28	    }
+    29	
+    30	template <typename ItemType>
+    31	Node<ItemType>::Node(const ItemType& anItem,
+    32	                     Node<ItemType>* nextNodePtr)
+    33	  : item(anItem),
+    34	    next(nextNodePtr) {
+    35	    }
+    36	
+    37	template <typename ItemType>
+    38	void Node<ItemType>::setItem(const ItemType& anItem) {
+    39	
+    40	  item = anItem;
+    41	}
+    42	
+    43	template <typename ItemType>
+    44	void Node<ItemType>::setNext(Node<ItemType>* nextNodePtr) {
+    45	
+    46	  next = nextNodePtr;
+    47	}
+    48	
+    49	template <typename ItemType>
+    50	ItemType Node<ItemType>::getItem() const {
+    51	
+    52	  return item;
+    53	}
+    54	
+    55	template <typename ItemType>
+    56	Node<ItemType>* Node<ItemType>::getNext() const {
+    57	
+    58	  return next;
+    59	}
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% C[Kcat -n Index.h[K[K[K[K[Kfix.h
+     1	#ifndef _INFIX
+     2	#define _INFIX
+     3	
+     4	#include "DivideByZeroExcep.h"
+     5	#include "LinkedStack.h"
+     6	#include <string>
+     7	
+     8	class Infix {
+     9	 private:
+    10	  string expStr;
+    11	
+    12	
+    13	
+    14	
+    15	 public:
+    16	  Infix();
+    17	  void setExpStr(const string& input);
+    18	  string getExpStr() const;
+    19	  int convertToInt(char input) const;
+    20	  int evaluateExp(string& infixExp);
+    21	  int execute(LinkedStack<char>& operatorStack,
+    22	              LinkedStack<int>& valueStack) const;   
+    23	  bool precedence(const char op1, const char op2) const;
+    24	  bool isOperand(const char input) const;
+    25	  bool isOperator(const char input) const; 
+    26	};
+    27	
+    28	
+    29	#endif
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n Infix.cpp
+     1	#include <iostream>
+     2	#include <string>
+     3	#include <cctype>
+     4	
+     5	#include "Infix.h"
+     6	
+     7	using namespace std;
+     8	
+     9	Infix::Infix() {
+    10	}
+    11	
+    12	string Infix::getExpStr() const {
+    13	  return expStr;
+    14	}
+    15	
+    16	void Infix::setExpStr(const string& input){
+    17	  expStr = input;
+    18	
+    19	}
+    20	
+    21	int Infix::evaluateExp(string& infixExp){
+    22	  LinkedStack<char> operatorStack;
+    23	  LinkedStack<int> valueStack;
+    24	
+    25	  for (string::size_type i = 0; i < infixExp.size(); ++i) { 
+    26	    char ch = infixExp.at(i);
+    27	    if (isOperand(ch) ) {
+    28	      valueStack.push(convertToInt(ch) ); 
+    29		}
+    30	    else if (ch == '(' ) {
+    31	      operatorStack.push(ch);
+    32		}
+    33	    else if (isOperator(ch) ) {
+    34	      if (operatorStack.isEmpty() || precedence(ch, operatorStack.peek() )) { 
+    35		 operatorStack.push(ch);
+    36	      }
+    37	      else {
+    38		while (!operatorStack.isEmpty() && !precedence(ch, operatorStack.peek() )) { 
+    39		  valueStack.push(execute(operatorStack, valueStack));
+    40		      }
+    41		operatorStack.push(ch);
+    42		   }
+    43	    }
+    44	    else if (ch == ')' ) {
+    45	      while (operatorStack.peek() != '(' ) {
+    46		valueStack.push(execute(operatorStack, valueStack));
+    47	      }
+    48	      operatorStack.pop(); 
+    49		}
+    50	  }
+    51	  while (!operatorStack.isEmpty() ) {
+    52	   valueStack.push(execute(operatorStack, valueStack));
+    53	     }
+    54	  return valueStack.peek();  
+    55	}
+    56	
+    57	bool Infix::precedence(const char op1, const char op2) const {
+    58	  if((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
+    59	    return true;
+    60	 if((op1 == '*' || op1 == '/') && (op2 == '(' || op2 == ')'))
+    61	    return true; 
+    62	 if((op1 == '+' || op1 == '-') && (op2 == '(' || op2 == ')'))
+    63	    return true; 
+    64	  else if ((op1 == '*' || op1 == '/') && (op2 == '*' || op2 == '/'))
+    65	    return false;
+    66	  else return false; 
+    67	}
+    68	
+    69	bool Infix::isOperand(const char input) const {
+    70	  if (isdigit(input) )
+    71	    return true;
+    72	       else return false;
+    73	}
+    74	
+    75	bool Infix::isOperator(const char input) const {
+    76	    switch (input) {
+    77	    case '+':
+    78	      return true;
+    79	      break;
+    80	    case '-':
+    81	      return true;
+    82	      break;
+    83	    case '/':
+    84	      return true;
+    85	      break;
+    86	    case '*':
+    87	      return true;
+    88	      break;
+    89	    }
+    90	    return false;
+    91	  }
+    92	
+    93	
+    94	int Infix::convertToInt(char input) const {
+    95	  int result; 
+    96	 result = input - '0';
+    97	 return result;
+    98	}
+    99	
+   100	 int Infix::execute(LinkedStack<char>& operatorStack, LinkedStack<int>& valueStack) const { 
+   101	   int operand2 = valueStack.peek();
+   102	   valueStack.pop();
+   103	   int operand1 = valueStack.peek();
+   104	   valueStack.pop();
+   105	   char operatorSign = operatorStack.peek();
+   106	   operatorStack.pop();
+   107	 
+   108	 switch (operatorSign) {
+   109	    case '+':
+   110	      return operand1 + operand2; 
+   111	      break;
+   112	    case '-':
+   113	      return operand1 - operand2;
+   114	      break;
+   115	    case '/':
+   116	      if (operand2 == 0) {
+   117	          throw DivideByZeroExcep("Infinite result - Cannot handle division-by-zero.");
+   118	         }
+   119	      else return operand1 / operand2;
+   120	      break;
+   121	    case '*':
+   122	      return operand1 * operand2;
+   123	      break; 
+   124	 }
+   125	 return 0;
+   126	 }
+   127	 
+   128	
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n DivideByZeroExcep.h
+     1	#ifndef _DIVIDE_BY_ZERO_EXCEP
+     2	#define _DIVIDE_BY_ZERO_EXCEP
+     3	
+     4	#include <stdexcept>
+     5	#include <string>
+     6	
+     7	using namespace std;
+     8	
+     9	class DivideByZeroExcep : public overflow_error {
+    10	 public:
+    11	
+    12	  explicit DivideByZeroExcep(const string& message = "");
+    13	
+    14	  virtual ~DivideByZeroExcep() throw();
+    15	};
+    16	
+    17	#endif
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n Dic[KvideByZeroExcep.cpp
+     1	#include "DivideByZeroExcep.h"
+     2	
+     3	DivideByZeroExcep::DivideByZeroExcep(const string& message)
+     4	  : overflow_error(message.c_str()){
+     5	}
+     6	
+     7	DivideByZeroExcep::~DivideByZeroExcep()
+     8	  throw(){
+     9	}
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% cat -n expressions.txt
+     1	2 + 3
+     2	(6 - 4) * 5
+     3	9 / 0 
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% make
+g++ -Wall -ansi -std=c++0x -c -o main.o main.cpp
+g++ -Wall -ansi -std=c++0x -c -o DivideByZeroExcep.o DivideByZeroExcep.cpp
+g++ -Wall -ansi -std=c++0x -c -o Infix.o Infix.cpp
+g++ -Wall -ansi -std=c++0x -o output main.o DivideByZeroExcep.o Infix.o 
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% ./output < expressions.txt
+
+Welcome to the Infix Calculator!
+
+If a file was not redirected, please enter an infix expression (you may use parentheses).
+Otherwise, type "done" to exit.
+
+2 + 3 = 5
+(6 - 4) * 5 = 10
+9 / 0  = Infinite result - Cannot handle division-by-zero.
+
+EXIT SUCCESS
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% ./output
+
+Welcome to the Infix Calculator!
+
+If a file was not redirected, please enter an infix expression (you may use parentheses).
+Otherwise, type "done" to exit.
+
+$ (9 * 1) ? / 3
+(9 * 1) / 3 = 3
+# 3 + ^ 6 * (2 - 1)
+3 + 6 * (2 - 1) = 9
+1 _ -1  1
+1 - 1 = 0
+9? /0
+9/0 = Infinite result - Cannot handle division-by-zero.
+3 ? / 0
+3 / 0 = Infinite result - Cannot handle division-by-zero.
+(2 + 3) / 0
+(2 + 3) / 0 = Infinite result - Cannot handle division-by-zero.
+done
+Thank you and have a nice day!
+
+EXIT SUCCESS
+[4mukko[24m:[1m~/cs1521/projects/project3[0m% ^Dexit
+
+Script done on Sun 02 Mar 2014 06:25:33 PM CST
