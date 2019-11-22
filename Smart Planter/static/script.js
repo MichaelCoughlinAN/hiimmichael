@@ -1,5 +1,9 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2019 
+
 /*
-	Declaring Variables:
+Declaring Variables:
 */
 const getWeather = document.getElementById("getWeatherButton"),
 			userInput = document.getElementById("userInput"),
@@ -8,7 +12,7 @@ const getWeather = document.getElementById("getWeatherButton"),
 			closeButtons = document.getElementsByClassName('close');
 
 /*
-		Declaring Functions:
+Declaring Functions:
 */
 
 // pairs buttons with parent to close on click
@@ -47,15 +51,12 @@ String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
-//Api does it for us, but we should be extra sure and replace 
+// Api does it for us, but we should be extra sure and replace 
 // whitespace in city names as %20
 String.prototype.fixWhiteSpace = function(){
 	return this.replace(/ /g, '%20');
 }
 
-/*
-	Window / Button Functionality:
-*/
 window.onload=function(){
 	pairCloseButtons(closeButtons);
 	getWeatherData();
@@ -71,30 +72,30 @@ const getWeatherData = () =>{
 			console.log(data.weather[0].main);
 			
 			switch (data.weather[0].main) {
-          		case "Clouds":
-          			document.getElementById('wicon').src = "/static/images/cloudy.png";
-            		break;
-          		case "Clear":
-          			document.getElementById('wicon').src ="/static/images/sunny2.png";
-            		break;
-          		case "Thunderstorm":
-          			document.getElementById('wicon').src = "/static/images/thunderstorm.png"            
-          	    	break;
-          		case "Drizzle":
-             		document.getElementById('wicon').src = "/static/images/drizzle.png";
-            		break;
-          		case "Rain":
-          			document.getElementById('wicon').src = "/static/images/rain.png";
-            		break;
-          		case "Mist":
-          			document.getElementById('wicon').src = "/static/images/rain.png";
-            		break;
-          		case "Snow":
-            		document.getElementById('wicon').src = "/static/images/snow.png";
-            		break;
-          		case "Extreme":
-             		document.getElementById('wicon').src = "/static/images/warning.png";
-            		break;
+          			case "Clouds":
+          				document.getElementById('wicon').src = "/static/images/cloudy.png";
+            				break;
+          			case "Clear":
+          				document.getElementById('wicon').src ="/static/images/sunny2.png";
+            				break;
+          			case "Thunderstorm":
+          				document.getElementById('wicon').src = "/static/images/thunderstorm.png"            
+          	    			break;
+          			case "Drizzle":
+             				document.getElementById('wicon').src = "/static/images/drizzle.png";
+            				break;
+          			case "Rain":
+          				document.getElementById('wicon').src = "/static/images/rain.png";
+            				break;
+          			case "Mist":
+          				document.getElementById('wicon').src = "/static/images/rain.png";
+            				break;
+          			case "Snow":
+            				document.getElementById('wicon').src = "/static/images/snow.png";
+            				break;
+          			case "Extreme":
+             				document.getElementById('wicon').src = "/static/images/warning.png";
+            				break;
         	}
   			  			
        		document.getElementById("temp").innerHTML = (Math.round((1.8*(data.main.temp- 273)) + 32)) + ' &deg;F ' ;
@@ -106,14 +107,14 @@ const getWeatherData = () =>{
   				   	   
         	var sunriseDt = new Date(data.sys.sunrise  * 1000); 	
         	var rise = (sunriseDt.getHours()>12?(sunriseDt.getHours()-12):sunriseDt.getHours()).toString() + ":" + ((sunriseDt.getMinutes() < 10 ? '0' : '').toString() + sunriseDt.getMinutes().toString()) + (sunriseDt.getHours() < 12 ? ' AM' : ' PM').toString();
-        
+  
         	var sunsetDt = new Date (data.sys.sunset  * 1000);
      		var sset = (sunsetDt.getHours()>12?(sunsetDt.getHours()-12):sunsetDt.getHours()).toString() + ":" + ((sunsetDt.getMinutes() < 10 ? '0' : '').toString() + sunsetDt.getMinutes().toString()) + (sunsetDt.getHours() < 12 ? ' AM' : ' PM').toString();
      
      		var updatedDt = new Date (data.dt * 1000);
      		var updated = (updatedDt.getHours()>12?(updatedDt.getHours()-12):updatedDt.getHours()).toString() + ":" + ((updatedDt.getMinutes() < 10 ? '0' : '').toString() + updatedDt.getMinutes().toString()) + (updatedDt.getHours() < 12 ? ' AM' : ' PM').toString();
 
-			document.getElementById("sunrise").innerHTML = ' ' + rise;
-			document.getElementById("sunset").innerHTML = ' ' + sset;
-			document.getElementById("updated").innerHTML = ' Last updated: ' + updated;
+		document.getElementById("sunrise").innerHTML = ' ' + rise;
+		document.getElementById("sunset").innerHTML = ' ' + sset;
+		document.getElementById("updated").innerHTML = ' Last updated: ' + updated;
 	}).catch(e => {})}
