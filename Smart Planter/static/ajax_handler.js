@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2019 
+
 $( document ).ready(function() { 
     $("#sun").hide();
     $("#moon").hide();
