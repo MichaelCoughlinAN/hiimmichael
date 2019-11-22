@@ -5,6 +5,28 @@ Smart Planter is an open-source, autonomous irrigation and lighting system desig
 
 ### Download the files
 
+Smart Planter application files must be structured like below:
+
+    /App
+        /app.py
+        /templates
+            /index.html
+            /log.html
+        /static
+            /ajax_handler.js
+            /script.js
+            /style.css
+            /jquery.gradientify.min.js
+            /images
+                /cloudy.png
+                /drizzle.png
+                /rain.png
+                /snow.png
+                /sunny2.png
+                /thunderstrong.png
+                /warning.png
+            
+
 # Prerequisites 
 
 I recommend installing [Raspbian](https://www.raspberrypi.org/documentation/installation/) onto your Raspberry Pi. 
