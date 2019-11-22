@@ -1,4 +1,5 @@
 # Smart Planter
+[View the complete guide on my website!](https://blog.hiimmichael.com/articles/smart-planter.html)
 
 Smart Planter is an open-source, autonomous irrigation and lighting system designed by [Michael Coughlin](https://hiimmichael.com).
 
