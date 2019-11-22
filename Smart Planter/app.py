@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# Copywrite @ 2019
+
 from flask import Flask, render_template, jsonify
 from threading import Lock, Thread
 import RPi.GPIO as GPIO
