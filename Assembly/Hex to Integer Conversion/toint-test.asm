@@ -1,4 +1,7 @@
 # This file contains the toIntTest subprogram for testing toInt.
+# Michael Coughlin
+# hiimmichael.com
+# 2015
 #
 
 	.globl	toIntTest
