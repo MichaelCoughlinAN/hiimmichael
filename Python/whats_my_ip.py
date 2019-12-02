@@ -1,5 +1,6 @@
-#Created by Michael Coughlin
-#10/19/2017
+# Michael Coughlin
+# hiimmichael.com
+# 2019
 
 import ipaddress
 import socket
