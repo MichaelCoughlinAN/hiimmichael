@@ -1,8 +1,12 @@
-﻿using System;
+// Michael Coughlin
+// hiimmichael.com
+// 2019
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Gemini {
+namespace Test {
     public class FluidUnits : Enumeration {
         public static FluidUnits pints = new FluidUnits(1, "Pints");
         public static FluidUnits quarts = new FluidUnits(2, "Quarts");
@@ -42,7 +46,6 @@ namespace Gemini {
         internal void convertPintsToDefaultUnits(DataGridViewCell dataGridViewCell, string units) {
             switch (units) {
                 case "Pints":
-                    // dataGridViewCell.Value = Convert.ToDouble(amount);
                     break;
                 case "Quarts":
                     dataGridViewCell.Value = Convert.ToDouble(dataGridViewCell.Value) * 0.5;
