@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import binascii
 import datetime
 import inspect
