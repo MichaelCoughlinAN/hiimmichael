@@ -1,11 +1,16 @@
 #!usr/bin/python
+
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import socket
 
 
 def main():
     TCP_IP = ''
     TCP_PORT = 5009
-    BUFFER_SIZE = 20  # Normally 1024, but we want fast response
+    BUFFER_SIZE = 20  # Normally 1024, but we want a fast response
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((TCP_IP, TCP_PORT))
@@ -23,8 +28,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
