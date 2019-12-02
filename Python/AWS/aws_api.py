@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import boto3
 from boto3.dynamodb.conditions import Key
 
@@ -309,10 +313,3 @@ def restore_from_table_backup(table_name, backup_arn):
     )
 
     return response
-
-
-
-
-
-
-
