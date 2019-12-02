@@ -1,4 +1,7 @@
 # This file contains the toInt subprogram.
+# Michael Coughlin
+# hiimmichael.com
+# 2015
 #
 
 	.globl	toInt
