@@ -1,19 +1,3 @@
-/** 
- *  CS1521
- *  @section 9
- *
- *  SetInterface class template definition.
- *
- *  Adapted from page 23-4 in Carrano 6e.
- *
- *  @author Frank M. Carrano
- *  @author Timothy Henry
- *  @author Steve Holtz
- *
- *  @date 2013 Dec 10
- *
- *  @version 6.0 */
-
 #ifndef _SET_INTERFACE
 #define _SET_INTERFACE
 
