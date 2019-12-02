@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import requests
 import re
 from HTMLParser import HTMLParser
@@ -181,10 +186,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
