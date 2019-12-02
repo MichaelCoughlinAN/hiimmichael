@@ -1,10 +1,14 @@
-﻿using System;
+// Michael Coughlin
+// hiimmichael.com
+// 2019
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gemini
+namespace Test
 {
 
     public class SupportedLanguages : Enumeration
@@ -29,6 +33,5 @@ namespace Gemini
         {
             return new[] {english, spanish, french, german, italian, polish, russian, portuguese};
         }
-
     }
 }
