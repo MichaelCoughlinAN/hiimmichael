@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program calculates the approximate value of pi given the number
 of terms in the approximation.
