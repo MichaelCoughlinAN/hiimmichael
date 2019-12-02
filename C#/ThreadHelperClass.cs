@@ -1,7 +1,11 @@
-﻿using System.Drawing;
+// Michael Coughlin
+// hiimmichael.com
+// 2019
+
+using System.Drawing;
 using System.Windows.Forms;
 
-namespace Gemini {
+namespace Test {
     public static class ThreadHelperClass {
         delegate void SetTextCallback(Form f, Control ctrl, string text);
         delegate void SetImageCallback(Form f, Button ctrl, Bitmap image);
