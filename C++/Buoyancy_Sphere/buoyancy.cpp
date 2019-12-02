@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program calculates the buoyacny of a sphere given the radius and weight,
 and determines if the given sphere will sink or float in water.
