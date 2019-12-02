@@ -1,7 +1,7 @@
+# This file contains the hexValTest subprogram for testing hexVal.
 # Michael Coughlin
 # hiimmichael.com
 # 2015
-# This file contains the hexValTest subprogram for testing hexVal.
 #
 
 	.globl	hexValTest
