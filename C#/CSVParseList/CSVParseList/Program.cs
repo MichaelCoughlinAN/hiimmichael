@@ -1,4 +1,8 @@
-﻿using System;
+// Michael Coughlin
+// hiimmichael.com
+// 2019
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace CSVParseList {
     class Program {
+        
         static void Main(string[] args) {
-
             string file1 = @"Output1.txt";
             string file2 = @"OutputChinese1.txt";
-
             string output = @"final.txt";
 
             const Int32 BufferSize = 128;
@@ -24,9 +27,7 @@ namespace CSVParseList {
                         Console.WriteLine("Writing line (" + line + ") from " + Path.GetFileName(file1));
                         sw.WriteLine("\"" + line +  "\",");
                     }
-
                 }
-
             }
 
             using (var fileStream = File.OpenRead(file2))
@@ -38,21 +39,11 @@ namespace CSVParseList {
                         Console.WriteLine("Writing line (" + line + ") from " + Path.GetFileName(file2));
                         sw.WriteLine("\"" + line + "\",");
                     }
-
                 }
-
             }
 
             Console.WriteLine("Done.");
             Console.ReadLine();
-
-
-
-
         }
-
-
-
-
     }
 }
