@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import argparse
 import os
 import time
