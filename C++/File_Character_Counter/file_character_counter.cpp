@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program counts the number of characters, letters, and white spaces in a given file.
 */
