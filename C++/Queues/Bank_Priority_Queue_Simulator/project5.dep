@@ -1,5 +1,0 @@
-project5.o: project5.cpp Simulation.h Event.h Time.h EventType.h \
- EventBuilder.h LinkedQueue.h QueueInterface.h PrecondViolatedExcep.h \
- Node.h Node.cpp LinkedQueue.cpp PriorityQueue.h PriorityQueueInterface.h \
- LinkedSortedList.h SortedListInterface.h LinkedSortedList.cpp \
- PriorityQueue.cpp Statistics.h
