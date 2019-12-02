@@ -1,4 +1,7 @@
 # This file contains the hexVal subprogram.
+# Michael Coughlin
+# hiimmichael.com
+# 2015
 #
 
 	.globl	hexVal
