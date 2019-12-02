@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
