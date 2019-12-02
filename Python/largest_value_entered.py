@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 __author__ = 'Michael'
 
 print("Enter 0 or any negative number to exit.\n")
