@@ -53,7 +53,7 @@ return charCount;
 int letters()
 {
 int letterCount = 0;
-inFile.open("project7.dat");
+inFile.open("text.dat");
 while(inFile)
 {
 char testChar = inFile.get();
