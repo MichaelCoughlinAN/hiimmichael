@@ -1,4 +1,7 @@
 # This file contains the main program for testing the hexVal and toInt subprograms.
+# Michael Coughlin
+# hiimmichael.com
+# 2015
 #
 
 	.globl	main
