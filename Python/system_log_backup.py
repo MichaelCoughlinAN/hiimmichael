@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import os
 import subprocess
 import zipfile
@@ -41,7 +45,6 @@ def zipdir(path):
             print('Adding file ' + str(file) + ' to SystemLogs.zip archive')
             zipf.write(os.path.join(root, file))
 
-
-
+            
 if __name__ == "__main__":
     main()
