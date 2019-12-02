@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program calculates the amount of candy bars
 that can be eaten to maintain one's weight without any exercise.
