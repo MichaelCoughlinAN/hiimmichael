@@ -1,8 +1,8 @@
 # This program sorts an array of integers using a test array. 
 # Subprogram printArray displays the contents of the array. 
 # Michael Coughlin
+# hiimmichael.com
 # 2015
-#
 
 .data
 
@@ -109,4 +109,3 @@ inner_end:
 	blt	$t1, $t7, outer	           # if $t1 < $t7 branch to outer
 outer_end:
 	jr	$ra
-
