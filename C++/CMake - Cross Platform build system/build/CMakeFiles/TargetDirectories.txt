@@ -1,3 +1,0 @@
-/home/autumn/CS 5721/CMake - Cross Platform build system/build/CMakeFiles/rebuild_cache.dir
-/home/autumn/CS 5721/CMake - Cross Platform build system/build/CMakeFiles/edit_cache.dir
-/home/autumn/CS 5721/CMake - Cross Platform build system/build/CMakeFiles/test1.dir
