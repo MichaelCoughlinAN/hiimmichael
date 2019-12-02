@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program computes the annual after-tax cost of a new house for
 the first year of ownership.
