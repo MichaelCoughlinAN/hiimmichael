@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2019
+
 import aws_api as aws
 import boto3
 from datetime import datetime
