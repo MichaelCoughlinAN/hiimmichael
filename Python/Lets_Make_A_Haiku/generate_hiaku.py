@@ -11,6 +11,9 @@ import re
 import nltk
 import requests
 from textstat.textstat import textstat
+import string
+from nltk.corpus import cmudict
+cmu = cmudict.dict()
 
 
 class Word:
@@ -100,6 +103,12 @@ def load_words():
         return str(e)
 
 
+def count_syllables(word):
+    if word in cmu:
+        return max([len([y for y in x if y[-1] in string.digits])
+                    for x in cmu[word]])
+
+
 def main():
     english_words = load_words()
 
@@ -130,31 +139,33 @@ def main():
         word = word.lower()
 
         # Get syllable count of word and verify word is not a single article or exceeds syllable count
-        syllable_count = textstat.syllable_count(word)
+        syllable_count = count_syllables(word)
+        try:
+            # Check if syllable count of word exceeds max haiku syllable line count
+            if syllable_count <= 7:
+                dupe = False
 
-        # Check if syllable count of word exceeds max haiku syllable line count
-        if syllable_count <= 7:
-            dupe = False
+                try:
+                    if english_words[word] == 1:
+                        for word1 in words_list:
+                            if word == word1.get_word():
+                                dupe = True
+                                break;
 
-            try:
-                if english_words[word] == 1:
-                    for word1 in words_list:
-                        if word == word1.get_word():
-                            dupe = True
-                            break;
+                        if not dupe:
+                            words_list.append(Word(word, syllable_count, entry[1]))
+                            print('Added "' + word + '" to haiku word bank ... word count is now [' + str(len(words_list)) + ']')
 
-                    if not dupe:
-                        words_list.append(Word(word, syllable_count, entry[1]))
-                        print('Added "' + word + '" to haiku word bank ... word count is now [' + str(len(words_list)) + ']')
-
-                        # Place a hard limit on the amount of words in the valid_english_words array
-                        # This is mainly used to reduce amount of time spent scanning and parsing website page content
-                        # when more than enough words have been found
-                        if (len(words_list) + 1) > word_limit:
-                            print('\nMore than enough words found, exiting word discovery loop ...')
-                            break
-            except KeyError:
-                pass
+                            # Place a hard limit on the amount of words in the valid_english_words array
+                            # This is mainly used to reduce amount of time spent scanning and parsing website page content
+                            # when more than enough words have been found
+                            if (len(words_list) + 1) > word_limit:
+                                print('\nMore than enough words found, exiting word discovery loop ...')
+                                break
+                except KeyError:
+                    pass
+        except TypeError:
+            pass
 
     print('----------------------------------')
     print('\nA Haiku')
