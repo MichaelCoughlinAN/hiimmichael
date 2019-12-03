@@ -4,19 +4,13 @@
 # hiimmichael.com
 # 2019
 
-import requests
-import re
-from HTMLParser import HTMLParser
-from lxml import html
-from textstat.textstat import textstat
-from nltk.corpus import words
-from nltk.corpus import wordnet as wn
-import nltk
-import random
 import json
 import os
-import sys
-import time
+import random
+import re
+import nltk
+import requests
+from textstat.textstat import textstat
 
 
 class Word:
@@ -35,30 +29,16 @@ class Word:
         return self.pos_tag
 
 
-# Class used to strip HTML tags from page.content
-class MLStripper(HTMLParser):
-    def __init__(self):
-        self.reset()
-        self.fed = []
-
-    def handle_data(self, d):
-        d = d + ' '
-        self.fed.append(d)
-
-    def get_data(self):
-        return ''.join(self.fed)
-
-
 # Remote HTML tags from a String
 # html: String
 def strip_tags(html):
-    s = MLStripper()
-    s.feed(html)
-    return s.get_data()
+    print('Stripping HTML tag elements from fetched web data ...\n')
+    clean_re = re.compile('<.*?>')
+    return re.sub(clean_re, '', html)
 
 
 def assemble_haiku_author():
-    return 'By: ' +  os.environ['COMPUTERNAME']
+    return 'By: ' + os.environ['COMPUTERNAME']
 
 
 def assemble_haiku_title(word_bank):
@@ -83,8 +63,6 @@ def assemble_haiku_title(word_bank):
             # Adjust the syllable count accordingly
             syllable_line_count = syllable_line_count - syllable_count
             haiku = haiku + word + ' '
-            # print 'Syllables remaining: ' + str(syllable_line_count)
-            # print haiku
 
     return haiku
 
@@ -108,8 +86,6 @@ def assemble_haiku_line(word_bank, syllable_line_count):
             # Adjust the syllable count accordingly
             syllable_line_count = syllable_line_count - syllable_count
             haiku = haiku + word + ' '
-            #print 'Syllables remaining: ' + str(syllable_line_count)
-            #print haiku
 
     return haiku
 
@@ -117,7 +93,7 @@ def assemble_haiku_line(word_bank, syllable_line_count):
 def load_words():
     try:
         filename = os.path.join(os.getcwd(), "words_dictionary.json")
-        with open(filename,"r") as english_dictionary:
+        with open(filename, "r") as english_dictionary:
             valid_words = json.load(english_dictionary)
             return valid_words
     except Exception as e:
@@ -126,63 +102,71 @@ def load_words():
 
 def main():
     english_words = load_words()
+
     # Define a word limit used to define the amount of words discovered on a website
-    # Uncomment to download nltk if not already downloaded
-    # nltk.download('all')
+    word_limit = 85
 
-    while True:
-        try:
-            web_site_address = raw_input("Please enter the URL of a website: ")
-            #web_site_address = 'http://www.google.com'
-            page = requests.get(web_site_address)
-            print 'Scanning ' + web_site_address + ' for a list of valid English words!'
-            break
-        except Exception, e:
-            print 'Incorrect website, please try again (e.g. http://www.google.com)'
+    list1 = ['https://www.bbc.co.uk/', 'https://news.google.com/?hl=en-US&gl=US&ceid=US:en', 'https://www.npr.org/']
+    web_site_address = random.choice(list1)
 
-    while True: # This is a development loop to weed out unwanted programmer jargon words
+    print('Scanning ' + web_site_address + ' for a list of valid words ...')
+    page = requests.get(web_site_address)
 
-        # Remove non-alphabet chars from string
-        content = re.sub(r'[^a-zA-Z ]+', ' ', strip_tags(page.content))
-        # Create lists that will be used to contain the found words
-        words_list = list()
+    if not page:
+        print('An error has occurred parsing website ...')
+        return
 
-        text = nltk.word_tokenize(content)
-        result = nltk.pos_tag(text)
+    # Remove non-alphabet chars from string
+    content = re.sub(r'[^a-zA-Z ]+', ' ', strip_tags(page.content.decode('utf-8')))
+    # Create lists that will be used to contain the found words
+    words_list = list()
 
-        # Split the website content string at every whitespace creating an array of potentially usable words
-        for entry in result:
-            word = entry[0].strip()
-            # Check if word is a valid English word and not a word associated with a programming language
-            #if word not in programmer_jargon:
-                # Lowercase the word
-            word = word.lower()
-                # Get syllable count of word and verify word is not a single article or exceeds syllable count
-            syllable_count = textstat.syllable_count(word)
-                # Check if syllable count of word exceeds max haiku syllable line count
-            if syllable_count <= 7:
-                try:
-                    if english_words[word] == 1:
-                         #print 'Adding "' + word + '" to Haiku word bank'
+    text = nltk.word_tokenize(content)
+    result = nltk.pos_tag(text)
+
+    # Split the website content string at every whitespace creating an array of potentially usable words
+    for entry in result:
+        word = entry[0].strip()
+        word = word.lower()
+
+        # Get syllable count of word and verify word is not a single article or exceeds syllable count
+        syllable_count = textstat.syllable_count(word)
+
+        # Check if syllable count of word exceeds max haiku syllable line count
+        if syllable_count <= 7:
+            dupe = False
+
+            try:
+                if english_words[word] == 1:
+                    for word1 in words_list:
+                        if word == word1.get_word():
+                            dupe = True
+                            break;
+
+                    if not dupe:
                         words_list.append(Word(word, syllable_count, entry[1]))
-                except Exception, e:
-                    pass
+                        print('Added "' + word + '" to haiku word bank ... word count is now [' + str(len(words_list)) + ']')
 
-            # Place a hard limit on the amount of words in the valid_english_words array
-            # This is mainly used to reduce amount of time spent scanning and parsing website page content
-            # when more than enough words have been found
-            #if len(words_list) > word_limit:
-             #   print 'More than enough words found, exiting word discovery loop...'
-                #break
-        print assemble_haiku_title(words_list)
-        print assemble_haiku_author()
-        print
-        print assemble_haiku_line(words_list, 5)
-        print assemble_haiku_line(words_list, 7)
-        print assemble_haiku_line(words_list, 5)
+                        # Place a hard limit on the amount of words in the valid_english_words array
+                        # This is mainly used to reduce amount of time spent scanning and parsing website page content
+                        # when more than enough words have been found
+                        if (len(words_list) + 1) > word_limit:
+                            print('\nMore than enough words found, exiting word discovery loop ...')
+                            break
+            except KeyError:
+                pass
 
-        print '----------------------------------'
-        time.sleep(20)
+    print('----------------------------------')
+    print('\nA Haiku')
+    print(assemble_haiku_author() + '\n')
+    print(assemble_haiku_line(words_list, 5))
+    print(assemble_haiku_line(words_list, 7))
+    print(assemble_haiku_line(words_list, 5))
+    print('\n----------------------------------')
+    print('This poem was randomly generated')
+    print('Word source: ' + web_site_address)
+    print('Copywrite @ 2019 https://hiimmichael.com/')
+
 
 if __name__ == "__main__":
     main()
