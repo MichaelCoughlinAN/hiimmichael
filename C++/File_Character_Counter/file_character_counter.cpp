@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2016
+
 /*
 This program counts the number of characters, letters, and white spaces in a given file.
 */
@@ -49,7 +53,7 @@ return charCount;
 int letters()
 {
 int letterCount = 0;
-inFile.open("project7.dat");
+inFile.open("text.dat");
 while(inFile)
 {
 char testChar = inFile.get();
