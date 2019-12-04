@@ -257,7 +257,7 @@ def main():
     english_words = load_words()
 
     # Define a word limit used to define the amount of words discovered on a website
-    word_limit = 85
+    word_limit = 1024
 
     list1 = ['https://www.bbc.co.uk/', 'https://news.google.com/?hl=en-US&gl=US&ceid=US:en', 'https://www.npr.org/']
     web_site_address = random.choice(list1)
