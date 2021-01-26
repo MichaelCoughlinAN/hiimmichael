@@ -1,7 +1,7 @@
 # hiimmichael
 
 
- [blog.hiimmichael.com](https://www.blog.hiimmichael.com)
+ [blog.hiimmichael.com](http://blog.hiimmichael.com)
 
 # Donate
 
