@@ -1,4 +1,4 @@
-# hi im michael
+# Hi, I'm Michael
 
 I am a software engineer with industry experience building IoT, web, and native mobile apps. I specialize in Python and have experience working with C# and Java. I have also designed, deployed, and managed cloud services to support apps and embedded devices.
 
