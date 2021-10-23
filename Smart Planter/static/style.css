@@ -1,0 +1,290 @@
+/*
+Michael Coughlin
+hiimmichael.com
+2019
+*/
+
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+
+.loading-icon{
+    width: 14em;
+    height: 14em;
+}
+
+.weather-status {
+    font-size: 1.5em;
+    display: none;
+}
+
+.rise-set {
+/*     display: none; */
+    display: inline;
+}
+
+.table-col {
+	text-align: left;
+}
+
+.weather-table {
+  	margin-left: 25px;
+	display: inline-block;
+}
+
+@media only screen and (max-width: 500px) {
+	.table-col {
+  		text-align: center;
+	}  
+	
+	.weather-table {
+	    margin-left: 0px;
+	    display: inline-block;
+    }
+}
+
+.button-label {
+	font-size: 1.5em;
+}
+
+.content-table {
+    margin: 0 auto;
+}
+
+.content-table td {
+    text-align: center;
+	vertical-align:middle;
+}
+
+.slider-v3 {
+  position: relative;
+  display: block;
+  width:15em;
+  height: 5em;
+  cursor: pointer;
+  border-radius: 1.5em;
+  transition: 350ms;
+  background: #ddd;
+}
+
+.slider-v3::after {
+  position: absolute;
+  content: '';
+  width: 4em;
+  height: 4em;
+  top: 0.5em;
+  left: 0.5em;
+  border-radius: 1.5em;
+  transition: width 200ms ease-out, height 300ms 50ms ease-in, top 300ms 50ms ease-in, left 250ms 50ms ease-in, background 300ms ease-in, box-shadow 300ms ease-in;
+  background: #f2f2f2;
+  box-shadow: 0 0 0 1.5em #f2f2f2 inset;
+}
+
+.taper_line { 
+    margin: 25px 0;
+    height: 1px;
+    background: black;
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), to(transparent), color-stop(50%, #fff));
+}
+
+.login-box {
+	width: 80%;
+    background: rgba(0,0,0,0.5);
+    color: #ffffff;
+    padding: 70px 30px;
+    border-radius: 5px;
+	margin-top:4%;
+	margin-bottom:100px;	
+}
+
+#gradient {	
+	height: 100%;
+	margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+	text-align: center;
+	justify-content: center;
+    align-items: center;
+}
+
+.ladder_controls {
+	margin: 5px auto 0 auto;
+}
+
+.weather-icon {
+	width: 14em;
+	height: 14em; 
+	display: none;
+}
+
+.wrapper {
+ 	margin: auto;
+
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    height: 21em;
+}
+
+.temp {
+    font-size: 5em;
+    display: none;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+  -webkit-animation: fadeIn ease 1s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
+}
+
+tr.spaceUnder>td {
+  padding-bottom: 0.5em;
+}
+
+img {
+    border:0;
+}
+
+button{
+	float:right;
+    border: none;
+    background: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    padding: .5em 2em;
+    margin-top: 1em;
+    font-size: 1.1em;
+	cursor: pointer;
+	transition: .3s;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+input:checked + .slider-v3::after {
+  width: 5em;
+  height: 5em;
+  top: 0;
+  left: 10em;
+  background: #4c6;
+  box-shadow: 0 0 0 0 #f2f2f2 inset;
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 450px;
+	height: 200px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 190px;
+	height: 190px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+label:active:after {
+	width: 130px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	font-family: 'Dosis', sans-serif;
+	color: #fff;	
+}
+
+td {
+	text-align:center;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+h1 {
+    display: block;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}

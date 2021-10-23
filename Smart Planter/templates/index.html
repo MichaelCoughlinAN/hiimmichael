@@ -1,0 +1,155 @@
+<!-- 
+Michael Coughlin
+hiimmichael.com
+2019
+-->
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <title>Smart Planter</title>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script  src="/static/ajax_handler.js"></script>
+    <script  src="/static/jquery.gradientify.min.js"></script>  
+    <link rel="stylesheet" href='/static/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="/static/images/favicon-32x32.png">
+    
+<body id="gradient" class="style fade-in"> 		
+    <div class="login-box"> 		
+		<header class="header">
+			<h1>Smart Planter </h1>
+			<h3>v1.0.0</h3>
+		</header>
+			
+	<div class="taper_line"></div>
+			
+	<div class="wrapper">									
+		<table style="display: inline-block;">
+			<tr>
+			    <td>					
+		                <img class="weather-icon" id="wicon">	
+			    </td>
+			</tr>
+			<tr>
+			    <td>
+			        <span class="weather-status" id="expect"></span>
+			    </td>
+			</tr>
+	 	</table>
+			   	   	    
+		<table class="weather-table">
+			<tr>
+			    <td class="table-col">
+			        <span class="temp" id="temp"></span>
+			    </td>
+			</tr>
+			<tr class="spaceUnder">
+			    <td class="table-col">
+			        <span class="weather-status" id="hi_and_lo"></span>
+			    </td>
+			</tr>
+			<tr>
+			    <td class="table-col">
+			        <span class="weather-status" id="humidity"></span>
+			    </td>
+			</tr>
+			<tr>
+			    <td class="table-col">
+			        <span class="weather-status" id="wind"></span>
+			    </td>
+			</tr>
+			<tr class="spaceUnder">
+			    <td class="table-col">
+			        <span class="weather-status" id="clouds"></span>
+			    </td>
+			</tr>
+			<tr>
+			    <td class="table-col">
+			        <i class="fa fa-sun-o" id="sun"></i><span class="rise-set" id="sunrise"></span>
+			    </td>
+			</tr>
+			<tr>
+			    <td class="table-col">
+			        <i class="fa fa-moon-o" id="moon"></i><span class="rise-set" id="sunset"></span>
+			     </td>
+			</tr>
+		</table>	   
+	</div>
+		
+	<div class="ladder_controls">	
+		<table class="content-table">
+			<tr class="spaceUnder">	
+			    <td>	
+			        <form>
+			  	    <input type="checkbox" name="light" id="light" {{'checked="checked"' if light else ""}} />
+  				    <label class="slider-v3" for="light"></label>
+				</form>
+			    </td>						
+			</tr>
+			<tr>
+			    <td>
+			        <span class="button-label" id="light_status">			
+						{% if light %}
+							Grow Lights On
+						{% else %}
+							Grow Lights Off
+						{% endif %}
+				</span>
+			    </td>
+			</tr>
+			<tr class="spaceUnder">	
+			    <td>	
+			        <form>
+			   	    <input type="checkbox" id="water" {{'checked="checked"' if water else ""}} />
+  				    <label class="slider-v3" for="water"></label>
+				</form>
+			    </td>	
+			</tr>
+			<tr>
+			    <td>
+			        <span class="button-label" id="water_status">
+						{% if water %}
+							Water Pump On
+						{% else %}
+							Water Pump Off
+						{% endif %}
+				</span>
+		 	    </td>
+			</tr>
+			<tr class="spaceUnder">	
+			    <td>	
+			 	<form>
+			  	    <input type="checkbox" id="auto" {{'checked="checked"' if auto else ""}} />
+  				    <label class="slider-v3" for="auto"></label>
+				</form>
+			    </td>			
+			</tr>
+			<tr>
+			    <td style="text-align:center">
+			        <span class="button-label" id="auto_status">
+						{% if auto %}
+							Plant Sitter On
+						{% else %}
+							Plant Sitter Off
+						{% endif %}
+			  	    </span>
+			    </td>			
+			</tr>
+		</table>	
+	</div>
+	
+	<br/>
+	<br/>
+	<div class="taper_line"></div>	
+		
+	<span style="text-align:center;display:block;" id="updated"></span><br/>
+	<a style="text-align:center;display:block;" href="{{ url_for('log') }}">View Smart Ladder Log</a>
+    </div>	
+</body>
+
+<script  src="/static/script.js"></script> 
+</html>
