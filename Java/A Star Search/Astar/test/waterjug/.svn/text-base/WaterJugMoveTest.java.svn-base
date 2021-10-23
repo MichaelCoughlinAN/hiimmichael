@@ -1,0 +1,63 @@
+package waterjug;
+
+import framework.Move;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * A class to test the WaterJugMove class.
+ * @author your name here
+ */
+public class WaterJugMoveTest {
+    
+    // You should use the BridgeMoveTest class as a model for setting up
+    // the tests with private instance fields here.
+
+    /**
+     * Tests filling jug X
+     */
+    @Test
+    public void testFillX() {
+        // You must provide
+    }
+
+    /**
+     * Tests filling jug Y
+     */
+    @Test
+    public void testFillY() {
+        // You must provide
+    }
+    
+    /**
+     * Tests emptying jug X
+     */
+    @Test
+    public void testEmptyX() {
+        // You must provide
+    }
+    
+    /**
+     * Tests emptying jug Y
+     */
+    @Test
+    public void testEmptyY() {
+        // You must provide
+    }
+    
+    /**
+     * Tests transferring jug X to jug Y
+     */
+    @Test
+    public void testXToY() {
+        // You must provide
+    }
+    
+    /**
+     * Tests transferring jug Y to jug X
+     */
+    @Test
+    public void testYToX() {
+        // You must provide
+    }
+}

@@ -1,0 +1,55 @@
+package bridge;
+
+import framework.Move;
+import framework.Problem;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class represents the Bridge Crossing problem.
+ * It provides an introductory message describing the problem,
+ * stores the problem's possible moves and current state, and
+ * checks for whether the problem has been successfully solved.
+ * Note that this class extends the abstract class <b>Problem</b> and
+ * therefore imports <b>framework.Problem</b>.
+ * This class inherits the <b>setIntroduction(), setCurrentState()</b>, and
+ * <b>setMoves()</b> methods from its parent
+ * and thus it should not have any instance fields for these attributes.
+ * @author your name here
+ */
+public class BridgeProblem extends Problem {
+    
+    /**
+     * Constructs a new bridge problem object.  A new bridge state object
+     * should be constructed with P1, P2, P5, P10, and the flashlight all on the
+     * west side of the bridge with zero time elapsed.
+     * This state should be set as the current state of the problem using
+     * the inherited <b>setCurrentState()</b> method.
+     * The ten valid bridge moves should be created and stored on a list using
+     * the inherited <b>setMoves()</b> method.
+     * The appropriate introduction string for this problem should be stored
+     * using the inherited <b>setIntroduction()</b>.
+     */
+    public BridgeProblem() {
+        // You must provide
+    }
+    
+    /**
+     * Returns whether the current state of this problem is a success.
+     * Note that this method implements the abstract <b>success</b> method declared
+     * in the parent.
+     * Note also that the current state of the problem must be gotten using the
+     * inherited <b>getCurrentState()</b> method.
+     * Since that method returns a value of type <b>State</b>, it must be cast to
+     * <b>BridgeState</b> before processing.
+     * The current state is a success if P1, P2, P5, and P10 are all on the
+     * east side of the bridge and the time taken to cross is less than 18 minutes.
+     * @return <b>true</b> if the current state is a success, <b>false</b> otherwise
+     */
+    public boolean success() {
+        BridgeState currentState = (BridgeState) getCurrentState();
+        return false; // You must provide
+    }
+    
+    // Private instance fields are not necessary since they are inherited.
+}

@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/timeout.dir/timeout.c.o CMakeFiles/timeout.dir/__/deps/glad.c.o  -o timeout -rdynamic ../src/libglfw3.a -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor 

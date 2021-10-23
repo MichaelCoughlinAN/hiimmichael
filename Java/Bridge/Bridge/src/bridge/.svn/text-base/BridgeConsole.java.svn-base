@@ -1,0 +1,33 @@
+package bridge;
+
+/**
+ * This class provides a terminal console interface to the Bridge
+ * Crossing problem.
+ * The user attempts to solve the problem, with invalid moves rejected,
+ * and the user can quit at any time.
+ * If a move is valid, the new state is displayed.
+ * If the solution is found, a message is given showing the number of moves
+ * attempted, and processing halts.
+ * @author your name here
+ */
+public class BridgeConsole {
+
+    /**
+       Creates a bridge problem console user interface.  An introduction
+       is displayed, the move count is initialized, the initial state is
+       displayed, the first move is solicited, and problem solution proceeds.
+       @param problem the problem
+     */
+    public BridgeConsole(BridgeProblem problem) {
+        // You must provide
+    }
+    
+    /**
+     * This method launches the console
+     * @param args ignored
+     */
+    public static void main(String[] args) {
+        new BridgeConsole(new BridgeProblem());
+    }
+
+}

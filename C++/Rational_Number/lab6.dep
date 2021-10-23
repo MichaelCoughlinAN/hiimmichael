@@ -1,0 +1,2 @@
+lab6.o: lab6.cpp LinkedList.h ListInterface.h PrecondViolatedExcep.h \
+ Node.h Node.cpp LinkedList.cpp Rational.h

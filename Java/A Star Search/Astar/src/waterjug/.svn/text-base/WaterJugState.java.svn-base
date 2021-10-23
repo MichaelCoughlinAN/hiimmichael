@@ -1,0 +1,37 @@
+package waterjug;
+
+import framework.State;
+
+/**
+ * This class represents states of the Water Jug problem.
+ * It creates new water jug states, tests states for equality,
+ * and produces string representations of them.
+ * Note that this class implements the <b>State</b> interface
+ * and therefore imports <b>framework.State</b>.
+ */
+public class WaterJugState implements State {
+
+    // You must provide a constructor
+
+    /**
+       Tests for equality between this state and the argument state.
+       Two states are equal if the X jugs have the same amount of water
+       and the Y jugs have the same amount of water.
+       @param other the state to test against this state
+       @return whether the states are equal
+    */
+    public boolean equals(Object other) {
+	return false; // You must provide
+    }
+
+    /**
+       Creates a primitive, non-GUI representation of this WaterJugState object.
+       @return the string representation of this water jug state
+     */
+    public String toString() {
+	return null; // You must provide
+    }
+    
+    // Private methods and instance fields should go here
+
+}

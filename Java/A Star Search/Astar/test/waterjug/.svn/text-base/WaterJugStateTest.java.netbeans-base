@@ -1,0 +1,54 @@
+package waterjug;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * A class to test the WaterJugState class
+ * @author your name here
+ */
+public class WaterJugStateTest {
+    
+    private String state1String = "       |   |\n" +
+                                  "|   |  |   |\n" +
+                                  "|   |  |   |\n" +
+                                  "|   |  |   |\n" +
+                                  "+---+  +---+\n" +
+                                  "  X      Y  \n";
+                                 
+    
+    private String state2String = "       |***|\n" +
+                                  "|***|  |***|\n" +
+                                  "|***|  |***|\n" +
+                                  "|***|  |***|\n" +
+                                  "+---+  +---+\n" +
+                                  "  X      Y  \n";
+    
+    // You may want to add more instance fields for testing
+
+    /**
+     * This method tests the accessors (getters) for <b>WaterJugState</b> objects.
+     */
+    @Test
+    public void testAccessors() {
+        // You must provide
+    }
+
+    /**
+     * This method tests the <b>equals</b> method for <b>WaterJugState</b> objects.
+     */
+    @Test
+    public void testEquals() {
+        // You must provide
+    }
+
+    /**
+     * This method tests the <b>toString</b> method for <b>WaterJugState</b> objects.
+     * Look at the definitions of <b>state1String</b> and <b>state2String</b> to see
+     * how <b>toString</b> should format a state's string representation.
+     */
+    @Test
+    public void testToString() {
+        // You must provide
+    }
+}

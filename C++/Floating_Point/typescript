@@ -1,0 +1,184 @@
+Script started on Sat 22 Feb 2014 03:16:51 AM CST
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% pwd
+/home/csugrads/cough058/cs1521/labs/lab3
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% ls -l
+total 20
+-rw------- 1 cough058 cough058 1445 Feb 22 03:08 isFloatingPoint.cpp
+-rw------- 1 cough058 cough058  396 Feb 22 03:04 isFloatingPoint.h
+-rw------- 1 cough058 cough058  534 Feb 20 17:12 main.cpp
+-rw------- 1 cough058 cough058  329 Feb 20 15:24 Makefile
+-rw------- 1 cough058 cough058  120 Feb 20 15:03 test.dat
+-rw------- 1 cough058 cough058    0 Feb 22 03:09 typescript
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% cat -n Makefile
+     1	CXX = g++
+     2	CXXFLAGS = -Wall -ansi -std=c++0x
+     3	TARGET = output
+     4	OBJS = main.o isFloatingPoint.o
+     5	
+     6	$(TARGET) : $(OBJS)
+     7		$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+     8	
+     9	%.o : %.cpp
+    10		$(CXX) $(CXXFLAGS) -c -o $@ $<
+    11	
+    12	.PHONY : clean
+    13	clean:
+    14		rm $(OBJS)
+    15	
+    16	main.o : main.cpp isFloatingPoint.h
+    17	isFloatingPoint.o : isFloatingPoint.cpp isFloatingPoint.h
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% cat -n isFloatingPoint.h
+     1	#ifndef _ISFLOATINGPOINT
+     2	#define _ISFLOATINGPOINT
+     3	
+     4	#include <string>
+     5	using namespace std;
+     6	
+     7	class isFloatingPoint{
+     8	private:
+     9	  int endIndex;
+    10	  int nextIndex;
+    11	  int length;
+    12	  int last;
+    13	  int first;
+    14	  int index;
+    15	  char currentChar;
+    16	  char nextChar;
+    17	
+    18	public: 
+    19	 bool isFloatingPointValue(const string& strExp);
+    20	 bool isDigit(const char& input);
+    21	 int endInt(const string& strExp, int first);
+    22	};
+    23	
+    24	#endif
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% cat -n isFloatingPoint.cpp
+     1	#include "isFloatingPoint.h"
+     2	#include <string>
+     3	
+     4	using namespace std;
+     5	
+     6	bool isFloatingPoint::isDigit(const char& input) {
+     7	  if (isdigit(input))
+     8	       return true;
+     9	  else if (input == '.')
+    10	      return false;
+    11	  else return false;
+    12	}
+    13	
+    14	int isFloatingPoint::endInt(const string& strExp, int first){
+    15	  endIndex = -1;
+    16	  length = strExp.length();
+    17	  currentChar = strExp.at(first);
+    18	  last = strExp.length() - 1;
+    19	 
+    20	  if (first + 1 < length)
+    21	      nextChar = strExp.at(first + 1);
+    22	
+    23	  if (isDigit(currentChar) && length == 1)    
+    24	      return first;
+    25	
+    26	  if (isDigit(currentChar) && nextChar == '.' && last > first)
+    27	      endIndex = first;
+    28	  else if (isDigit(currentChar) && first + 1 > last)
+    29	      endIndex = first;
+    30	  else if (isDigit(currentChar) && first < last) { 
+    31	      nextIndex = endInt(strExp, (first + 1)); 
+    32	   
+    33	  if (nextIndex < 0)  
+    34	      endIndex = first;  
+    35	   else 
+    36	     endIndex = nextIndex; 
+    37	  }
+    38	  return endIndex;
+    39	}
+    40	
+    41	bool isFloatingPoint::isFloatingPointValue(const string& strExp) {
+    42	  first = 0;
+    43	  length = strExp.length();
+    44	  last = strExp.length() - 1;
+    45	
+    46	  index = endInt(strExp, first); 
+    47	
+    48	  if (last == index) 
+    49	      return true;
+    50	
+    51	  if (first + 1 < length)
+    52	      nextChar = strExp.at(index + 1);
+    53	
+    54	  if (last == index) 
+    55	      return true;
+    56	  else if (index < 0)
+    57	    return false;
+    58	
+    59	  if (index >= 0 && length > 2 && nextChar == '.')
+    60	      index = endInt(strExp, index + 2);
+    61	
+    62	  if (last == index) 
+    63	      return true;
+    64	        
+    65	  return false; 
+    66	}
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% cat -n main.cpp
+     1	#include <iostream>
+     2	#include <string>
+     3	#include <cstdlib>
+     4	#include <cctype>
+     5	
+     6	using namespace std;
+     7	
+     8	#include "isFloatingPoint.h"
+     9	
+    10	int main() {
+    11	  isFloatingPoint number;
+    12	   string exp;
+    13	
+    14	    while (cin >> exp) {
+    15	      if (number.isFloatingPointValue(exp)) {
+    16	         cout << exp
+    17	              << " is a floating-point number."
+    18	              << endl;
+    19	      }
+    20	      else {
+    21	         cout << "ILLEGAL floating-point number: "
+    22	              << exp
+    23	              << endl;
+    24	      }
+    25	       }
+    26	
+    27	   return EXIT_SUCCESS;
+    28	}
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% make
+g++ -Wall -ansi -std=c++0x -c -o main.o main.cpp
+g++ -Wall -ansi -std=c++0x -c -o isFloatingPoint.o isFloatingPoint.cpp
+g++ -Wall -ansi -std=c++0x -o output main.o isFloatingPoint.o
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% ./output<[K < test.dat
+0 is a floating-point number.
+9 is a floating-point number.
+10 is a floating-point number.
+01 is a floating-point number.
+123458 is a floating-point number.
+1.0 is a floating-point number.
+0.1 is a floating-point number.
+10.1 is a floating-point number.
+3.14 is a floating-point number.
+99.99 is a floating-point number.
+12345.29483 is a floating-point number.
+00000000.000000000 is a floating-point number.
+ILLEGAL floating-point number: .
+ILLEGAL floating-point number: .1
+ILLEGAL floating-point number: 1.
+ILLEGAL floating-point number: a
+ILLEGAL floating-point number: 1a
+ILLEGAL floating-point number: a1
+ILLEGAL floating-point number: a1.0
+ILLEGAL floating-point number: 1a.0
+ILLEGAL floating-point number: 1.a
+ILLEGAL floating-point number: 1.1a
+ILLEGAL floating-point number: 12.12a
+ILLEGAL floating-point number: 0.0.0
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% make clean
+rm main.o isFloatingPoint.o
+[4mukko[24m:[1m~/cs1521/labs/lab3[0m% ^Dexit
+
+Script done on Sat 22 Feb 2014 03:18:59 AM CST

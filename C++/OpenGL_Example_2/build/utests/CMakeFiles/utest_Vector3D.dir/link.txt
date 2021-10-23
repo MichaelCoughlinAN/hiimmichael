@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/utest_Vector3D.dir/utest_Vector3D.cpp.o  -o utest_Vector3D -rdynamic ../src/libsive-rtutil.a -Wl,-Bstatic -lboost_program_options -lboost_unit_test_framework -Wl,-Bdynamic 

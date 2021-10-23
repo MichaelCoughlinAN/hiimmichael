@@ -1,0 +1,67 @@
+Script started on Mon 27 Jan 2014 03:56:06 PM CST
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% pwd
+/home/csugrads/cough058/cs1521/labs/lab1/src
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% ls -lR ~/
+/home/csugrads/cough058/:
+total 4
+drwx------ 4 cough058 cough058 4096 Jan 23 13:32 cs1521
+
+/home/csugrads/cough058/cs1521:
+total 8
+drwx------ 2 cough058 cough058 4096 Jan 23 13:32 lab1
+drwx------ 3 cough058 cough058 4096 Jan 23 13:12 labs
+
+/home/csugrads/cough058/cs1521/lab1:
+total 0
+
+/home/csugrads/cough058/cs1521/labs:
+total 4
+drwx------ 3 cough058 cough058 4096 Jan 23 14:59 lab1
+
+/home/csugrads/cough058/cs1521/labs/lab1:
+total 4
+drwx------ 2 cough058 cough058 4096 Jan 27 15:49 src
+
+/home/csugrads/cough058/cs1521/labs/lab1/src:
+total 48
+-rw------- 1 cough058 cough058  2045 Jan 23 14:59 board.cpp
+-rw------- 1 cough058 cough058  2379 Jan 23 14:59 board.h
+-rw------- 1 cough058 cough058 15365 Jan 23 14:59 board.ps
+-rw------- 1 cough058 cough058  2176 Jan 23 14:59 game.cpp
+-rw------- 1 cough058 cough058  1771 Jan 23 14:59 game.h
+-rw------- 1 cough058 cough058   474 Jan 23 14:59 main.cpp
+-rw------- 1 cough058 cough058   397 Jan 27 15:34 Makefile
+-rw------- 1 cough058 cough058   815 Jan 23 14:59 player.cpp
+-rw------- 1 cough058 cough058  1171 Jan 23 14:59 player.h
+-rw------- 1 cough058 cough058     0 Jan 27 15:49 typescript
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% cat -n make[K[K[K[KMake file
+     1	CXX = g++
+     2	CXXFLAGS = -Wall -ansi -std=c++0x
+     3	TARGET = tictactoe
+     4	OBJS = main.o board.o player.o game.o
+     5	
+     6	$(TARGET) : $(OBJS)
+     7		$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+     8	
+     9	%.o : %.cpp 
+    10		$(CXX) $(CXXFLAGS) -c -o $@ $< 
+    11	
+    12	.PHONY : clean
+    13	clean:
+    14		rm $(OBJS)
+    15	
+    16	main.o : main.cpp game.h board.h player.h
+    17	board.o : board.cpp board.h
+    18	player.o : player.cpp player.h board.h
+    19	game.o : game.cpp game.h board.h player.h
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% make 
+g++ -Wall -ansi -std=c++0x -c -o main.o main.cpp 
+g++ -Wall -ansi -std=c++0x -c -o board.o board.cpp 
+g++ -Wall -ansi -std=c++0x -c -o player.o player.cpp 
+mag++ -Wall -ansi -std=c++0x -c -o game.o game.cpp 
+keg++ -Wall -ansi -std=c++0x -o tictactoe main.o board.o player.o game.o
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% make clean
+rm main.o board.o player.o game.o
+[4mukko[24m:[1m~/cs1521/labs/lab1/src[0m% ^Dexit
+
+Script done on Mon 27 Jan 2014 03:56:38 PM CST

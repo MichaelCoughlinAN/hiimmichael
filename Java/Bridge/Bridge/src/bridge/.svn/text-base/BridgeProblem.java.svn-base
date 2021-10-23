@@ -1,0 +1,65 @@
+package bridge;
+
+import java.util.List;
+
+/**
+ * This class represents the Bridge Crossing problem.
+ * It provides an introductory message describing the problem,
+ * stores the problem's possible moves and current state, and
+ * tests for whether the problem has been successfully solved.
+ * @author your name here
+ */
+public class BridgeProblem {
+    
+    /**
+     * The bridge problem constructor should create the initial bridge state
+     * object and store it as the problem's current state.
+     * It should also create the 10 valid bridge move objects and store them
+     * on an accessible list.
+     */
+    public BridgeProblem() {
+        // You must provide
+    }
+    
+    /**
+     * Getter (accessor) for this problem's introduction string.
+     * @return the introduction string
+     */
+    public String getIntroduction() {
+        return null; // You must provide
+    }
+
+    /**
+     * Getter (accessor) for this problem's list of valid bridge move objects.
+     * @return the list of bridge moves
+     */
+    public List<BridgeMove> getMoves() {
+        return null; // You must provide
+    }
+    
+    /**
+     * Tests for whether the current state of this problem indicates that the
+     * problem has been successfully solved.
+     * @return true if the problem has been solved, false otherwise
+     */
+    public boolean success() {
+        return false; // You must provide
+    }
+
+    /**
+     * Getter (accessor) for this problem's current bridge state.
+     * @return the current state
+     */
+    public BridgeState getCurrentState() {
+        return null;  // You must provide
+    }
+
+    /**
+     * Setter (mutator) for this problem's current bridge state.
+     * @param currentState the state to be made this problem's current state
+     */
+    public void setCurrentState(BridgeState currentState) {
+        // You must provide
+    }
+    
+}

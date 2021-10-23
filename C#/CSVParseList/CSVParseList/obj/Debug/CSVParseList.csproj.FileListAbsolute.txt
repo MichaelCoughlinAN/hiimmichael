@@ -1,0 +1,7 @@
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\bin\Debug\CSVParseList.exe.config
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\bin\Debug\CSVParseList.exe
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\bin\Debug\CSVParseList.pdb
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\obj\Debug\CSVParseList.csprojAssemblyReference.cache
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\obj\Debug\CSVParseList.csproj.CoreCompileInputs.cache
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\obj\Debug\CSVParseList.exe
+c:\users\qumjc2\source\repos\CSVParseList\CSVParseList\obj\Debug\CSVParseList.pdb

@@ -1,0 +1,41 @@
+In the Dec. '98 issue of Consumer Reports (on page 67) they report on
+a tiramisu recipe with the instructions: 
+"...in an 8-inch square pan...    ...makes 5 squares."
+
+Which leads to the following problem:
+
+(1) Find all positive integers n such that it is possible to dissect
+a square into n squares (some of which may be congruent).
+
+This is an easy Discrete Math problem.
+
+A related problem:
+(1a) Find all positive integers n such that it is possible to dissect
+a equilateral triangle into n equilateral triangles (some of which may
+be congruent).
+
+
+More challenging:
+
+(2) Show that it is possible to dissect a cube into n cubes (some of
+which may be congruent) for all positive integers > 100.
+["100" may be replaced by "77" and I _think_ 77 is the best possible.]
+
+I found references to (1) and (2) in a "problems" database at:
+http://problems.math.umr.edu/
+
+
+Yet more challenging:
+
+(3) Show that there is an integer m such that it is possible to dissect
+a 4-cube (tesseract) into n 4-cubes (some of which may be congruent) for
+all n > m.
+[I _think_ m = 1238 may be best possible. I wasted a bit of time on this.]
+
+
+Conjecture:
+
+(4) In d-dimensional Euclidean space, there is an integer m such that 
+it is possible to dissect a d-cube into n d-cubes (some of which may be
+congruent) for all n > m.
+

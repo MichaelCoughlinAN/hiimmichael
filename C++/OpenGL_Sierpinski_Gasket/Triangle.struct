@@ -1,0 +1,78 @@
+
+#ifndef __TRIANGLE_STRUCT__
+#define __TRIANGLE_STRUCT__
+
+#include <GL/glew.h>
+
+/* Defines a three-dimensional point */
+struct Point
+{
+	float x, y, z, w;
+
+	Point(GLfloat s = GLfloat(0.0)):
+			x(s), y(s), z(s), w(1)
+		{}
+
+	Point(GLfloat x, GLfloat y, GLfloat z):
+			x(x), y(y), z(z), w(1)
+		{}
+
+	bool operator<(const Point& other) const
+	{
+		if (x == other.x)
+			return y < other.y;
+		return x < other.x;
+	}
+
+
+
+	Point operator+(const Point& other) const
+	{
+		Point result;
+		result.x = x + other.x;
+		result.y = y + other.y;
+		result.z = z + other.z;
+		return result;
+	}
+
+
+
+	Point operator*(const float factor) const
+	{
+		Point result;
+		result.x = x * factor;
+		result.y = y * factor;
+		result.z = z * factor;
+		return result;
+	}
+
+
+
+	Point operator/(const float factor) const
+	{
+		Point result;
+		result.x = x / factor;
+		result.y = y / factor;
+		result.z = z / factor;
+		return result;
+	}
+
+
+
+	Point& operator+=(const Point& other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return *this;
+	}
+};
+
+
+/* Defines a triangle, consistng of three Points */
+struct Triangle
+{
+	Point A, B, C;
+};
+
+#endif

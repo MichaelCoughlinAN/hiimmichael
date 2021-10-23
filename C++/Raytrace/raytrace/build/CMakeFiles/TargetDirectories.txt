@@ -1,0 +1,3 @@
+/home/autumn/Downloads/raytrace/raytrace/build/CMakeFiles/edit_cache.dir
+/home/autumn/Downloads/raytrace/raytrace/build/CMakeFiles/rebuild_cache.dir
+/home/autumn/Downloads/raytrace/raytrace/build/CMakeFiles/raytrace.dir

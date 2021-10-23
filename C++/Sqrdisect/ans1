@@ -1,0 +1,95 @@
+Here is my sketch of why there aren't any dissections of a square into
+2, 3, or 5 subsquares (there may be holes in it).
+
+Lemma: If a subsquare shares 2 vertices with the big square, then it
+_is_ the big square.
+Proof: If the 2 vertices are adjacent, then it is clear.  If the two
+vertices are opposite, then it is also clear since the 90 degree angles
+of the subsquare must be contained in the 90 degree angles at the
+opposite vertices of the big square.
+
+This takes care of the cases of dissection into 2 or 3 subsquares,
+since in either case, one of the subsquares must share at least two
+vertices with the big square, making it equal to the big square and
+leaving no room for other squares.
+
+Note that each vertex of the big square must be covered -- by a vertex
+of a subsquare, since this is the only way that the 90 degree angle
+at a big square vertex can be covered by a subsquare.  Thus there must
+be at least 4 subsquares (if there are more than 1) -- one covering
+each vertex.
+
+If there are 5 squares, then the one not at a vertex of the big square
+is (1) interior to the big square or (2) has an edge along a side of
+the big square.
+
+(1) Interior case: each edge of the interior square must lie along an
+edge of one of the "corner" squares (since no corner square can share
+edge segments with more than one edge of the interior square).  This
+leads to the following configuration:
+_________________
+|     |         |
+|     |    D    |
+|     |_________|
+|  A  |   |     |
+|     | S |     |
+|_____|___|  C  |
+|         |     |
+|    B    |     |
+|_________|_____|
+
+If A is an axa square, B is bxb, C is cxc, D is dxd, and S is sxs,
+then we get the 4 equations:
+   a = s + d
+   b = s + a
+   c = s + b
+   d = s + c
+which don't have a solution for positive a, b, c, d, and s.
+
+(2) The 5th (non-corner) subsquare has an edge on an edge of the big
+square: Assume that the "shared" edge is along the bottom, so that the
+situation looks like:
+_________________
+|               |
+|  A        D   |
+|               |
+|               |
+|               |
+|      ___      |
+|     |   |     |
+|  B  | S |  C  |
+|_____|___|_____|
+
+Claim: At least one of A or D "overlaps" S (i.e. one of their lower
+edges has a segment in common with the top edge of S).  If not, then
+then a <= b and d <= c and the only way for the "center" of the top
+edge of the big square to be "covered" is for it to be covered by an
+edge of S.  Thus the subsquare S is the same height as the big square
+and so must be equal to it, leaving no room for A, B, C, and D.
+
+Claim: there is a horizontal or vertical "crack" in the big square --
+a line that divides it into two rectangles, one composed of 2 squares
+and the other composed of 3 squares.
+
+Case 1. Suppose A overlaps S and C or A overlaps S and D overlaps S
+also (note that A overlaps B and D overlaps C always).  Then B, S, and
+C are all the same height and their upper edges form a horizontal line
+ -- the desired crack.
+
+Case 2. A overlaps S, but D does not.  Then a <= b + s and d <= c.
+But a + d = edge length of big square = b + s + c and the only way
+this can happen is for a = b + s and d = c, so that the left edges of
+C and D form a vertical line -- the desired crack.
+
+Now the only way that a subrectangle of the big square (that shares two
+vertices with it) can be dissected into 2 subsquares is for the two
+subsquares to have exactly half the edge length of the big square.
+Thus the other rectangle (containing 3 subsquares) must be congruent
+to the "2-square" rectangle and they both have aspect ratio 2 to 1.
+One of the subsquares must cover (at least) two of the vertices of
+the "3-square" rectangle, and those two vertices must be adjacent
+vertices across one of the "short" ends of the rectangle, and hence
+that subsquare covers half of the that rectangle, leaving the other
+half (a square) to be covered by the remaining 2 subsquares which is
+impossible, as noted above. 
+

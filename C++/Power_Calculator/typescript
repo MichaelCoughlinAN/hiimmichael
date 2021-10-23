@@ -1,0 +1,255 @@
+Script started on Mon 03 Feb 2014 06:04:32 PM CST
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% pwd
+/home/csugrads/cough058/cs1521/projects/project1
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% ls -l
+total 16
+-rw------- 1 cough058 cough058 2584 Feb  3 17:10 main.cpp
+-rw------- 1 cough058 cough058  339 Feb  1 23:16 Makefile
+-rw------- 1 cough058 cough058 1812 Feb  3 17:51 PowerCalculator.cpp
+-rw------- 1 cough058 cough058  645 Feb  3 17:49 PowerCalculator.h
+-rw------- 1 cough058 cough058    0 Feb  3 17:57 typescript
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% cart [K[Kt -n MAkef[K[K[K[Kakefile
+     1	CXX = g++
+     2	CXXFLAGS = -Wall -ansi -std=c++0x
+     3	TARGET = PowerCalculator
+     4	OBJS = main.o PowerCalculator.o
+     5	
+     6	&(TARGET) : $(OBJS)
+     7		$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+     8	
+     9	%.0 : %.cpp
+    10		$(CXX) $(CXXFLAGS) -c -o $@ @<
+    11	
+    12	.PHONY : clean
+    13	clean:
+    14		rm $(OBJS)
+    15	
+    16	main.o : main.cpp PowerCalculator.h
+    17	PowerCalculator.o : PowerCalculator.cpp PowerCalculator.h 
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% cat -n main.cpp
+     1	#include "PowerCalculator.h"
+     2	#include <cmath>
+     3	#include <iostream>
+     4	
+     5	using namespace std;
+     6	
+     7	int main(){
+     8	
+     9	  PowerCalculator calc;
+    10	  
+    11	  cout << "RUNNING TESTS\n" << endl;
+    12	  calc.setValues();
+    13	  cout << pow(3, 32) << endl;
+    14	  if(calc.power1(3, 32) == ((ReturnType) pow((ReturnType) 3, 32))){
+    15	    cout << "power1(3, 32) = " << calc.power1(3, 32)
+    16		 << " has been correctly solved!\n"
+    17		 << "This took " << calc.getMult() << " multiplications and "
+    18		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    19	  }else cout << "power1(3, 32) generated an incorrect value.\n";
+    20	  calc.setValues();
+    21	
+    22	 if(calc.power2(3, 32) == ((ReturnType) pow((ReturnType) 3, 32))){
+    23	    cout << "power2(3, 32) = " << calc.power2(3, 32)
+    24		 << " has been correctly solved!\n"
+    25		 << "This took " << calc.getMult() << " multiplications and "
+    26		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    27	  }else cout << "power2(3, 32) generated an incorrect value.\n";
+    28	  calc.setValues();
+    29	
+    30	 if(calc.power3(3, 32) == ((ReturnType) pow((ReturnType) 3, 32))){
+    31	    cout << "power3(3, 32) = " << calc.power3(3, 32)
+    32		 << " has been correctly solved!\n"
+    33		 << "This took " << calc.getMult() << " multiplications and "
+    34		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    35	  }else cout << "power3(3, 32) generated an incorrect value.\n";
+    36	  calc.setValues();
+    37	
+    38	  if(calc.power1(3, 19) == ((ReturnType) pow((ReturnType) 3, 19))){
+    39	    cout << "power1(3, 19) = " << calc.power1(3, 19)
+    40		 << " has been correctly solved!\n"
+    41		 << "This took " << calc.getMult() << " multiplications and "
+    42		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    43	  }else cout << "power1(3, 19) generated an incorrect value.\n";
+    44	  calc.setValues();
+    45	
+    46	 if(calc.power2(3, 19) == ((ReturnType) pow((ReturnType) 3, 19))){
+    47	    cout << "power2(3, 19) = " << calc.power2(3, 19)
+    48		 << " has been correctly solved!\n"
+    49		 << "This took " << calc.getMult() << " multiplications and "
+    50		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    51	  }else cout << "power2(3, 19) generated an incorrect value.\n";
+    52	  calc.setValues();
+    53	
+    54	 if(calc.power3(3, 19) == ((ReturnType) pow((ReturnType) 3, 19))){
+    55	    cout << "power3(3, 19) = " << calc.power3(3, 19)
+    56		 << " has been correctly solved!\n"
+    57		 << "This took " << calc.getMult() << " multiplications and "
+    58		 << calc.getRecurse() << " recursive calls to solve.\n" << endl;
+    59	  }else cout << "power3(3, 19) generated an incorrect value.\n";
+    60	  calc.setValues();
+    61	
+    62	  cout << "TESTS SUCCESSFULL\n" << endl;
+    63	  cout << "Welcome to the Power Calculator!\n" << endl;
+    64	  calc.calculator();
+    65	
+    66	  return 0;
+    67	
+    68	}
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% cat -n PowerCalculator.h
+     1	#ifndef POWERCALCULATOR_H
+     2	#define POWERCALCULATOR_H
+     3	
+     4	using namespace std;
+     5	
+     6	typedef unsigned char Exponent;
+     7	typedef signed char Base;
+     8	typedef unsigned int Counter;
+     9	typedef signed long ReturnType;
+    10	
+    11	class PowerCalculator{
+    12	 public:
+    13	  Counter getRecurse() const;
+    14	  Counter getMult() const;
+    15	  void  multiplications();
+    16	  void  recursiveCalls();
+    17	  ReturnType power1(Base, Exponent);
+    18	  ReturnType power2(Base, Exponent);
+    19	  ReturnType power3(Base, Exponent);
+    20	  void calculator();
+    21	  void setValues();
+    22	 
+    23	private:
+    24	  Counter totalMult;
+    25	  Counter totalRecurse;
+    26	  ReturnType value;
+    27	  ReturnType base1;
+    28	  ReturnType power;
+    29	  char input;
+    30	  bool fin; 
+    31	};
+    32	
+    33	#endif 
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% cat -n PowerCalculator[K[K[Ktor.cpp
+     1	#include "PowerCalculator.h"
+     2	#include <cmath>
+     3	#include <iostream>
+     4	
+     5	using namespace std;
+     6	
+     7	Counter PowerCalculator::getMult() const{
+     8	  return totalMult;
+     9	}
+    10	Counter PowerCalculator::getRecurse() const{
+    11	  return totalRecurse;
+    12	}
+    13	void PowerCalculator::setValues(){
+    14	  totalMult = 0;
+    15	  totalRecurse = 0;
+    16	}
+    17	void PowerCalculator::multiplications(){
+    18	  totalMult++;
+    19	}
+    20	void PowerCalculator::recursiveCalls(){
+    21	  totalRecurse++;
+    22	}
+    23	ReturnType PowerCalculator::power1(Base x, Exponent n){
+    24	  value = 1;
+    25	  for(int y = 1; y <= n; y++){
+    26	    multiplications();
+    27	    value = value * x;
+    28	  }
+    29	  return value;
+    30	}
+    31	ReturnType PowerCalculator::power2(Base x, Exponent n){
+    32	  if(n == 0)
+    33	    return 1;
+    34	    else{
+    35	      multiplications();
+    36	      recursiveCalls();
+    37	      return x * power2(x, (n - 1));
+    38	    }
+    39	}
+    40	ReturnType PowerCalculator::power3(Base x, Exponent n){
+    41	 if(n == 0)
+    42	    return 1;
+    43	  else if (n == 1)
+    44	    return x;
+    45	  else if ((n % 2) == 0){
+    46	    multiplications();
+    47	    recursiveCalls();
+    48	    return power3(x, (n / 2)) * power3(x, (n / 2));
+    49	  }else{
+    50	    multiplications();
+    51	    multiplications();
+    52	    recursiveCalls();
+    53	    return x * ((power3(x, (n / 2))) * ((power3(x, (n / 2)))));
+    54	  }
+    55	}
+    56	void PowerCalculator::calculator(){
+    57	  fin = false; 
+    58	 cout << "Please enter a base number: ";
+    59	  cin >> base1;
+    60	  cout << "Now enter a power: ";
+    61	  cin >> power;
+    62	  cout << base1 << " raised by a power of " << power << " is equal to: "
+    63	       << power3(base1, power) << endl;
+    64	 cout << "Would you like to continue? (y/n): ";
+    65	  cin >> input;
+    66	  while(fin == false){
+    67	    if(input == 'Y' || input == 'y'){
+    68	      calculator();
+    69	      fin = true;
+    70	    }
+    71	    else if (input == 'N' || input == 'n'){
+    72	    fin = true;
+    73	    cout << "Goodbye, have a nice day!\n";
+    74	      }
+    75	  else{ cout << "Incorrect input. Would you like to continue? (y/n): \n";
+    76	    cin >> input;  
+    77	}
+    78	  }
+    79	  }
+    80	
+    81	
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% make
+g++ -Wall -ansi -std=c++0x   -c -o main.o main.cpp
+g++ -Wall -ansi -std=c++0x   -c -o PowerCalculator.o PowerCalculator.cpp
+g++ -Wall -ansi -std=c++0x -o PowerCalculator main.o PowerCalculator.o
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% ./Powercal[K[K[KCalculator
+RUNNING TESTS
+
+1.85302e+15
+power1(3, 32) = 1853020188851841 has been correctly solved!
+This took 32 multiplications and 0 recursive calls to solve.
+
+power2(3, 32) = 1853020188851841 has been correctly solved!
+This took 32 multiplications and 32 recursive calls to solve.
+
+power3(3, 32) = 1853020188851841 has been correctly solved!
+This took 31 multiplications and 31 recursive calls to solve.
+
+power1(3, 19) = 1162261467 has been correctly solved!
+This took 19 multiplications and 0 recursive calls to solve.
+
+power2(3, 19) = 1162261467 has been correctly solved!
+This took 19 multiplications and 19 recursive calls to solve.
+
+power3(3, 19) = 1162261467 has been correctly solved!
+This took 18 multiplications and 15 recursive calls to solve.
+
+TESTS SUCCESSFULL
+
+Welcome to the Power Calculator!
+
+Please enter a base number: 2
+Now enter a power: 5
+2 raised by a power of 5 is equal to: 32
+Would you like to continue? (y/n): y
+Please enter a base number: 2
+Now enter a power: 4
+2 raised by a power of 4 is equal to: 16
+Would you like to continue? (y/n): n
+Goodbye, have a nice day!
+[4mukko[24m:[1m~/cs1521/projects/project1[0m% ^Dexit
+
+Script done on Mon 03 Feb 2014 06:07:54 PM CST

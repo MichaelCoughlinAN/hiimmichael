@@ -1,0 +1,7 @@
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\bin\Debug\UTFParser.exe.config
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\bin\Debug\UTFParser.exe
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\bin\Debug\UTFParser.pdb
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\obj\Debug\UTFParser.csprojAssemblyReference.cache
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\obj\Debug\UTFParser.csproj.CoreCompileInputs.cache
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\obj\Debug\UTFParser.exe
+C:\Users\qumjc2\Documents\GitHub\Odds-N-Ends\C#\UTFParser\UTFParser\obj\Debug\UTFParser.pdb

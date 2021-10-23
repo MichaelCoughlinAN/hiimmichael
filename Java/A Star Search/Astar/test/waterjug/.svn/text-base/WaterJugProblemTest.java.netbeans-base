@@ -1,0 +1,51 @@
+package waterjug;
+
+import java.util.List;
+import framework.Problem;
+import framework.State;
+import framework.Move;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * A class to test the WaterJugProblem class.
+ * You should use the BridgeProblemTest class as a model.
+ * @author your name here
+ */
+public class WaterJugProblemTest {
+    
+    // You should use the BridgeProblemTest class as a model for setting up
+    // the tests with private instance fields and methods here.
+    
+    /**
+     * Tests to be sure the problem represents all the moves.
+     */
+    @Test
+    public void testMoves() {
+        // You must provide
+    }
+
+    /**
+     * Tests the 4-move solution to the water jug problem
+     */
+    @Test
+    public void testSolution1() {
+        // You must provide
+    }
+
+    /**
+     * Tests the 6-move solution to the water jug problem
+     */
+    @Test
+    public void testSolution2() {
+        // You must provide
+    }
+    
+    /**
+     * Tests the problem's introduction string.
+     */
+    @Test
+    public void testIntro() {
+        // You must provide
+    }
+}

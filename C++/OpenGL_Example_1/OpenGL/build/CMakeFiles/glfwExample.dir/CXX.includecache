@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/autumn/CS 5721/Lab 1/OpenGL_Lab1-master/OpenGL/glfwExample.cpp
+cstdlib
+-
+iostream
+-
+vector
+-
+GL/glew.h
+-
+GLFW/glfw3.h
+-
+
