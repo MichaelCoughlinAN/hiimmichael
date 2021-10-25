@@ -67,6 +67,7 @@ void loop(void) {
   
   float level = (getLevelReading() + getLevelReading() + getLevelReading()) / 3.0;
   
+  // Do something with level data
   
   rainbow(10);
   
