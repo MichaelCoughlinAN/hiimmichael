@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2020
+
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
