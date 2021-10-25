@@ -12,4 +12,5 @@ Email: contact@hiimmichael.com <br />
 <br /> 
 [Portfolio](http://hiimmichael.com) <br /> 
 [Blog](http://blog.hiimmichael.com) <br /> 
-[LinkedIn](https://www.linkedin.com/in/hiimmichael/)
+[LinkedIn](https://www.linkedin.com/in/hiimmichael/) <br />
+[YouTube](https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg)
