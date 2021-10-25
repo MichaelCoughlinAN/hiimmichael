@@ -1,3 +1,7 @@
+// Michael Coughlin
+// hiimmichael.com
+// 2021
+
 #include <Adafruit_NeoPixel.h>
 #include <ESP8266WiFi.h>
 #include <HttpClient.h>
