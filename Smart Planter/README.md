@@ -63,7 +63,7 @@ Install and update using [pip](https://pypi.org/project/pip/):
 To start the Smart Planter program, navigate into your project directory and issue the following command:
 
     sudo python app.py
-
+<br /> 
 Email: contact@hiimmichael.com <br /> 
 <br /> 
 [Portfolio](http://hiimmichael.com) <br /> 
