@@ -65,7 +65,3 @@ To start the Smart Planter program, navigate into your project directory and iss
     sudo python app.py
 <br /> 
 Email: contact@hiimmichael.com <br /> 
-<br /> 
-[Portfolio](http://hiimmichael.com) <br /> 
-
-
