@@ -67,5 +67,5 @@ To start the Smart Planter program, navigate into your project directory and iss
 Email: contact@hiimmichael.com <br /> 
 <br /> 
 [Portfolio](http://hiimmichael.com) <br /> 
-[Blog](http://blog.hiimmichael.com) <br /> 
-[LinkedIn](https://www.linkedin.com/in/hiimmichael/)
+
+
