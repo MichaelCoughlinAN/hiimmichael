@@ -69,4 +69,3 @@ Email: contact@hiimmichael.com <br />
 [Portfolio](http://hiimmichael.com) <br /> 
 [Blog](http://blog.hiimmichael.com) <br /> 
 [LinkedIn](https://www.linkedin.com/in/hiimmichael/)
-
