@@ -1,3 +1,7 @@
+# Michael Coughlin
+# hiimmichael.com
+# 2020
+
 from boto3.session import Session, boto3
 import time
 
