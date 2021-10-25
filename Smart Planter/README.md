@@ -64,8 +64,9 @@ To start the Smart Planter program, navigate into your project directory and iss
 
     sudo python app.py
 
-# Donate
-
-* [Buy me a coffee](https://www.buymeacoffee.com/WKToIkLyV)
-* [Patreon](https://www.patreon.com/hiimmichael)
+Email: contact@hiimmichael.com <br /> 
+<br /> 
+[Portfolio](http://hiimmichael.com) <br /> 
+[Blog](http://blog.hiimmichael.com) <br /> 
+[LinkedIn](https://www.linkedin.com/in/hiimmichael/)
 
