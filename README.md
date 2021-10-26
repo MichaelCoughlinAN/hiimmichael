@@ -4,10 +4,10 @@ I'm a software engineer with industry experience building IoT (Internet of Thing
 
 Feel free to take a look at my portfolio or get in touch!
 
-Backend: Python, Java, C#, C/C++, SQL, Node.js <br /> 
+Backend: Python, Java, C#, C/C++, SQL <br /> 
 Frontend: HTML5/CSS, JavaScript, React <br /> 
 DevOps: Git, Slack, Jira, AWS, Blockchain <br /> 
-
+<br /> 
 Email: contact@hiimmichael.com <br /> 
 <br /> 
 [Portfolio](http://hiimmichael.com) <br /> 
