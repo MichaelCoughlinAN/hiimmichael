@@ -6,10 +6,10 @@ Feel free to take a look at my portfolio or get in touch!
 
 Backend: Python, Java, C#, C/C++, SQL <br /> 
 Frontend: HTML5/CSS, JavaScript, React <br /> 
-DevOps: Git, Slack, Jira, AWS, Blockchain <br /> 
-<br /> 
-Email: contact@hiimmichael.com <br /> 
-<br /> 
+DevOps: Git, Slack, Jira, AWS, Blockchain
+
+Email: contact@hiimmichael.com
+
 [Portfolio](http://hiimmichael.com) <br /> 
 [Blog](http://blog.hiimmichael.com) <br /> 
 [LinkedIn](https://www.linkedin.com/in/hiimmichael/) <br />
