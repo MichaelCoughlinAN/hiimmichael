@@ -1,7 +1,7 @@
 Useful Resources & Guides
 
-Website: hiimmichael.com<br/>
-Blog: blog.hiimmichael.com<br/>
+Website: https://hiimmichael.com<br/>
+Blog: https://blog.hiimmichael.com<br/>
 Git: https://github.com/MichaelCoughlinAN/hiimmichael/tree/main/Webscraper%20Microservice<br/>
 Beer: https://10kbrew.com/menu-board/<br/>
 <br/>
