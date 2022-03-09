@@ -4,8 +4,9 @@ Website: https://hiimmichael.com<br/>
 Blog: https://blog.hiimmichael.com<br/>
 Beer: https://10kbrew.com/menu-board/<br/>
 <br/>
+
 ## Additional Software Resources
-<br/>
+
 Deploy Python Lambda functions with .zip file archives<br/>
 https://docs.aws.amazon.com/lambda/latest/dg/python-package.html<br/>
 <br/>
