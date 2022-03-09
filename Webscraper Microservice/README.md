@@ -3,7 +3,6 @@
 Website: https://hiimmichael.com<br/>
 Blog: https://blog.hiimmichael.com<br/>
 Beer: https://10kbrew.com/menu-board/<br/>
-<br/>
 
 ## Additional Software Resources
 
