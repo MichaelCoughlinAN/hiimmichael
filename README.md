@@ -15,4 +15,4 @@ Email: contact@hiimmichael.com
 [LinkedIn](https://www.linkedin.com/in/hiimmichael/) <br />
 [YouTube](https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg) <br />
 <br />
-Copyright © 2022 Michael Coughlin
+© 2022 Michael Coughlin
