@@ -1,4 +1,4 @@
-# Hi, I'm Michael
+# Hi, I'm Michael | hiimmichael.com
 
 I'm a software engineer with industry experience building IoT (Internet of Things), web, and native mobile apps. I specialize in Python and have experience working with C# and TypeScript. I have also designed, deployed, and maintained cloud services to support apps and embedded devices.
 
