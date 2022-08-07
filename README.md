@@ -2,8 +2,6 @@
 
 I'm a software engineer with industry experience building blockchain, web, and native mobile apps.
 
-Feel free to check out my portfolio or get in touch!
-
 Email: contact@hiimmichael.com
 
 [Portfolio](http://hiimmichael.com) <br /> 
