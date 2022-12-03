@@ -1,6 +1,8 @@
 ## [hiimmichael.com](http://hiimmichael.com)
 
-I'm a software engineer with industry experience building blockchain, web, and native mobile apps.
+I'm a computer scientist located in Minnesota.
+
+I develop exceptional software solutions that provide pixel-perfect user interfaces with efficient and modern backends.
 
 Email: contact@hiimmichael.com
 
@@ -9,4 +11,4 @@ Email: contact@hiimmichael.com
 [LinkedIn](https://www.linkedin.com/in/hiimmichael/) <br />
 [YouTube](https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg) <br />
 
-All rights reserved.
+Copyright © 2023 Michael Coughlin. All rights reserved.
