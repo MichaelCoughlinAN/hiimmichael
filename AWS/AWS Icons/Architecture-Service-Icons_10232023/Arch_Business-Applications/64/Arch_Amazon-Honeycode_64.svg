@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon-Architecture/64/Arch_Amazon-Honeycode_64</title>
+    <g id="Icon-Architecture/64/Arch_Amazon-Honeycode_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Architecture-BG/64/Business-Applications" fill="#DD344C">
+            <rect id="Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="Icon-Service/64/Amazon-Honeycode_64" transform="translate(16.000000, 12.000000)" fill="#FFFFFF">
+            <path d="M0,13.916 L0,41.74 L24,55.655 L48,41.74 L48,13.916 L24,0 L0,13.916 Z M2,32.753 L2,15.068 L24,2.312 L46,15.068 L46,40.588 L41,43.486 L41,17.756 L24,8.051 L7,17.756 L7,35.58 L2,32.753 Z M34,22.034 L18.909,13.26 L24,10.354 L39,18.917 L39,28.609 L34,31.444 L34,22.034 Z M9,36.71 L9,18.917 L16.9,14.407 L22.019,17.383 L14,22.033 L14,39.536 L9,36.71 Z M16,32.47 L16,23.186 L24.012,18.54 L32,23.184 L32,32.578 L24.006,37.112 L16,32.47 Z M39,30.908 L39,36.752 L24.001,45.189 L16,40.667 L16,34.783 L23.994,39.418 L39,30.908 Z M2,40.588 L2,35.051 L23.999,47.485 L39,39.047 L39,44.646 L24,53.344 L2,40.588 Z" id="Fill-2"></path>
+        </g>
+    </g>
+</svg>
