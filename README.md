@@ -1,6 +1,6 @@
 # [Michael Coughlin](http://hiimmichael.com)
 
-Hi, I’m Michael — a computer scientist based in Minnesota.
+Hi, I’m Michael, a computer scientist based in Minnesota.
 
 I build thoughtful software that blends elegant, pixel-perfect design with powerful, modern backends. Whether it's frontend polish or backend performance, I care deeply about creating tools that feel good to use and just work.
 
@@ -10,8 +10,6 @@ I build thoughtful software that blends elegant, pixel-perfect design with power
 - [Blog](http://blog.hiimmichael.com)  
 - [YouTube](https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg)
 
----
-
-If no one has told you today  
-**You are awesome. You are worthy. You matter.**  
-Keep going — the world is better with you in it 💙
+If no one has told you today,  
+**you are awesome, you are worthy, and you matter.**  
+Keep going. The world is better with you in it 💙
