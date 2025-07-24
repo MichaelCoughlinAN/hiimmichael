@@ -1,4 +1,4 @@
-## [hiimmichael.com](http://hiimmichael.com)
+## [Michael Coughlin](http://hiimmichael.com)
 
 I'm a computer scientist located in Minnesota.
 
