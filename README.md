@@ -10,5 +10,4 @@ I build thoughtful software that blends elegant, pixel-perfect design with power
 - [Blog](http://blog.hiimmichael.com)  
 - [YouTube](https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg)
 
-If no one has told you today, **you are awesome.**  
-Keep going. The world is better with you in it 💙
+If no one has told you today, **you are awesome.** Keep going. The world is better with you in it 💙
