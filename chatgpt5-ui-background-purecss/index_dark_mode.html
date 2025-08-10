@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blurred Background with Gradient (Local)</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        color: #111;
+        background: #fff;
+      }
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .bg-picture {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      .bg-img {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transform: scale(1.02);
+        filter: blur(32px);
+        opacity: 0.5;
+      }
+      .bg-overlay {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+        pointer-events: none;
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 24px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+      }
+      .content h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+      .content p {
+        margin: 0;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        opacity: 0.85;
+        max-width: 48ch;
+      }
+      @media (prefers-color-scheme: dark) {
+        body { background: #000; color: #f5f5f5; }
+        .bg-img { opacity: 0.3; }
+        .bg-overlay {
+          background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000000 100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <picture class="bg-picture" style="opacity: 1;">
+        <source
+          type="image/webp"
+          srcset="
+            burrito-nux-640.webp 640w,
+            burrito-nux-1280.webp 1280w,
+            burrito-nux-1920.webp 1920w
+          "
+        />
+        <img
+          class="bg-img"
+          alt=""
+          aria-hidden="true"
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          srcset="
+            burrito-nux-640.webp 640w,
+            burrito-nux-1280.webp 1280w,
+            burrito-nux-1920.webp 1920w
+          "
+          src="burrito-nux-640.webp"
+        />
+        <div class="bg-overlay"></div>
+      </picture>
+
+      <div class="content">
+        <h1>Foreground Content</h1>
+        <p>Your text sits above a blurred image with a light/dark gradient.</p>
+      </div>
+    </section>
+  </body>
+</html>

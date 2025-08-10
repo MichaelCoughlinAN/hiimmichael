@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Light Mode Blurred Background</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #111;
+  }
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .bg-picture {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  .bg-img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    filter: blur(32px);
+    opacity: 0.5; /* Light mode opacity */
+  }
+  .bg-overlay {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+    pointer-events: none;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 24px;
+  }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <picture class="bg-picture" style="opacity: 1;">
+      <source
+        type="image/webp"
+        srcset="
+          burrito-nux-640.webp 640w,
+          burrito-nux-1280.webp 1280w,
+          burrito-nux-1920.webp 1920w
+        "
+      />
+      <img
+        class="bg-img"
+        alt=""
+        aria-hidden="true"
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        srcset="
+          burrito-nux-640.webp 640w,
+          burrito-nux-1280.webp 1280w,
+          burrito-nux-1920.webp 1920w
+        "
+        src="burrito-nux-640.webp"
+      />
+      <div class="bg-overlay"></div>
+    </picture>
+
+    <div class="content">
+      <h1>Light Mode Foreground Content</h1>
+      <p>This is the light mode blurred background with gradient overlay.</p>
+    </div>
+  </section>
+</body>
+</html>
+
