@@ -1,40 +1,44 @@
 # Useful Resources & Guides
 
-Website: https://hiimmichael.com<br/>
-Blog: https://blog.hiimmichael.com<br/>
-Beer: https://10kbrew.com/menu-board/<br/>
+A collection of references and documentation links for AWS, Python, and related development tools.
 
-## Additional Software Resources
+---
 
-Deploy Python Lambda functions with .zip file archives<br/>
-https://docs.aws.amazon.com/lambda/latest/dg/python-package.html<br/>
-<br/>
-Schedule expressions using rate or cron<br/>
-https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html<br/>
-<br/>
-Boto3 documentation<br/>
-https://boto3.amazonaws.com/v1/documentation/api/latest/index.html<br/>
-<br/>
-What Is Amazon DynamoDB?<br/>
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html<br/>
-<br/>
-Amazon DynamoDB Create, Read, Update, and Delete an Item with Python<br/>
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Python.03.html<br/>
-<br/>
-What is IAM?<br/>
-https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html<br/>
-<br/>
-Managing access keys for IAM users<br/>
-https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html<br/>
-<br/>
-SNS<br/>
-https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html<br/>
-<br/>
-Python 3 Installation & Setup Guide<br/>
-https://realpython.com/installing-python/<br/>
-<br/>
-Installing Python Modules<br/>
-https://docs.python.org/3/installing/index.html<br/>
-<br/>
-AWS<br/>
-https://aws.amazon.com/<br/>
+## Personal Links
+- [Website](https://hiimmichael.com)  
+- [Blog](https://blog.hiimmichael.com)  
+- [Beer](https://10kbrew.com/menu-board/)
+
+---
+
+## AWS Lambda
+- [Deploy Python Lambda functions with .zip file archives](https://docs.aws.amazon.com/lambda/latest/dg/python-package.html)  
+- [Schedule expressions using rate or cron](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html)
+
+---
+
+## DynamoDB
+- [What Is Amazon DynamoDB?](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)  
+- [Create, Read, Update, and Delete an Item with Python](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Python.03.html)
+
+---
+
+## IAM (Identity and Access Management)
+- [What is IAM?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)  
+- [Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+
+---
+
+## SNS (Simple Notification Service)
+- [Boto3 SNS Documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html)
+
+---
+
+## Python
+- [Python 3 Installation & Setup Guide](https://realpython.com/installing-python/)  
+- [Installing Python Modules](https://docs.python.org/3/installing/index.html)
+
+---
+
+## AWS General
+- [AWS Homepage](https://aws.amazon.com/)
