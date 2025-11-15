@@ -12,4 +12,4 @@ I care about thoughtful engineering: code that feels good to use, designs that f
 **Links**
 - Portfolio: http://hiimmichael.com
 - Blog: http://blog.hiimmichael.com
-- YouTube: https://www.youtube.com/channel/UCZwc7R-YvTEKMJgr2ftkSyg
+- YouTube: https://www.youtube.com/@michaelcoughlin
