@@ -1,0 +1,46 @@
+Here's how you can set up them two scrapers for gas prices in Minnesota. Grab yourself a hotdish, and let's get goin', don't cha know!
+
+Fer the Kwik Trip Scraper
+
+Install Python, Yah?
+
+First things first, make sure ya got Python installed on yer computer. You can check by openin' up a terminal and typin' python --version. If it ain't there, head on over to python.org and download the latest version, you betcha.
+
+Set Up Yer Virtual Environment
+
+In the terminal, navigate to where yer gonna have yer project.
+Create a virtual environment with python -m venv venv and then activate it:
+On Windows: venv\Scripts\activate
+On Mac/Linux: source venv/bin/activate
+Keeps things neat and tidy, like a well-organized tackle box.
+
+Install Them Libraries
+
+Install the necessary libraries with: pip install discord selenium bs4 webdriver-manager
+
+ChromeDriver
+
+You'll need ChromeDriver to let Selenium drive around the Chrome browser. Download it and put it in a known spot. Remember the path, you'll need it later, for sure.
+
+Setting Up Discord Bot
+
+Go to the Discord Developer Portal and create a new application. In the 'Bot' tab, create a new bot.
+Copy the bot token but keep it secret, keep it safe – like yer favorite fishing spot.
+Invite the bot to yer server using the 'OAuth2' tab. Check the bot box and select the permissions yer bot needs.
+
+Environment Variables
+
+Set up yer environment variables for the Discord token and ChromeDriver path.
+On Windows: Use the 'Environment Variables' in system properties.
+On Mac/Linux: Add export DISCORD_CLIENT_TOKEN='your_token_here' and export CHROME_DRIVER_PATH='your_chromedriver_path_here' to yer .bashrc or .zshrc file.
+Run the Bot
+
+Navigate to yer bot's directory and run it with python kwiktrip.py.
+
+Now, for the Casey's Scraper
+
+It's pretty much the same setup, dontcha know, but just make sure yer pointing it to the right website and the Discord channel IDs are correct for where you want to post the gas prices.
+
+Remember, these bots will be running continuously to check them prices, so might be best to have them running on a server or a computer that's on all the time.
+
+And there ya have it! Grab yer gear, and off ya go with yer own gas price scrapin' bots! Just remember to follow the rules of the road (and the Discord API guidelines), and you'll do just fine. Keep'er movin'!
