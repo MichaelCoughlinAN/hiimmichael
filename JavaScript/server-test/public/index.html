@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { text-align: center; }
+        #stream { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <img id="stream" src="" alt="Video Stream" />
+
+    <script>
+        const img = document.getElementById('stream');
+        const ws = new WebSocket(`ws://${window.location.host}`);
+        ws.binaryType = 'blob';
+
+        ws.onmessage = (event) => {
+            const blob = new Blob([event.data], { type: 'image/jpeg' });
+            const url = URL.createObjectURL(blob);
+            img.src = url;
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket Error:', error);
+        };
+    </script>
+</body>
+</html>
