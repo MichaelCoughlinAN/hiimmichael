@@ -2,7 +2,7 @@ const { PDFDocument } = require("pdf-lib");
 const fs = require("fs");
 const path = require("path");
 const { fromBuffer } = require("pdf2pic");
-const imageSplit1Micro = require("./imageSplitter.js");
+const imageSplit = require("./imageSplitter.js");
 
 // ----------------------------------------
 // CONFIG
@@ -50,7 +50,7 @@ async function convertPDFToImages(pdfPath) {
         responseType: "image",
         saveFilename: name,
       });
-      console.log(`✔ Converted page ${i} → ${result.name}`);
+      console.log(`Converted page ${i} → ${result.name}`);
       filenames.push(result.name);
     } catch (err) {
       console.error(`Error converting page ${i}:`, err);
@@ -71,13 +71,13 @@ async function splitImagesToChunks(filenames, chunkSize) {
     const fullPath = path.join(OUTPUT_IMAGE_DIR, filename);
 
     try {
-      const chunks = await imageSplit1Micro.imageToChunks(
+      const chunks = await imageSplit.imageToChunks(
         fullPath,
         chunkSize,
         chunkSize
       );
 
-      console.log(`✔ Split ${filename} into ${chunks.length} chunks`);
+      console.log(`Split ${filename} into ${chunks.length} chunks`);
 
       // Assumes a perfect square grid — verify your splitter!
       const numCols = Math.sqrt(chunks.length);
@@ -116,10 +116,10 @@ async function splitImagesToChunks(filenames, chunkSize) {
 // ----------------------------------------
 (async () => {
   try {
-    console.log("🚀 Starting PDF → Image → Chunks pipeline...");
+    console.log("Starting PDF → Image → Chunks pipeline...");
     const filenames = await convertPDFToImages(PDF_PATH);
     await splitImagesToChunks(filenames, 100);
-    console.log("✨ Done!");
+    console.log("Done!");
   } catch (err) {
     console.error("Fatal pipeline error:", err);
   }
