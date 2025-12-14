@@ -1,15 +1,18 @@
-# Hi, I’m Michael
+## Hi, I’m Michael 👋
 
-I’m a Minnesota-based software engineer who builds clean, reliable, and beautifully crafted systems—from polished frontends to resilient, high-performance backends.
+I’m a Minnesota-based software engineer who builds clean, reliable, and beautifully crafted systems — from polished frontends to resilient, high-performance backends. At the core of what I do is thoughtful engineering: code that feels good to use, designs that feel intentional, and tools that make people’s lives easier.
 
-I care about thoughtful engineering: code that feels good to use, designs that feel intentional, and tools that make people’s lives easier. My work blends product sense, systems thinking, and modern cloud development to bring ideas to life with clarity and purpose.
+Whether it’s shaping an intuitive UI, architecting a scalable API, or taking ideas from concept to deploy, I aim for clarity, purpose, and quality in every project.
 
-**What I do best:**
-- Frontend engineering with an eye for detail and pixel-perfect design
-- Backend/API architecture built for reliability, scale, and simplicity
-- End-to-end product creation—from concept to deploy
+### Areas of focus
 
-**Links**
-- Portfolio: http://hiimmichael.com
-- Blog: http://blog.hiimmichael.com
-- YouTube: https://www.youtube.com/@michaelcoughlin
+* **Frontend Engineering:** Pixel-perfect interfaces that feel as good as they look. 
+* **Backend & API Design:** Scalable, reliable systems built for the real world. 
+* **End-to-End Product Development:** From idea to deployment with modern cloud tooling. 
+* **DevOps & Serverless Workflows:** CI/CD, AWS Lambda, DynamoDB, and cloud automation. 
+
+### Links
+
+* Portfolio: [https://hiimmichael.com](https://hiimmichael.com)
+* Blog: [https://blog.hiimmichael.com](https://blog.hiimmichael.com)
+* YouTube: [https://www.youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
