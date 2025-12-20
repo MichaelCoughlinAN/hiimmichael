@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Minnesota Drone Background</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: white;
+      min-height: 100vh;
+    }
+
+    /* VIDEO BACKGROUND */
+    .video-background {
+      background: #000;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -99;
+      overflow: hidden;
+    }
+
+    .video-foreground,
+    .video-background iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Aspect ratio scaling trick */
+    @media (min-aspect-ratio: 16/9) {
+      .video-foreground {
+        height: 300%;
+        top: -100%;
+      }
+    }
+
+    @media (max-aspect-ratio: 16/9) {
+      .video-foreground {
+        width: 300%;
+        left: -100%;
+      }
+    }
+
+    /* Optional content overlay */
+    .content {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .content h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0.05em;
+    }
+
+    /* Mobile: kill video, keep site fast */
+    @media all and (max-width: 768px) {
+      .video-background {
+        display: none;
+      }
+
+      body {
+        background: #000;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="video-background">
+    <div class="video-foreground">
+      <iframe
+        src="https://www.youtube.com/embed/vMfWS_sKfm0?autoplay=1&mute=1&loop=1&playlist=vMfWS_sKfm0&controls=0&modestbranding=1&playsinline=1"
+        title="Minnesota Drone Aerial Background Video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Minnesota Drone Aerials</h1>
+  </div>
+
+</body>
+
+</html>
