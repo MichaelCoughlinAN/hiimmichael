@@ -9,8 +9,8 @@ No config files. No magic. What you see is what runs.
 
 ## Files
 
-* `s3-pull.sh` — Sync an S3 bucket **down** into the current directory
-* `s3-push.sh` — Sync the current directory **up** to an S3 bucket (add/update/delete)
+* `s3-pull.sh` — Sync an S3 bucket **down** into the current local directory
+* `s3-push.sh` — Sync the current local directory **up** to an S3 bucket (add/update/delete)
 * `s3-rm.sh` — Remove a file or directory from an S3 bucket
 
 ---
