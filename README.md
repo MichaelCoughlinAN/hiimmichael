@@ -1,18 +1,25 @@
 ## Hi, I’m Michael 👋
 
-I’m a Minnesota-based software engineer who builds clean, reliable, and beautifully crafted systems — from polished frontends to resilient, high-performance backends. At the core of what I do is thoughtful engineering: code that feels good to use, designs that feel intentional, and tools that make people’s lives easier.
+I'm a software engineer based in Minnesota, focused on building clean, reliable, and well-crafted systems. I work across the stack, from polished frontends to high-performance backends. I value thoughtful engineering: code that’s intuitive, designs that are purposeful, and tools that make life easier.
 
-Whether it’s shaping an intuitive UI, architecting a scalable API, or taking ideas from concept to deploy, I aim for clarity, purpose, and quality in every project.
+I care about clarity, quality, and delivering work that feels good to use.
 
-### Areas of focus
+### Areas of Focus
 
-* **Frontend Engineering:** Pixel-perfect interfaces that feel as good as they look. 
-* **Backend & API Design:** Scalable, reliable systems built for the real world. 
-* **End-to-End Product Development:** From idea to deployment with modern cloud tooling. 
-* **DevOps & Serverless Workflows:** CI/CD, AWS Lambda, DynamoDB, and cloud automation. 
+- **Frontend Engineering**  
+  Interfaces that are precise, accessible, and responsive.
+
+- **Backend & API Design**  
+  Scalable systems with clear, consistent architecture.
+
+- **End-to-End Development**  
+  From idea to production using modern tooling and cloud platforms.
+
+- **DevOps & Serverless**  
+  CI/CD, infrastructure automation, AWS Lambda, and DynamoDB.
 
 ### Links
 
-* Portfolio: [https://hiimmichael.com](https://hiimmichael.com)
-* Blog: [https://blog.hiimmichael.com](https://blog.hiimmichael.com)
-* YouTube: [https://www.youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
+- Portfolio: [https://hiimmichael.com](https://hiimmichael.com)  
+- Blog: [https://blog.hiimmichael.com](https://blog.hiimmichael.com)  
+- YouTube: [https://www.youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
