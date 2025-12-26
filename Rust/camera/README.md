@@ -206,4 +206,3 @@ SOFTWARE.
 ## Contributing
 
 Michael Coughlin</content>
-<parameter name="filePath">/Users/studio/Documents/GitHub/hiimmichael/Rust/camera/README.md
