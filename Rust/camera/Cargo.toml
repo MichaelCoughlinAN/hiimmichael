@@ -1,0 +1,42 @@
+[package]
+name = "camera"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+v4l = "0.14.0"
+turbojpeg = { version = "0.5.4", features = ["image"] }
+ab_glyph = "0.2.23"
+approx = "0.5"
+conv = "0.3.3"
+image = { version = "0.25.0", default-features = false }
+itertools = "0.12"
+nalgebra = { version = "0.32", default-features = false, features = ["std"] }
+num = "0.4.1"
+rand = "0.8.5"
+rand_distr = "0.4.3"
+rayon = { version = "1.8.0", optional = true }
+quickcheck = { version = "1.0.3", optional = true }
+sdl2 = { version = "0.36", optional = true, default-features = false, features = ["bundled"] }
+imageproc = "0.24.0"
+chrono = "0.4.35"
+zxing_rust = { version = "0.1.1", features = ["image"] }
+rxing = "0.5.8"
+serde_json = "1.0.115"
+warp = "0.3.6"
+tokio = { version = "1.0", features = ["full"] }
+futures-util = "0.3"
+zbar-rust = "0.0.23"
+crossbeam-channel = "0.5.12"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.5.8"
+fs = "0.0.5"
+tokio-tungstenite = "0.16"
+webrtc = "0.10.1"
+anyhow = "1.0.81"
+clap = "4.5.4"
+log = "0.4.21"
+env_logger = "0.11.3"
+url = "2.5.0"
+futures = "0.3.30"
+async-stream = "0.3.5"

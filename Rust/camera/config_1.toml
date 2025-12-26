@@ -1,0 +1,2 @@
+[video]
+paths = ["usb-0:1.1:1.0-video-index0", "usb-0:1.3:1.0-video-index0"]
