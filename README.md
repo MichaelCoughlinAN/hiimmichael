@@ -1,9 +1,8 @@
 ## Hi, I’m Michael
 
-I'm a software engineer based in Minnesota, focused on building clean, reliable, and well-crafted systems. I work across the stack, from polished frontends to high-performance backends. I value thoughtful engineering: code that’s intuitive, designs that are purposeful, and tools that make life easier.
+I build software with an emphasis on clarity, performance, and long-term reliability. My work covers both interfaces and infrastructure. This repository is a place for experiments, tools, and ideas in progress.
 
 ### Links
 
 - Portfolio: [hiimmichael.com](https://hiimmichael.com)  
 - Blog: [blog.hiimmichael.com](https://blog.hiimmichael.com)  
-- YouTube: [youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
