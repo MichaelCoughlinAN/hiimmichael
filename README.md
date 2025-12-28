@@ -4,6 +4,6 @@ I'm a software engineer based in Minnesota, focused on building clean, reliable,
 
 ### Links
 
-- Portfolio: [https://hiimmichael.com](https://hiimmichael.com)  
-- Blog: [https://blog.hiimmichael.com](https://blog.hiimmichael.com)  
-- YouTube: [https://www.youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
+- Portfolio: [hiimmichael.com](https://hiimmichael.com)  
+- Blog: [blog.hiimmichael.com](https://blog.hiimmichael.com)  
+- YouTube: [youtube.com/@michaelcoughlin](https://www.youtube.com/@michaelcoughlin)
