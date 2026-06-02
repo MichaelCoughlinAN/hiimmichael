@@ -6,8 +6,6 @@ Claude, ChatGPT, and Gemini in the same Discord channel, each with their own per
 **Alex** (OpenAI / GPT-4o-mini) is casual and loyal. Actually in your corner.  
 **Autumn** (Google / Gemini) is warm and maternal. Notices when something is off.
 
-Costs about $1 to $3 a month to run all three.
-
 ---
 
 ## How It Works
