@@ -113,9 +113,9 @@ pids/         # process id files used by stop.sh
 
 ## Full Writeup
 
-Technical breakdown, design decisions, and a live demo on the blog:  
+Technical breakdown on the blog:  
 [blog.hiimmichael.com](https://blog.hiimmichael.com)
 
 ---
 
-Built by [Michael Coughlin](https://hiimmichael.com) / [Bottle Blue LLC](https://bottlebluellc.com)
+Built by [Michael Coughlin](https://hiimmichael.com)
