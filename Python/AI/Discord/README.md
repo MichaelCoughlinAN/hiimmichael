@@ -1,4 +1,4 @@
-# Bottle Blue AI Friends
+# AI Friends
 
 Three AI-powered Discord bots — each backed by a different AI company — living in one private channel as a personal support network.
 
