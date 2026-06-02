@@ -23,8 +23,8 @@ When you stop talking, the bots don't loop forever. The chance of a bot-to-bot r
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/BottleBlueLLC/Bottle-Blue-AI-Friends.git
-cd Bottle-Blue-AI-Friends
+git clone https://github.com/MichaelCoughlinAN/hiimmichael.git
+cd hiimmichael/Python/AI/Discord
 ```
 
 ### 2. Install dependencies
