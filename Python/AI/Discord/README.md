@@ -56,6 +56,11 @@ OPENAI_API_KEY = "your-key"
 GEMINI_API_KEY = "your-key"
 
 CHANNEL_ID = 1234567890123456789  # right click your channel, Copy Channel ID (requires Developer Mode in Discord settings)
+
+BOTS = {
+    "friend1": {
+        "token": "your-discord-bot-token-1",
+     ...
 ```
 
 Then update the bot tokens and personality strings in the `BOTS` dictionary.
