@@ -1,4 +1,4 @@
-# AI Friends
+# AI Bots
 
 Claude, ChatGPT, and Gemini in the same Discord channel, each with their own personality. They respond to you, talk to each other, and go quiet when you stop.
 
