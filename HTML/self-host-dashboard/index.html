@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="config.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+        :root {
+            --bg: #f0ede8;
+            --surface: rgba(255,255,255,0.72);
+            --surface-hover: rgba(255,255,255,0.92);
+            --border: rgba(0,0,0,0.07);
+            --border-hover: rgba(0,0,0,0.14);
+            --text: #111;
+            --text2: #666;
+            --text3: #999;
+            --link: #1a6ef5;
+            --pill-bg: rgba(0,0,0,0.05);
+            --pill-border: rgba(0,0,0,0.09);
+            --drawer-bg: rgba(248,246,242,0.97);
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.07);
+            --mono: 'DM Mono', monospace;
+            --serif: 'Instrument Serif', serif;
+            --sans: 'Geist', sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e0e0f;
+                --surface: rgba(26,26,30,0.8);
+                --surface-hover: rgba(34,34,38,0.95);
+                --border: rgba(255,255,255,0.07);
+                --border-hover: rgba(255,255,255,0.14);
+                --text: #f0f0f0;
+                --text2: #888;
+                --text3: #555;
+                --link: #5b9cf6;
+                --pill-bg: rgba(255,255,255,0.06);
+                --pill-border: rgba(255,255,255,0.1);
+                --drawer-bg: rgba(18,18,20,0.98);
+                --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+                --shadow-hover: 0 4px 12px rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.3);
+            }
+        }
+
+        html, body {
+            height: 100%;
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1.5rem 6rem;
+        }
+
+        .topbar {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.6rem 0 0;
+            animation: fadeUp .5s ease both;
+        }
+
+        .topbar-left { display: flex; align-items: center; gap: .6rem; }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+            animation: pulse 2.4s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.2) }
+            50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0) }
+        }
+
+        .status-label {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--text3);
+            letter-spacing: .04em;
+        }
+
+        .topbar-right { display: flex; align-items: center; gap: .5rem; }
+
+        .icon-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .15s, border-color .15s, transform .15s;
+            color: var(--text2);
+            text-decoration: none;
+        }
+        .icon-btn:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            color: var(--text);
+            transform: scale(1.06);
+        }
+        .icon-btn svg {
+            width: 16px; height: 16px;
+            stroke: currentColor; fill: none;
+            stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3.5rem 0 2.8rem;
+            animation: fadeUp .6s .05s ease both;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--mono);
+            font-size: .72rem;
+            letter-spacing: .1em;
+            color: var(--text3);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.6rem, 6vw, 4rem);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--text);
+            letter-spacing: -.02em;
+        }
+        h1 em { font-style: italic; color: var(--text2); }
+
+        .greeting {
+            font-size: .95rem;
+            color: var(--text2);
+            margin-top: .8rem;
+            min-height: 1.4em;
+            font-family: var(--sans);
+        }
+        .greeting-animate {
+            display: inline-block;
+            animation: popIn .35s cubic-bezier(.2,.8,.4,1) both;
+        }
+
+        .weather-strip {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: .5rem 1.3rem;
+            margin-top: 1.4rem;
+            backdrop-filter: blur(16px);
+            animation: fadeUp .6s .2s ease both;
+        }
+        .weather-icon { font-size: 1.2rem; line-height: 1; }
+        .weather-temp { font-weight: 600; color: var(--text); font-size: .9rem; font-family: var(--mono); }
+        .weather-desc { color: var(--text2); font-size: .8rem; }
+        .wx-divider { width: 1px; height: 14px; background: var(--border-hover); flex-shrink: 0; }
+        .clock { font-family: var(--mono); font-size: .82rem; color: var(--text2); font-variant-numeric: tabular-nums; }
+        .weather-location { font-size: .75rem; color: var(--text3); font-family: var(--mono); }
+
+        .grid-section {
+            width: 100%;
+            max-width: 960px;
+            animation: fadeUp .6s .3s ease both;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text3);
+            margin-bottom: .9rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+            gap: .75rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.15rem 1.2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            transition: transform .2s cubic-bezier(.2,.8,.4,1), box-shadow .2s, border-color .2s, background .15s;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .card:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-hover);
+            background: var(--surface-hover);
+        }
+        .card-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .95rem;
+        }
+        .card-name { font-size: .88rem; font-weight: 500; color: var(--text); margin-top: .1rem; }
+        .card-meta { font-family: var(--mono); font-size: .7rem; color: var(--text3); }
+        .card-arrow {
+            position: absolute; top: 1rem; right: 1rem;
+            color: var(--text3); opacity: 0;
+            transition: opacity .15s, transform .15s;
+        }
+        .card:hover .card-arrow { opacity: 1; transform: translate(1px, -1px); }
+        .card-arrow svg {
+            width: 14px; height: 14px;
+            stroke: currentColor; fill: none;
+            stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .drawer-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+            z-index: 100; opacity: 0; pointer-events: none;
+            transition: opacity .25s;
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+        .drawer {
+            position: fixed; top: 0; right: 0;
+            height: 100vh; width: 320px;
+            background: var(--drawer-bg);
+            border-left: 1px solid var(--border);
+            z-index: 101;
+            transform: translateX(100%);
+            transition: transform .3s cubic-bezier(.2,.8,.4,1);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .drawer.open { transform: translateX(0); }
+
+        .drawer-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.4rem 1.4rem 1rem;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .drawer-title {
+            font-size: .85rem; font-weight: 500; color: var(--text);
+            display: flex; align-items: center; gap: .5rem;
+        }
+        .drawer-title svg {
+            width: 15px; height: 15px;
+            stroke: var(--text2); fill: none;
+            stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .drawer-close {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--pill-bg); border: 1px solid var(--border);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: var(--text2); transition: background .15s, color .15s;
+        }
+        .drawer-close:hover { background: var(--border); color: var(--text); }
+        .drawer-close svg {
+            width: 13px; height: 13px;
+            stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round;
+        }
+        .drawer-body { flex: 1; overflow-y: auto; padding: 1rem 1.4rem 2rem; }
+        .drawer-body a {
+            display: flex; align-items: center; gap: .75rem;
+            padding: .65rem 0; border-bottom: 1px solid var(--border);
+            text-decoration: none; color: var(--text);
+            font-size: .85rem; transition: color .15s;
+        }
+        .drawer-body a:last-child { border-bottom: none; }
+        .drawer-body a:hover { color: var(--link); }
+        .bm-icon {
+            width: 28px; height: 28px; border-radius: 7px;
+            background: var(--pill-bg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .85rem; flex-shrink: 0;
+        }
+        .bm-ext { margin-left: auto; opacity: .35; flex-shrink: 0; }
+        .bm-ext svg {
+            width: 11px; height: 11px;
+            stroke: currentColor; fill: none;
+            stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px) }
+            to   { opacity: 1; transform: translateY(0) }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(5px) scale(.97) }
+            to   { opacity: 1; transform: translateY(0) scale(1) }
+        }
+
+        @media (max-width: 520px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+            .drawer { width: 280px; }
+            h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="status-dot"></div>
+                <span class="status-label" id="status-text">all systems nominal</span>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="bm-toggle" title="Bookmarks" aria-label="Open bookmarks">
+                    <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-eyebrow" id="date-label">—</div>
+            <h1 id="hero-title"></h1>
+            <p class="greeting" id="greeting"></p>
+            <div class="weather-strip">
+                <span class="weather-icon" id="wx-icon">⏳</span>
+                <span class="weather-temp" id="wx-temp">—°F</span>
+                <span class="weather-desc" id="wx-desc">loading…</span>
+                <span class="wx-divider"></span>
+                <span class="clock" id="clock">--:--:--</span>
+                <span class="wx-divider"></span>
+                <span class="weather-location" id="wx-location"></span>
+            </div>
+        </div>
+
+        <div class="grid-section">
+            <div class="section-label">Services</div>
+            <div class="grid" id="services-grid"></div>
+        </div>
+
+    </div>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="drawer" id="drawer" role="dialog" aria-label="Bookmarks">
+        <div class="drawer-header">
+            <div class="drawer-title">
+                <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                Bookmarks
+            </div>
+            <button class="drawer-close" id="drawer-close" aria-label="Close">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="drawer-body" id="drawer-body"></div>
+    </div>
+
+    <script>
+        const arrow = `<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
+
+        const [t1, t2] = CONFIG.title;
+        document.getElementById('hero-title').innerHTML = `${t1} <em>${t2}</em>`;
+        document.title = `${t1} ${t2}`;
+
+        document.getElementById('wx-location').textContent = CONFIG.location.label;
+
+        const grid = document.getElementById('services-grid');
+        CONFIG.services.forEach(s => {
+            grid.innerHTML += `
+                <a class="card" href="${s.url}" target="_blank" rel="noopener">
+                    <div class="card-icon">${s.icon}</div>
+                    <div class="card-name">${s.name}</div>
+                    <div class="card-meta">${s.meta}</div>
+                    <span class="card-arrow">${arrow}</span>
+                </a>`;
+        });
+
+        const body = document.getElementById('drawer-body');
+        body.innerHTML = `
+            <a href="bookmarks.html" target="_blank" rel="noopener">
+                <span class="bm-icon">🔖</span>
+                All Bookmarks
+                <span class="bm-ext">${arrow}</span>
+            </a>`;
+        CONFIG.bookmarks.forEach(b => {
+            body.innerHTML += `
+                <a href="${b.url}" target="_blank" rel="noopener">
+                    <span class="bm-icon">🌐</span>
+                    ${b.name}
+                    <span class="bm-ext">${arrow}</span>
+                </a>`;
+        });
+
+        function tick() {
+            document.getElementById('clock').textContent =
+                new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+        }
+        tick(); setInterval(tick, 1000);
+
+        (function() {
+            const d = new Date();
+            const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            document.getElementById('date-label').textContent =
+                days[d.getDay()] + ' · ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        })();
+
+        (function() {
+            const hour = new Date().getHours();
+            const day  = new Date().getDay();
+            const isWeekend = day === 0 || day === 6;
+            const g = CONFIG.greetings;
+            let pool = isWeekend ? g.weekend : hour < 12 ? g.morning : hour < 18 ? g.afternoon : g.evening;
+            const last = sessionStorage.getItem('lastGreeting');
+            let opts = pool.filter(x => x !== last);
+            if (!opts.length) opts = pool;
+            const chosen = opts[Math.floor(Math.random() * opts.length)]
+                .replace('{name}', CONFIG.name);
+            sessionStorage.setItem('lastGreeting', chosen);
+            const el = document.getElementById('greeting');
+            const span = document.createElement('span');
+            span.className = 'greeting-animate';
+            span.textContent = chosen;
+            el.appendChild(span);
+        })();
+
+        function wxInfo(code) {
+            if (code === 0)                   return ['☀️','Clear'];
+            if (code === 1)                   return ['🌤','Mostly clear'];
+            if (code === 2)                   return ['⛅️','Partly cloudy'];
+            if (code === 3)                   return ['☁️','Overcast'];
+            if ([45,48].includes(code))       return ['🌫','Foggy'];
+            if ([51,53,55].includes(code))    return ['🌦','Drizzle'];
+            if ([61,63,65].includes(code))    return ['🌧','Rain'];
+            if ([71,73,75,77].includes(code)) return ['❄️','Snow'];
+            if ([80,81,82].includes(code))    return ['🌧','Showers'];
+            if ([85,86].includes(code))       return ['🌨','Snow showers'];
+            if ([95,96,99].includes(code))    return ['⛈','Thunderstorm'];
+            return ['🌡','Unknown'];
+        }
+
+        async function loadWeather() {
+            const { lat, lon, tz } = CONFIG.location;
+            try {
+                const res  = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=${encodeURIComponent(tz)}`);
+                const data = await res.json();
+                const { temperature_2m, weather_code, wind_speed_10m } = data.current;
+                const [icon, desc] = wxInfo(weather_code);
+                document.getElementById('wx-icon').textContent = icon;
+                document.getElementById('wx-temp').textContent = Math.round(temperature_2m) + '°F';
+                document.getElementById('wx-desc').textContent = desc + ' · ' + Math.round(wind_speed_10m) + 'mph';
+            } catch {
+                document.getElementById('wx-desc').textContent = 'unavailable';
+                document.getElementById('wx-icon').textContent = '🌡';
+            }
+        }
+        loadWeather();
+        setInterval(loadWeather, 10 * 60 * 1000);
+
+        const overlay = document.getElementById('drawer-overlay');
+        const drawer  = document.getElementById('drawer');
+        const toggle  = document.getElementById('bm-toggle');
+        const close   = document.getElementById('drawer-close');
+        const open  = () => { overlay.classList.add('open'); drawer.classList.add('open'); };
+        const shut  = () => { overlay.classList.remove('open'); drawer.classList.remove('open'); };
+        toggle.addEventListener('click', open);
+        close.addEventListener('click', shut);
+        overlay.addEventListener('click', shut);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
+    </script>
+</body>
+</html>
