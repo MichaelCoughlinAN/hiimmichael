@@ -1,6 +1,5 @@
 # self-host-dashboard
-
-A clean, minimal homelab dashboard and bookmark manager. No frameworks, no build step, no dependencies — just three files you drop on any static server.
+A clean, minimal homelab dashboard and bookmark manager. No frameworks, no build step, no dependencies. Just three files you drop on any static server.
 
 ![Dashboard preview](preview.png)
 
@@ -8,14 +7,14 @@ A clean, minimal homelab dashboard and bookmark manager. No frameworks, no build
 
 ## Features
 
-- **Service grid** — cards for all your self-hosted services, configured in one place
-- **Bookmark manager** — built-in bookmarks from config + personal bookmarks via browser localStorage
-- **Live weather** — powered by [Open-Meteo](https://open-meteo.com/) (free, no API key)
-- **Clock + date** — live updating, timezone-aware
-- **Dynamic greetings** — time-of-day and weekend-aware, customizable
-- **Tag filtering** — filter bookmarks by tag
-- **Dark mode** — automatic via `prefers-color-scheme`
-- **Responsive** — works on mobile
+- **Service grid** - cards for all your self-hosted services, configured in one place
+- **Bookmark manager** - built-in bookmarks from config plus personal bookmarks via browser localStorage
+- **Live weather** - powered by [Open-Meteo](https://open-meteo.com/) (free, no API key)
+- **Clock + date** - live updating, timezone-aware
+- **Dynamic greetings** - time-of-day and weekend-aware, customizable
+- **Tag filtering** - filter bookmarks by tag
+- **Dark mode** - automatic via `prefers-color-scheme`
+- **Responsive** - works on mobile
 
 ---
 
@@ -28,7 +27,8 @@ git clone https://github.com/MichaelCoughlinAN/hiimmichael.git
 cd hiimmichael/HTML/self-host-dashboard
 ```
 
-Or just download the three files directly:
+Or download the three files directly:
+
 - `config.js`
 - `index.html`
 - `bookmarks.html`
@@ -41,22 +41,19 @@ This is the **only file you need to touch**. Fill in your details:
 const CONFIG = {
   name: "Your Name",
   title: ["Home", "Base"],
-
   location: {
     label: "City, ST",
     lat:    44.9778,
     lon:   -93.2650,
     tz:    "America/Chicago",
   },
-
   services: [
     { name: "Nextcloud", icon: "☁️", url: "http://your-server:8085", meta: "your-server:8085" },
-    // add as many as you want — the grid expands automatically
+    // add as many as you want -- the grid expands automatically
   ],
-
   bookmarks: [
     { name: "GitHub", url: "https://github.com", tags: ["dev"] },
-    // add as many as you want — tags are optional
+    // add as many as you want -- tags are optional
   ],
   // ...
 };
@@ -74,7 +71,7 @@ docker run -d \
   nginx:alpine
 ```
 
-Then open `http://localhost:8080` in your browser.
+Then open `http://localhost:8080`.
 
 ---
 
@@ -82,16 +79,16 @@ Then open `http://localhost:8080` in your browser.
 
 ```
 self-host-dashboard/
-├── config.js        ← edit this to personalize everything
-├── index.html       ← dashboard + service grid
-└── bookmarks.html   ← bookmark manager
+├── config.js        <- edit this to personalize everything
+├── index.html       <- dashboard + service grid
+└── bookmarks.html   <- bookmark manager
 ```
 
 ---
 
 ## Bookmarks
 
-Built-in bookmarks come from `config.js` and are shared across all sessions. Personal bookmarks can be added via the UI and are stored in `localStorage` — they stay in your browser and never touch a server.
+Built-in bookmarks come from `config.js` and are shared across all sessions. Personal bookmarks can be added via the UI and are stored in `localStorage` -- they stay in your browser and never touch a server.
 
 Both types support tags, which appear as filter chips automatically.
 
@@ -101,7 +98,7 @@ Both types support tags, which appear as filter chips automatically.
 
 ## Docker Compose
 
-If you want it running persistently alongside other services:
+To run persistently alongside other services:
 
 ```yaml
 services:
@@ -125,4 +122,4 @@ Weather is fetched from [Open-Meteo](https://open-meteo.com/) using the coordina
 
 ## License
 
-MIT — do whatever you want with it.
+MIT -- do whatever you want with it.
