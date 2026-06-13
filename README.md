@@ -1,8 +1,9 @@
-## Hi, I’m Michael
+# Michael Coughlin
 
-I build software with an emphasis on clarity, performance, and long-term reliability. My work covers both interfaces and infrastructure. This repository is a place for experiments, tools, and ideas in progress.
+Software engineer. I care about clarity, performance, and writing code that doesn't embarrass me six months later.
 
-### Links
+I work across the stack, mostly on interfaces and infrastructure. This is where I keep experiments, tools, and ideas that were interesting enough to push.
 
-- Portfolio: [hiimmichael.com](https://hiimmichael.com)  
-- Blog: [blog.hiimmichael.com](https://blog.hiimmichael.com)  
+**Blog:** [blog.hiimmichael.com](https://blog.hiimmichael.com)
+
+*Works on my machine. Yours is a different story.*
